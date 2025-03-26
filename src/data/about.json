@@ -1,0 +1,16 @@
+{
+  "content": [
+    {
+      "title": "Who am I?",
+      "description": "Christoffer Friman, former sales and marketing Ninja based in Gothenburg, Sweden, now embracing the role of developer. Driven, creative, curious, pragmatic and prestige-less team player. Ready to combine business insight with tech skills and help you create solutions that work for your business."
+    },
+    {
+      "title": "My Journey",
+      "description": "I have always had a drive to create and build, which has manifested in various ways throughout my life and career. After more than a decade in sales, marketing, and business development, I now combine my business insight with tech skills to create solutions."
+    },
+    {
+      "title": "Technical Skills",
+      "description": " I have a solid foundation in HTML, CSS, and JavaScript, Typescript. I typically start with vanilla JavaScript for smaller projects, while using frameworks like React and Next.js for larger applications. For backend I use Node.js and Express or using server components based architecture like Next.js. I also have experience with databases like MongoDB and PostgreSQL."
+    }
+  ]
+}
