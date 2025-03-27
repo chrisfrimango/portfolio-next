@@ -8,10 +8,7 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: {
-    template: "%s | Christoffer Friman",
-    default: "Christoffer Friman",
-  },
+  title: "Christoffer Friman",
   description: "Developer, creator, sales, marketer, ninja",
 };
 
@@ -22,7 +19,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         className={`${inter.className} h-screen flex flex-col items-center max-w-[1200px] mx-auto`}
       >
         <Nav />
-        <main className="w-full h-full flex flex-col justify-center items-center mt-28">
+        <main className="w-full h-full flex flex-col sm:justify-center items-center mt-28">
           {children}
         </main>
         <Footer />

@@ -2,24 +2,21 @@
   "projects": [
     {
       "id": 1,
-      "title": "Stories App",
-      "name": "stories-app",
-      "description": "Full-stack blog platform with TypeScript, React, and Node.js",
-      "shortDescription": "A modern blogging platform with comprehensive user management and rich content features.",
+      "title": "allacampingplatser.se",
+      "name": "allacampingplatser",
+      "description": "jowiejdowed",
+      "shortDescription": "jojfjoejfjfe",
       "technologies": [
-        "React 18",
+        "React 19",
         "TypeScript",
-        "Node.js",
-        "PostgreSQL",
-        "Material-UI",
         "TanStack Query",
-        "Express",
-        "JWT",
-        "Cypress"
+        "Next.js",
+        "Tailwind CSS",
+        "Zod"
       ],
       "image": "",
-      "githubUrl": "https://github.com/yourusername/stories-app",
-      "liveUrl": "https://stories-app.demo.com",
+      "githubUrl": "https://github.com/christofferfriman/allacampingplatser",
+      "liveUrl": "https://allacampingplatser.se",
       "features": [
         "User Authentication & Profile Management",
         "CRUD Operations for Blog Posts",
@@ -27,53 +24,7 @@
         "Real-time Updates",
         "Responsive Design",
         "Comprehensive Testing"
-      ],
-      "category": "Full Stack"
-    },
-    {
-      "id": 2,
-      "name": "15-puzzle-game",
-      "title": "15 Puzzle Game",
-      "description": "A classic sliding puzzle game built with React and SCSS",
-      "shortDescription": "Interactive puzzle game with smooth animations",
-      "technologies": ["React", "SCSS", "Vite", "JavaScript"],
-      "image": "",
-      "githubUrl": "https://github.com/chrisfrimango/15-puzzle-game",
-      "liveUrl": "https://chrispuzzlegame.netlify.app/",
-      "features": [
-        "Drag and drop functionality",
-        "Puzzle scrambling algorithm",
-        "Victory detection",
-        "Move counter",
-        "Responsive design"
-      ],
-      "category": "Web Game"
-    },
-    {
-      "id": 3,
-      "name": "",
-      "title": "Coming Soon",
-      "description": "",
-      "shortDescription": "",
-      "technologies": [],
-      "image": "",
-      "githubUrl": "",
-      "liveUrl": "",
-      "features": [],
-      "category": ""
-    },
-    {
-      "id": 4,
-      "name": "",
-      "title": "Stay Tuned",
-      "description": "",
-      "shortDescription": "",
-      "technologies": [],
-      "image": "",
-      "githubUrl": "",
-      "liveUrl": "",
-      "features": [],
-      "category": ""
+      ]
     }
   ]
 }
