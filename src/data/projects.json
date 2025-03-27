@@ -2,78 +2,38 @@
   "projects": [
     {
       "id": 1,
-      "title": "Stories App",
-      "name": "stories-app",
-      "description": "Full-stack blog platform with TypeScript, React, and Node.js",
-      "shortDescription": "A modern blogging platform with comprehensive user management and rich content features.",
+      "title": "allacampingplatser.se",
+      "subTitle": "A fullstack application.",
+      "name": "allacampingplatser",
+      "description": "A comprehensive camping site discovery platform for Sweden that allows users to search, filter, and explore camping locations across the country. The application features an interactive map with location markers and clusters, detailed information pages for each camping site, and a responsive design that works seamlessly on both mobile and desktop devices. The platform integrates with Contentful CMS for dynamic content management and uses Mapbox for advanced mapping capabilities.",
+      "shortDescription": "An interactive map-based platform for discovering and exploring camping sites across Sweden with advanced filtering and search capabilities.",
       "technologies": [
-        "React 18",
+        "React 19",
         "TypeScript",
-        "Node.js",
-        "PostgreSQL",
-        "Material-UI",
         "TanStack Query",
-        "Express",
-        "JWT",
-        "Cypress"
+        "Next.js",
+        "Tailwind CSS",
+        "Zod",
+        "Mapbox GL",
+        "Contentful CMS",
+        "Headless UI",
+        "React Map GL"
       ],
       "image": "",
-      "githubUrl": "https://github.com/yourusername/stories-app",
-      "liveUrl": "https://stories-app.demo.com",
+      "githubUrl": "https://github.com/christofferfriman/allacampingplatser",
+      "liveUrl": "https://allacampingplatser.se",
       "features": [
-        "User Authentication & Profile Management",
-        "CRUD Operations for Blog Posts",
-        "Category Management",
-        "Real-time Updates",
-        "Responsive Design",
-        "Comprehensive Testing"
-      ],
-      "category": "Full Stack"
-    },
-    {
-      "id": 2,
-      "name": "15-puzzle-game",
-      "title": "15 Puzzle Game",
-      "description": "A classic sliding puzzle game built with React and SCSS",
-      "shortDescription": "Interactive puzzle game with smooth animations",
-      "technologies": ["React", "SCSS", "Vite", "JavaScript"],
-      "image": "",
-      "githubUrl": "https://github.com/chrisfrimango/15-puzzle-game",
-      "liveUrl": "https://chrispuzzlegame.netlify.app/",
-      "features": [
-        "Drag and drop functionality",
-        "Puzzle scrambling algorithm",
-        "Victory detection",
-        "Move counter",
-        "Responsive design"
-      ],
-      "category": "Web Game"
-    },
-    {
-      "id": 3,
-      "name": "",
-      "title": "Coming Soon",
-      "description": "",
-      "shortDescription": "",
-      "technologies": [],
-      "image": "",
-      "githubUrl": "",
-      "liveUrl": "",
-      "features": [],
-      "category": ""
-    },
-    {
-      "id": 4,
-      "name": "",
-      "title": "Stay Tuned",
-      "description": "",
-      "shortDescription": "",
-      "technologies": [],
-      "image": "",
-      "githubUrl": "",
-      "liveUrl": "",
-      "features": [],
-      "category": ""
+        "Interactive Map with Location Markers and Clusters",
+        "Dynamic Location Filtering and Search",
+        "Responsive Design for Mobile and Desktop",
+        "Location Detail Pages with Rich Content",
+        "Performance-Optimized Map Rendering",
+        "Hover Highlighting Between List and Map Views",
+        "Multi-language Support (Swedish/English)",
+        "Content Management via Contentful",
+        "SEO-Optimized Dynamic Pages",
+        "Custom Animation Effects for UI Elements"
+      ]
     }
   ]
 }

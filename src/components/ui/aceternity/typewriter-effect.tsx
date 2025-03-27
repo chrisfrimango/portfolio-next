@@ -48,7 +48,7 @@ export const TypewriterEffect = ({
                 duration: 0.2,
                 delay: idx * 0.05,
               }}
-              className="inline-block tracking-wide"
+              className="inline-block tracking-wide text-[#ff3b00]/80"
             >
               {letter === " " ? "\u00A0" : letter}
             </motion.span>

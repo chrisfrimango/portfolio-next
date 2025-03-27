@@ -4,13 +4,20 @@ import projects from "@/data/projects.json";
 import { CardSpotlight } from "@/components/CardSportlight";
 import Link from "next/link";
 
-export function generateMetadata({
+export function generateStaticParams() {
+  return projects.projects.map((project) => ({
+    projectName: project.name,
+  }));
+}
+
+export async function generateMetadata({
   params,
 }: {
-  params: { projectName: string };
+  params: Promise<{ projectName: string }>;
 }) {
+  const { projectName } = await params;
   const project = projects.projects.find(
-    (project) => project.name === params.projectName
+    (project) => project.name === projectName
   );
 
   if (!project) {
@@ -24,13 +31,14 @@ export function generateMetadata({
   };
 }
 
-export default function ProjectPage({
+export default async function ProjectPage({
   params,
 }: {
-  params: { projectName: string };
+  params: Promise<{ projectName: string }>;
 }) {
+  const { projectName } = await params;
   const project = projects.projects.find(
-    (project) => project.name === params.projectName
+    (project) => project.name === projectName
   );
 
   if (!project) {
@@ -71,10 +79,6 @@ export default function ProjectPage({
                 <li key={feature}>{feature}</li>
               ))}
             </ul>
-          </div>
-          <div>
-            <h2 className="text-[#131313] font-semibold mb-2">Category</h2>
-            <p>{project.category}</p>
           </div>
           <div>
             <h2 className="text-[#131313] font-semibold mb-2">Github</h2>

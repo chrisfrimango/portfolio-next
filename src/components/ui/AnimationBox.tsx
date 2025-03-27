@@ -19,6 +19,9 @@ export default function AnimationBox() {
   }, []);
 
   return (
-    <div className="w-[70%] h-[250px] bg-[#ff3b00] mb-10" ref={aboutRef} />
+    <div
+      className="w-[70%] sm:h-[250px] h-[150px] bg-[#ff3b00] mb-6"
+      ref={aboutRef}
+    />
   );
 }

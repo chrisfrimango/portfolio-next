@@ -2,15 +2,15 @@
   "content": [
     {
       "title": "Who am I?",
-      "description": "Christoffer Friman, former sales and marketing Ninja based in Gothenburg, Sweden, now embracing the role of developer. Driven, creative, curious, pragmatic and prestige-less team player. Ready to combine business insight with tech skills and help you create solutions that work for your business."
+      "description": "Christoffer Friman, a curious and driven developer based in Trollhättan, Sweden. With a background in sales and marketing, I bring a unique blend of business insight and technical skills to every project. I'm passionate about building smart, user-friendly digital solutions that deliver real value and solve genuine problems."
     },
     {
       "title": "My Journey",
-      "description": "I have always had a drive to create and build, which has manifested in various ways throughout my life and career. After more than a decade in sales, marketing, and business development, I now combine my business insight with tech skills to create solutions."
+      "description": "After more than a decade in sales, marketing, and business development — working with both large international companies and smaller local ones — I made the leap into development. My most recent role in the IT industry involved establishing a new office and launching a company in a new market, which sparked my passion for code. Today, I combine my business acumen with technical expertise to create seamless digital experiences."
     },
     {
       "title": "Technical Skills",
-      "description": " I have a solid foundation in HTML, CSS, and JavaScript, Typescript. I typically start with vanilla JavaScript for smaller projects, while using frameworks like React and Next.js for larger applications. For backend I use Node.js and Express or using server components based architecture like Next.js. I also have experience with databases like MongoDB and PostgreSQL."
+      "description": "I focus primarily on frontend and web technologies with a solid foundation in HTML, CSS, JavaScript, and TypeScript. For larger applications, I work with React and Next.js or similar frameworks. My experience extends to cross-platform development with React Native and Electron, allowing me to build solutions that work seamlessly across mobile and desktop environments. On the backend, I'm comfortable with Node.js and Express, or using server components in Next.js. I also have experience with databases like MongoDB and PostgreSQL. My development process incorporates testing best practices using Cypress for ensuring quality code. I'm familiar with DevOps practices including CI/CD pipelines, Docker containerization, and cloud deployment. Additionally, I have a keen eye for UX/UI design, using tools like Figma and applying design thinking principles to create intuitive user experiences. I'm always eager to expand my technical toolbox and take on new challenges."
     }
   ]
 }
