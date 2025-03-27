@@ -13,7 +13,7 @@ const TextSection: React.FC<TextSectionProps> = ({
 }) => {
   return (
     <>
-      <section className="mb-10 px-5 sm:max-w-[400px] mx-auto z-10">
+      <section className="mb-10 px-5 sm:max-w-[450px] mx-auto z-10">
         <h1 className="text-[#131313] font-bold uppercase">
           {title}{" "}
           {italicText && (
@@ -27,7 +27,7 @@ const TextSection: React.FC<TextSectionProps> = ({
         </p>
       </section>
       {children}
-      <section className="mb-10 px-5 sm:max-w-[400px] mx-auto">
+      <section className="mb-10 px-5 sm:max-w-[450px] mx-auto">
         <p className="text-sm font-light text-[#131313] sm:mt-10 tracking-wide">
           {descriptionSection2}
         </p>
