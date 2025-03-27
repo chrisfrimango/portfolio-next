@@ -10,7 +10,7 @@
     },
     {
       "title": "Technical Skills",
-      "description": "I focus primarily on frontend and web technologies with a solid foundation in HTML, CSS, JavaScript, and TypeScript. For larger applications, I work with React and Next.js, while I prefer vanilla JavaScript for smaller projects. On the backend, I'm comfortable with Node.js and Express, or using server components in Next.js. I also have experience with databases like MongoDB and PostgreSQL. I'm always eager to expand my technical toolbox and take on new challenges."
+      "description": "I focus primarily on frontend and web technologies with a solid foundation in HTML, CSS, JavaScript, and TypeScript. For larger applications, I work with React and Next.js or similar frameworks. My experience extends to cross-platform development with React Native and Electron, allowing me to build solutions that work seamlessly across mobile and desktop environments. On the backend, I'm comfortable with Node.js and Express, or using server components in Next.js. I also have experience with databases like MongoDB and PostgreSQL. My development process incorporates testing best practices using Cypress for ensuring quality code. I'm familiar with DevOps practices including CI/CD pipelines, Docker containerization, and cloud deployment. Additionally, I have a keen eye for UX/UI design, using tools like Figma and applying design thinking principles to create intuitive user experiences. I'm always eager to expand my technical toolbox and take on new challenges."
     }
   ]
 }

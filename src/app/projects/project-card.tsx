@@ -4,11 +4,19 @@ import Link from "next/link";
 
 interface CardDemoProps {
   text: string;
+  subTitle?: string;
   subtext?: string;
   href: string | null;
+  technologies?: string[];
 }
 
-export default function ProjectCard({ text, subtext, href }: CardDemoProps) {
+export default function ProjectCard({
+  text,
+  subTitle,
+  subtext,
+  href,
+  technologies = [],
+}: CardDemoProps) {
   const cardContent = (
     <div className="w-full group/card">
       <div
@@ -27,7 +35,7 @@ export default function ProjectCard({ text, subtext, href }: CardDemoProps) {
               {text}
             </p>
             <p className="text-sm text-gray-400">
-              {subtext ? subtext.substring(0, 25) + "..." : ""}
+              {subTitle ? subTitle.substring(0, 25) + "..." : ""}
             </p>
           </div>
         </div>
@@ -38,6 +46,19 @@ export default function ProjectCard({ text, subtext, href }: CardDemoProps) {
           <p className="font-normal text-sm text-gray-50 relative z-10 my-4">
             {subtext}
           </p>
+          
+          {technologies.length > 0 && (
+            <div className="flex flex-wrap gap-1 mt-2 z-10 relative">
+              {technologies.slice(0, 4).map((tech, index) => (
+                <span
+                  key={index}
+                  className="px-2 py-1 bg-black/30 text-white text-xs rounded-md border border-white/20"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

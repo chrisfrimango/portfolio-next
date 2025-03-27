@@ -30,8 +30,10 @@ export default function Projects() {
             <div className="w-full max-w-[90vw] sm:w-[350px]">
               <ProjectCard
                 text={project.title}
-                subtext={project.description}
+                subTitle={project.subTitle}
+                subtext={project.shortDescription}
                 href={project.liveUrl}
+                technologies={project.technologies}
               />
             </div>
           </div>
