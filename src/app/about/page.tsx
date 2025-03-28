@@ -13,15 +13,17 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <div className="w-full flex flex-col sm:justify-center sm:mt-38 relative">
-      <div className="hidden w-[150px] h-[220px] sm:w-[250px] sm:h-[350px] shadow-xl z-10 overflow-hidden rounded-md mx-auto sm:items-start transform rotate-6">
-        <Image
-          src={meSurfing}
-          alt="Developer"
-          fill
-          quality={100}
-          className="object-cover"
-          priority
-        />
+      <div className="flex justify-end px-5 pr-10 sm:hidden">
+        <div className="w-[160px] h-[220px] shadow-xl shadow-[#ff3b00]/30 z-10 overflow-hidden rounded-md transform rotate-6">
+          <Image
+            src={meSurfing}
+            alt="Developer"
+            fill
+            quality={100}
+            className="object-cover"
+            priority
+          />
+        </div>
       </div>
       <TextSection
         title={"Hello"}
