@@ -19,7 +19,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         className={`${inter.className} h-screen flex flex-col items-center max-w-[1200px] mx-auto`}
       >
         <Nav />
-        <main className="w-full h-full flex flex-col sm:justify-center items-center mt-28">
+        <main className="w-full h-full flex flex-col items-center mt-28">
           {children}
         </main>
         <Footer />
