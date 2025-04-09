@@ -2,15 +2,19 @@
   "content": [
     {
       "title": "Who am I?",
-      "description": "Christoffer Friman, a curious and driven developer based in Sweden. With a background in sales and marketing, I bring a unique blend of business insight and technical skills to every project. I'm passionate about building smart, user-friendly digital solutions that deliver real value and solve genuine problems. I'm also an enthusiastic adopter of AI tools and technologies, leveraging them to enhance my productivity and deliver high-quality results in less time — a win-win for both clients and projects. Exploring the cutting edge of AI in development is not just about efficiency; it's an exciting journey into how these tools can transform our approach to problem-solving and creative work."
+      "description": "Curious and driven developer based in Sweden. With a background in sales and marketing, I bring a blend of business insight and technical skills to every project to create user-friendly digital experiences and productive collaborations."
     },
     {
       "title": "My Journey",
-      "description": "After more than a decade in sales, marketing, and business development — working with both large international companies and smaller local ones — I made the leap into development. My most recent role in the IT industry involved establishing a new office and launching a company in a new market, which sparked my passion for code. Today, I combine my business acumen with technical expertise to create seamless digital experiences."
+      "description": "I'm also an enthusiastic adopter of AI tools and technologies, leveraging them to enhance my productivity and deliver high-quality results in less time. Exploring the cutting edge of AI in development is not just about efficiency; it's an exciting journey into how these tools can transform our approach to problem-solving and creative work."
     },
     {
-      "title": "Technical Skills",
-      "description": "I focus primarily on frontend and web technologies with a solid foundation in HTML, CSS, JavaScript, and TypeScript. For larger applications, I work with React and Next.js or similar frameworks.\n\nMy experience extends to cross-platform development with React Native and Electron, allowing me to build solutions that work seamlessly across mobile and desktop environments.\n\nOn the backend, I'm comfortable with Node.js and Express, or using server components in Next.js. I also have experience with databases like MongoDB and PostgreSQL.\n\nMy development process incorporates testing best practices using Cypress for ensuring quality code. I'm familiar with DevOps practices including CI/CD pipelines, Docker containerization, and cloud deployment.\n\nAdditionally, I have a keen eye for UX/UI design, using tools like Figma and applying design thinking principles to create intuitive user experiences. I'm always eager to expand my technical toolbox and take on new challenges."
+      "title": "Technical",
+      "description": "HTML/ CSS/ JavaScript/ TypeScript/ React/ Next.js/ Vue/ Nuxt/ GSAP/ React Native/ Electron/ Node.js/ Express/ SQL/ NoSQL/ Cypress/ DevOps/ CI/CD/ Docker/ UX/UI/ Contentful/ Prismic/ Vercel"
+    },
+    {
+      "title": "Soft values",
+      "description": "Curious^ Creative^ Social^ Analytic^ Proactive^ Self-leadership^ Impactful^ Open-minded^ Time-effective"
     }
   ]
 }

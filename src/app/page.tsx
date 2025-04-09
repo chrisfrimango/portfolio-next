@@ -1,12 +1,26 @@
 import HeroHeader from "@/components/HeroHeader";
-import meSurfing from "../../public/images/surf5.jpg";
+import About from "@/app/about/page";
+import Projects from "@/app/projects/page";
+import SayHi from "@/app/sayhi/page";
 
 export default function Home() {
-  const words = ["WEB", "FRONT END", "[SOME STACK]"];
-
   return (
-    <div className="w-full flex flex-col h-full sm:justify-center items-center">
-      <HeroHeader imageUrl={meSurfing} words={words} />
+    <div className="w-full flex flex-col gap-20 mb-10">
+      <section id="hero" className="min-h-screen flex flex-col">
+        <HeroHeader />
+      </section>
+
+      <section id="about" className="min-h-screen py-20">
+        <About />
+      </section>
+
+      <section id="projects" className="min-h-screen py-20">
+        <Projects />
+      </section>
+
+      <section id="sayhi" className="py-10 mt-10">
+        <SayHi />
+      </section>
     </div>
   );
 }
