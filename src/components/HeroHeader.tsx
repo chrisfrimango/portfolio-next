@@ -32,9 +32,9 @@ export default function HeroHeader() {
     }
   }, []);
   return (
-    <div id="hero" className="w-full h-screen relative">
+    <div id="hero" className="w-full h-screen relative overflow-hidden">
       {/* Mobile view - full screen image and text below */}
-      <div className="lg:hidden w-full h-full flex flex-col">
+      <div className="lg:hidden w-full h-full flex flex-col overflow-hidden">
         <div className="relative h-[70vh] w-full">
           <Image
             src={surfart}

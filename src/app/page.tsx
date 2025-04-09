@@ -5,7 +5,7 @@ import SayHi from "@/app/sayhi/page";
 
 export default function Home() {
   return (
-    <div className="w-full flex flex-col gap-20 mb-10">
+    <div className="w-full flex flex-col gap-20 mb-10 overflow-hidden">
       <section id="hero" className="min-h-screen flex flex-col">
         <HeroHeader />
       </section>
