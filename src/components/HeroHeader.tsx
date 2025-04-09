@@ -1,9 +1,8 @@
 "use client";
 
 import Image from "next/image";
-// import meSurfing from "../../public/images/surf5.jpg";
 import AnimationBox from "./ui/AnimationBox";
-import surfart from "../../public/images/ChatGPT Image 8 apr. 2025 14_42_48.png";
+import surfart from "../../public/images/surfart.webp";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
