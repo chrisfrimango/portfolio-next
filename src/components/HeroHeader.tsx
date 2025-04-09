@@ -66,14 +66,14 @@ export default function HeroHeader() {
 
       {/* Desktop view - image positioned to the right */}
       <div className="hidden lg:block relative h-full">
-        <div className="absolute top-0 right-0 w-[700px] h-[70vh] overflow-hidden">
+        <div className="absolute top-0 right-0 w-[55vw] max-w-[800px] h-[80vh] overflow-hidden">
           <div className="relative w-full h-full">
             <Image
               src={surfart}
               alt="Developer"
               fill
               quality={100}
-              className="object-cover object-center"
+              className="object-contain object-right"
               priority
             />
           </div>
@@ -83,7 +83,7 @@ export default function HeroHeader() {
         <div className="absolute bottom-10 left-0 right-0 px-4 z-10">
           <div
             ref={desktopTextRef}
-            className="leading-[1] text-left text-3xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[7rem] font-black max-w-full opacity-0"
+            className="leading-[1] text-left text-3xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-9xl font-black max-w-full opacity-0"
           >
             HEY! IM FRIMAN, DEVELOPER WITH BUSINESS ACCUMEN
           </div>
