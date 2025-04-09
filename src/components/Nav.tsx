@@ -119,7 +119,7 @@ const NavLink = ({
         setActiveLink(link.section);
       }}
       className={cn(
-        "text-gray-400 text-3xl text-nowrap sm:text-2xl md:text-2xl lg:text-2xl xl:text-6xl uppercase font-bold menu-item relative group",
+        "text-gray-400 text-3xl text-nowrap sm:text-2xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-4xl uppercase font-bold menu-item relative group",
         isActive && "text-black"
       )}
     >
@@ -455,13 +455,13 @@ export default function Nav() {
                 className="relative overflow-hidden perspective-1000 group cursor-pointer"
                 onClick={() => setShowServicesAnimation(!showServicesAnimation)}
               >
-                <span className="text-gray-300 text-nowrap text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-6xl pr-2 uppercase font-bold relative inline-block backface-hidden open-for-work-text">
+                <span className="text-gray-300 text-nowrap text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl 2xl:text-4xl pr-2 uppercase font-bold relative inline-block backface-hidden open-for-work-text">
                   OPEN TO WORK
                   <span className="ml-1 inline-block transition-all duration-300 opacity-0 group-hover:opacity-100">
                     <span className="inline-block w-2 h-2 bg-[#ff3b00] rounded-full" />
                   </span>
                 </span>
-                <span className="absolute top-0 left-0 text-black text-nowrap text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-6xl pr-2 uppercase font-bold inline-block backface-hidden open-for-work-clone">
+                <span className="absolute top-0 left-0 text-black text-nowrap text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl pr-2 uppercase font-bold inline-block backface-hidden open-for-work-clone">
                   OPEN TO WORK
                   <span className="ml-1 inline-block">
                     <span className="inline-block w-2 h-2 bg-[#ff3b00] rounded-full" />

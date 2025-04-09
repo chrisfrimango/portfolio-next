@@ -71,7 +71,7 @@ const TextSection: React.FC<TextSectionProps> = ({
     });
   }, []);
   return (
-    <div className="w-full flex flex-col gap-8 mx-auto max-w-4xl xl:max-w-8xl 2xl:max-w-screen-2xl px-4 sm:px-8">
+    <div className="w-full flex flex-col gap-8 mx-auto max-w-7xl xl:max-w-8xl 2xl:max-w-screen-2xl px-4 sm:px-8">
       <section className="mb-4 text-left sm:text-center z-10 w-full">
         <h1
           ref={titleRef}
