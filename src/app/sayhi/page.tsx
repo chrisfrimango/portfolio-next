@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import SayHiContent from "./say-hi-content";
 
 export const metadata: Metadata = {
   title: "Say Hi | Christoffer Friman",
@@ -8,12 +9,10 @@ export const metadata: Metadata = {
 export default function SayHi() {
   return (
     <div className="flex flex-col h-full items-center justify-center gap-2">
-      <h3 className="text-[#131313] text-sm sm:text-lg font-light leading-tight text-center max-w-[300px] sm:max-w-[500px] mx-auto slide-right">
+      {/* <h3 className="text-[#131313] text-sm sm:text-lg font-light leading-tight text-center max-w-[300px] sm:max-w-[500px] mx-auto slide-right">
         Lets grab a coffee...and
-      </h3>
-      <h4 className="text-[#ff3b00] text-3xl sm:text-5xl font-bold leading-tight mt-3 uppercase text-center">
-        say hi!
-      </h4>
+      </h3> */}
+      <SayHiContent />
       <div className="flex justify-center gap-5 mt-2">
         <Link
           href="mailto:christoffer.k.friman@gmail.com"

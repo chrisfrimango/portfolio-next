@@ -37,7 +37,7 @@ export const TypewriterEffect = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="text-4xl sm:text-7xl font-bold leading-tight tracking-wide"
+          className="text-4xl sm:text-9xl font-bold leading-tight tracking-wide"
         >
           {letters.map((letter, idx) => (
             <motion.span
@@ -48,7 +48,7 @@ export const TypewriterEffect = ({
                 duration: 0.2,
                 delay: idx * 0.05,
               }}
-              className="inline-block tracking-wide text-[#ff3b00]/80"
+              className="inline-block tracking-wide text-black"
             >
               {letter === " " ? "\u00A0" : letter}
             </motion.span>

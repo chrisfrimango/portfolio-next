@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import ProjectCard from "@/app/projects/project-card";
 import projects from "@/data/projects.json";
 import { cn } from "@/lib/utils";
+import AnimatedTitle from "./animated-title";
 
 export const metadata: Metadata = {
   title: "Projects | Christoffer Friman",
@@ -10,12 +11,10 @@ export const metadata: Metadata = {
 export default function Projects() {
   return (
     <div className="w-full h-full flex flex-col p-5 py-20 sm:py-38">
-      <h1 className="font-bold text-[#131313] uppercase tracking-[10px] text-2xl sm:text-5xl md:text-7xl z-[1]">
-        Selected <span className="italic font-light">works</span>
-      </h1>
+      <AnimatedTitle className="font-bold text-[#131313] uppercase tracking-[10px] text-5xl sm:text-center sm:text-6xl md:text-8xl z-[1]" />
 
       {/* Projects container with higher z-index */}
-      <div className="w-full max-w-4xl z-[2] py-12 sm:py-32">
+      <div className="w-full md:mx-auto max-w-4xl z-[2] py-12 sm:py-32">
         {projects.projects.map((project, index) => (
           <div
             key={project.id}
@@ -27,10 +26,9 @@ export default function Projects() {
               `z-[${20 - index}]`
             )}
           >
-            <div className="w-full max-w-[90vw] sm:w-[350px]">
+            <div className="w-full max-w-[90vw] sm:w-[450px]">
               <ProjectCard
                 text={project.title}
-                subTitle={project.subTitle}
                 subtext={project.shortDescription}
                 href={project.liveUrl}
                 technologies={project.technologies}
