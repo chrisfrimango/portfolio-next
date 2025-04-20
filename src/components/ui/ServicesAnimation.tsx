@@ -89,8 +89,8 @@ const ServicesAnimation: React.FC<ServicesAnimationProps> = ({
         <li className="flex items-center">
           <span className="mr-2">•</span>
           <span>
-            Technical sales or some kind hybrid between sales and
-            development/services
+            I’m open to developer roles as well as hybrid positions that combine
+            technical work with strategic, business-oriented challenges.
           </span>
         </li>
       </ul>
