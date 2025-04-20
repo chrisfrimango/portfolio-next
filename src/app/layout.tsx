@@ -7,8 +7,11 @@ import Nav from "@/components/Nav";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Christoffer Friman",
-  description: "Developer, creator, sales, marketer, ninja",
+  title: "Christoffer Friman | Developer & Digital Consultant",
+  description:
+    "Developer and digital consultant based in Sweden with expertise in React, Next.js, TypeScript and business strategy. Specializing in creating digital solutions where technology and business meet.",
+  keywords:
+    "developer, digital consultant, React, Next.js, TypeScript, Sweden, frontend developer, technical strategist",
 };
 
 export default function RootLayout({ children }: RootLayoutProps) {

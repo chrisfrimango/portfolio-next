@@ -44,10 +44,19 @@ export default function ProjectCard({
     <div className="w-full group/card" ref={cardRef}>
       <div
         className={cn(
-          "cursor-pointer overflow-hidden relative card h-96 rounded-md shadow-xl w-full mx-auto backgroundImage flex flex-col justify-between p-4",
-          "bg-[url(/images/camping_tent.jpeg)] bg-cover bg-center"
+          "cursor-pointer overflow-hidden relative card h-96 rounded-md shadow-xl w-full mx-auto flex flex-col justify-between p-4"
         )}
       >
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover z-0"
+        >
+          <source src="/footage/camping_video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
         <div className="absolute w-full h-full top-0 left-0 transition duration-300 group-hover/card:bg-black opacity-60"></div>
         <div className="flex flex-row items-center space-x-4 z-10">
           <div className="h-10 w-10 rounded-full border-2 bg-[#ff3b00] flex items-center justify-center text-white font-bold" />
