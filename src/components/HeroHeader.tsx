@@ -51,7 +51,7 @@ export default function HeroHeader() {
             ref={mobileTextRef}
             className="leading-[1] text-left text-4xl sm:text-6xl md:text-7xl lg:text-7xl font-extrabold opacity-0"
           >
-            HEY! IM FRIMAN, DEVELOPER WITH BUSINESS ACCUMEN
+            HEY! IM FRIMAN, DEVELOPER & DIGITAL CONSULTANT WITH BUSINESS ACCUMEN
           </div>
 
           {/* Animation box for mobile view - positioned to be partially visible outside viewport */}
@@ -85,7 +85,7 @@ export default function HeroHeader() {
             ref={desktopTextRef}
             className="leading-[1] text-left text-3xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-9xl font-black max-w-full opacity-0"
           >
-            HEY! IM FRIMAN, DEVELOPER WITH BUSINESS ACCUMEN
+            HEY! IM FRIMAN, DEVELOPER & DIGITAL CONSULTANT WITH BUSINESS ACCUMEN
           </div>
 
           {/* Animation box to entice scrolling - positioned partially outside viewport */}

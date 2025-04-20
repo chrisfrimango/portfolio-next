@@ -149,7 +149,7 @@ const TextSection: React.FC<TextSectionProps> = ({
         <div className="flex flex-col items-start">
           <span
             onClick={() => setShowServicesAnimation(!showServicesAnimation)}
-            className="border border-black rounded-3xl text-[#131313] font-light text-sm sm:text-lg px-2 cursor-pointer hover:bg-black hover:text-white transition-colors"
+            className="border border-black bg-[#131313] rounded-3xl text-white font-light text-sm sm:text-lg px-2 cursor-pointer hover:bg-black hover:text-white transition-colors"
           >
             OPEN TO WORK
           </span>
