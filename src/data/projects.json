@@ -8,16 +8,10 @@
       "description": "A comprehensive camping site discovery platform for Sweden that allows users to search, filter, and explore camping locations across the country. The application features an interactive map with location markers and clusters, detailed information pages for each camping site, and a responsive design that works seamlessly on both mobile and desktop devices. The platform integrates with Contentful CMS for dynamic content management and uses Mapbox for advanced mapping capabilities.",
       "shortDescription": "An interactive map-based platform for discovering and exploring camping sites across Sweden with advanced filtering and search capabilities.",
       "technologies": [
-        "React 19",
         "TypeScript",
-        "TanStack Query",
         "Next.js",
         "Tailwind CSS",
-        "Zod",
-        "Mapbox GL",
-        "Contentful CMS",
-        "Headless UI",
-        "React Map GL"
+        "Contentful Headless CMS"
       ],
       "image": "",
       "githubUrl": "https://github.com/christofferfriman/allacampingplatser",
