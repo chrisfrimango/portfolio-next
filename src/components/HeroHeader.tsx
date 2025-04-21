@@ -46,19 +46,19 @@ export default function HeroHeader() {
           />
         </div>
         {/* Mobile text below image */}
-        <div className="h-[30vh] flex flex-col justify-between px-4 py-3">
+        <div className="min-h-[30vh] flex flex-col justify-between px-4 py-3">
           <div
             ref={mobileTextRef}
-            className="leading-[1] text-left text-4xl sm:text-6xl md:text-7xl lg:text-7xl font-extrabold opacity-0"
+            className="leading-[1.1] text-left text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold opacity-0 mb-6"
           >
             HEY! IM FRIMAN, DEVELOPER & DIGITAL CONSULTANT WITH BUSINESS ACCUMEN
           </div>
 
           {/* Animation box for mobile view - positioned to be partially visible outside viewport */}
-          <div className="flex justify-center relative -mb-4 translate-y-[40%]">
+          <div className="flex justify-center relative mb-2">
             <AnimationBox
               position="hero"
-              className="cursor-pointer opacity-90 w-[12px] h-[80px]"
+              className="cursor-pointer opacity-90 w-[10px] h-[50px] sm:w-[12px] sm:h-[80px]"
             />
           </div>
         </div>
