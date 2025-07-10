@@ -519,7 +519,7 @@ export default function Nav() {
             <p className="text-[#131313] font-light text-xs uppercase">
               <span className="font-bold">Say hi</span> &rarr;{" "}
               <Link
-                href="https://www.linkedin.com/in/christofferfriman/"
+                href="https://www.linkedin.com/in/christoffer-friman/"
                 className="hover:text-[#fcfcfc] transition-colors"
               >
                 linkedin
