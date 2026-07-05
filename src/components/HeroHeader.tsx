@@ -4,8 +4,7 @@ import Image from "next/image";
 import AnimationBox from "./ui/AnimationBox";
 import surfart from "../../public/images/surfart.webp";
 import { useRef } from "react";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
+import { gsap, useGSAP } from "@/lib/gsap";
 
 export default function HeroHeader() {
   const mobileTextRef = useRef<HTMLDivElement>(null);
@@ -32,7 +31,7 @@ export default function HeroHeader() {
     }
   }, []);
   return (
-    <div id="hero" className="w-full h-screen relative overflow-hidden">
+    <div className="w-full h-screen relative overflow-hidden">
       {/* Mobile view - full screen image and text below */}
       <div className="lg:hidden w-full h-full flex flex-col overflow-hidden">
         <div className="relative h-[70vh] w-full">

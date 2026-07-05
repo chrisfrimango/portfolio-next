@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { gsap } from "gsap";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface AccordionProps {
   title: string;
@@ -15,82 +16,45 @@ const Accordion: React.FC<AccordionProps> = ({
   initiallyOpen = false,
 }) => {
   const [isOpen, setIsOpen] = useState(initiallyOpen);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const isDesktop = useMediaQuery("(min-width: 1024px)"); // lg breakpoint
 
-  // Check if we're on desktop
+  // Force open on desktop, closed on mobile
   useEffect(() => {
-    const checkIfDesktop = () => {
-      setIsDesktop(window.innerWidth >= 1068); // sm breakpoint in Tailwind
-    };
-
-    checkIfDesktop();
-    window.addEventListener("resize", checkIfDesktop);
-
-    return () => window.removeEventListener("resize", checkIfDesktop);
-  }, []);
-
-  // Set initial state based on desktop or mobile
-  useEffect(() => {
-    if (isDesktop) {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
-    }
+    setIsOpen(isDesktop);
   }, [isDesktop]);
+
+  const rootRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const crossRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!contentRef.current) return;
+  useGSAP(
+    () => {
+      if (!contentRef.current) return;
 
-    if (isOpen) {
-      // Open animation
       gsap.to(contentRef.current, {
-        height: "auto",
-        opacity: 1,
+        height: isOpen ? "auto" : 0,
+        opacity: isOpen ? 1 : 0,
         duration: 0.5,
-        ease: "power2.out",
+        ease: isOpen ? "power2.out" : "power2.in",
+        // Document height changes -> scroll-triggered positions must be recomputed
+        onComplete: () => ScrollTrigger.refresh(),
       });
 
-      // Rotate cross to make an X
-      if (crossRef.current) {
-        gsap.to(crossRef.current.querySelector(".horizontal"), {
-          rotation: 0,
-          duration: 0.3,
-        });
-        gsap.to(crossRef.current.querySelector(".vertical"), {
-          rotation: 90,
-          duration: 0.3,
-        });
-      }
-    } else {
-      // Close animation
-      gsap.to(contentRef.current, {
-        height: 0,
-        opacity: 0,
-        duration: 0.5,
-        ease: "power2.in",
+      // Rotate the vertical bar: plus (closed) <-> X-less minus look (open)
+      gsap.to(".vertical", {
+        rotation: isOpen ? 90 : 0,
+        duration: 0.3,
       });
-
-      // Rotate cross back to plus
-      if (crossRef.current) {
-        gsap.to(crossRef.current.querySelector(".horizontal"), {
-          rotation: 0,
-          duration: 0.3,
-        });
-        gsap.to(crossRef.current.querySelector(".vertical"), {
-          rotation: 0,
-          duration: 0.3,
-        });
-      }
-    }
-  }, [isOpen]);
+    },
+    { scope: rootRef, dependencies: [isOpen] }
+  );
 
   return (
-    <div className="border-b border-gray-200 last:border-b-0">
+    <div ref={rootRef} className="border-b border-gray-200 last:border-b-0">
       <button
         className="w-full py-4 flex justify-between items-center text-left focus:outline-none"
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
       >
         <span className="text-brand-ink font-light text-sm sm:text-lg sm:text-center sm:mx-auto">
           {title}

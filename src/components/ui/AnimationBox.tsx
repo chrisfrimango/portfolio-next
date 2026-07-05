@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import { gsap } from "gsap";
+import { useRef, useState } from "react";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 
 interface AnimationBoxProps {
   position?: "hero" | "about";
@@ -15,59 +15,42 @@ export default function AnimationBox({
   hoverText = "Add, Commit, Push REPEAT",
 }: AnimationBoxProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const boxRef = useRef(null);
-  const timeline = useRef<gsap.core.Timeline | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    // Only run on client side
-    if (typeof window === "undefined") return;
-
-    // Dynamically import ScrollTrigger
-    const initAnimation = async () => {
-      const ScrollTriggerModule = await import("gsap/ScrollTrigger");
-      const { ScrollTrigger } = ScrollTriggerModule;
-
-      // Register the plugin
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Create a new timeline
-      const tl = gsap.timeline();
-      timeline.current = tl;
-
-      // Different animation based on position
+  useGSAP(
+    () => {
       if (position === "hero") {
-        // Initial fade in from zero opacity
-        tl.fromTo(
-          boxRef.current,
-          { opacity: 0, scale: 0.8 },
-          { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" }
-        )
-
-          // Then start the continuous bounce animation with more movement
+        // Initial fade in, then continuous bounce
+        gsap
+          .timeline()
           .fromTo(
             boxRef.current,
-            { y: -15 }, // Start higher up for more movement
+            { opacity: 0, scale: 0.8 },
+            { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" }
+          )
+          .fromTo(
+            boxRef.current,
+            { y: -15 },
             {
-              y: 15, // Move further down
+              y: 15,
               duration: 1.2,
               ease: "power1.inOut",
               repeat: -1,
               yoyo: true,
             },
-            ">" // Start immediately after fade-in
+            ">"
           );
 
-        // Add more dramatic rotation
         gsap.to(boxRef.current, {
-          rotation: 12, // More rotation
+          rotation: 12,
           duration: 2.5,
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
-          delay: 0.4, // Slight delay for the rotation to start
+          delay: 0.4,
         });
 
-        // Add subtle horizontal movement
         gsap.to(boxRef.current, {
           x: 8,
           duration: 3,
@@ -97,21 +80,13 @@ export default function AnimationBox({
           once: true,
         });
       }
-    };
-
-    // Initialize animations
-    initAnimation();
-
-    // Cleanup
-    return () => {
-      if (timeline.current) {
-        timeline.current.kill();
-      }
-    };
-  }, [position]); // Re-run if position changes
+    },
+    { scope: containerRef, dependencies: [position], revertOnUpdate: true }
+  );
 
   return (
     <div
+      ref={containerRef}
       className="relative group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -127,11 +102,7 @@ export default function AnimationBox({
         <div
           className={`absolute whitespace-nowrap text-brand-accent italic font-light text-sm transition-all duration-300 ${
             isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-          } ${
-            position === "hero"
-              ? "left-6 top-1/2 -translate-y-1/2"
-              : "top-6 left-1/2 -translate-x-1/2"
-          }`}
+          } left-6 top-1/2 -translate-y-1/2`}
         >
           {hoverText}
         </div>

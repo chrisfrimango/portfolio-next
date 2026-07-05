@@ -6,9 +6,8 @@ import ServicesAnimation from "@/components/ui/ServicesAnimation";
 import { useState } from "react";
 import Accordion from "@/components/ui/Accordion";
 import aboutData from "@/data/about.json";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, useGSAP } from "@/lib/gsap";
+import { useScrollTo } from "@/components/SmoothScroll";
 
 const TextSection: React.FC<TextSectionProps> = ({
   children,
@@ -19,18 +18,17 @@ const TextSection: React.FC<TextSectionProps> = ({
   descriptionSection3,
 }) => {
   const [showServicesAnimation, setShowServicesAnimation] = useState(false);
+  const scrollTo = useScrollTo();
 
   // Refs for animation targets
+  const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const section1Ref = useRef<HTMLDivElement>(null);
   const section2Ref = useRef<HTMLDivElement>(null);
   const section3Ref = useRef<HTMLDivElement>(null);
   const softValuesRef = useRef<HTMLDivElement>(null);
 
-  // Register ScrollTrigger plugin
-  gsap.registerPlugin(ScrollTrigger);
-
-  // GSAP animations
+  // GSAP animations — scoped so all tweens/ScrollTriggers revert on unmount
   useGSAP(() => {
     // Initial animation for title and first section
     if (titleRef.current && section1Ref.current) {
@@ -69,9 +67,12 @@ const TextSection: React.FC<TextSectionProps> = ({
         );
       }
     });
-  }, []);
+  }, { scope: containerRef });
   return (
-    <div className="w-full flex flex-col gap-8 mx-auto max-w-7xl xl:max-w-8xl 2xl:max-w-screen-2xl px-4 sm:px-8">
+    <div
+      ref={containerRef}
+      className="w-full flex flex-col gap-8 mx-auto max-w-7xl xl:max-w-8xl 2xl:max-w-screen-2xl px-4 sm:px-8"
+    >
       <section className="mb-4 text-left sm:text-center z-10 w-full">
         <h1
           ref={titleRef}
@@ -165,11 +166,7 @@ const TextSection: React.FC<TextSectionProps> = ({
             GET IN TOUCH
           </span>
           <button
-            onClick={() => {
-              document
-                .getElementById("sayhi")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
+            onClick={() => scrollTo("#sayhi")}
             className="mt-2 cursor-pointer transition-transform hover:scale-110"
           >
             <svg

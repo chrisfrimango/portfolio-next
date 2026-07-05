@@ -8,6 +8,21 @@ body {
   overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
+/* Lenis smooth scroll (https://github.com/darkroomengineering/lenis#recommended-css) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 .backface-hidden {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;

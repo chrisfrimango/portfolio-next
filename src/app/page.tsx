@@ -1,7 +1,7 @@
 import HeroHeader from "@/components/HeroHeader";
-import About from "@/app/about/page";
-import Projects from "@/app/projects/page";
-import SayHi from "@/app/sayhi/page";
+import AboutSection from "@/components/sections/AboutSection";
+import ProjectsSection from "@/components/sections/ProjectsSection";
+import SayHiSection from "@/components/sections/SayHiSection";
 
 export default function Home() {
   return (
@@ -11,15 +11,15 @@ export default function Home() {
       </section>
 
       <section id="about" className="min-h-screen py-20">
-        <About />
+        <AboutSection />
       </section>
 
       <section id="projects" className="min-h-screen py-20">
-        <Projects />
+        <ProjectsSection />
       </section>
 
       <section id="sayhi" className="py-10 mt-10">
-        <SayHi />
+        <SayHiSection />
       </section>
     </div>
   );

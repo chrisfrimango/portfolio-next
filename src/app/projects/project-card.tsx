@@ -2,8 +2,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useRef, useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, useGSAP } from "@/lib/gsap";
 
 interface CardDemoProps {
   text: string;
@@ -40,25 +39,23 @@ export default function ProjectCard({
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    // Register ScrollTrigger
-    gsap.registerPlugin(ScrollTrigger);
-
-    if (!cardRef.current) return;
-
-    // Immediate animation on page load instead of scroll trigger
-    gsap.fromTo(
-      cardRef.current,
-      { opacity: 0, y: 20 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        ease: "power1.out",
-        delay: 0.1, // Very slight delay for a smoother effect
-      }
-    );
-  }, []);
+  useGSAP(
+    () => {
+      // Immediate animation on page load instead of scroll trigger
+      gsap.fromTo(
+        cardRef.current,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "power1.out",
+          delay: 0.1, // Very slight delay for a smoother effect
+        }
+      );
+    },
+    { scope: cardRef }
+  );
 
   const cardContent = (
     <div className="w-full group/card" ref={cardRef}>

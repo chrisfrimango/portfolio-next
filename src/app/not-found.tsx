@@ -1,17 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
 
 export default function NotFound() {
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    gsap.fromTo(
+      contentRef.current,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }
+    );
+  });
+
   return (
     <div className="flex flex-col items-center justify-center h-full">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-center"
-      >
+      <div ref={contentRef} className="text-center opacity-0">
         <h1 className="text-brand-accent text-4xl mb-8">Oops! Page not found</h1>
         <Link
           href="/"
@@ -19,7 +25,7 @@ export default function NotFound() {
         >
           Return to home
         </Link>
-      </motion.div>
+      </div>
     </div>
   );
 }
