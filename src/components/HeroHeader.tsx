@@ -5,33 +5,91 @@ import AnimationBox from "./ui/AnimationBox";
 import surfart from "../../public/images/surfart.webp";
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
+import { cn } from "@/lib/utils";
+import { useIntro } from "@/components/intro/IntroContext";
+
+const HEADLINE_WORDS = [
+  "HEY!",
+  "I'M",
+  "FRIMAN,",
+  "DEVELOPER",
+  "&",
+  "DIGITAL",
+  "CONSULTANT",
+  "WITH",
+  "BUSINESS",
+  "ACUMEN",
+];
+
+/**
+ * Headline rendered as per-word masked spans: SSR-safe (full text in HTML),
+ * revealed word by word after the preloader hands off. The first word is the
+ * landing target for the preloader's flying "HEY!".
+ */
+function HeroHeadline({ className }: { className?: string }) {
+  return (
+    <h1 className={cn("font-display font-normal", className)}>
+      {HEADLINE_WORDS.map((word, index) => (
+        <span
+          key={index}
+          data-hero-word-mask={index}
+          className="inline-block overflow-hidden align-bottom mr-[0.22em] pb-[0.06em]"
+        >
+          <span
+            data-hero-word={index}
+            className={cn(
+              "hero-word inline-block",
+              word === "FRIMAN," && "italic"
+            )}
+          >
+            {word}
+          </span>
+        </span>
+      ))}
+    </h1>
+  );
+}
 
 export default function HeroHeader() {
-  const mobileTextRef = useRef<HTMLDivElement>(null);
-  const desktopTextRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { introDone } = useIntro();
 
-  // GSAP animation for text elements
-  useGSAP(() => {
-    // Animation for mobile text
-    if (mobileTextRef.current) {
-      gsap.fromTo(
-        mobileTextRef.current,
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: "power2.out", delay: 0.3 }
+  useGSAP(
+    () => {
+      const words = gsap.utils.toArray<HTMLElement>(
+        ".hero-word",
+        containerRef.current
       );
-    }
+      if (words.length === 0) return;
 
-    // Animation for desktop text
-    if (desktopTextRef.current) {
-      gsap.fromTo(
-        desktopTextRef.current,
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: "power2.out", delay: 0.5 }
-      );
-    }
-  }, []);
+      // Reduced motion: leave the SSR state (fully visible) untouched
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+      }
+
+      if (!introDone) {
+        // Hide behind the word masks until the preloader hands off
+        gsap.set(words, { yPercent: 110 });
+        return;
+      }
+
+      // Reveal. Word 0 is already placed by the preloader's landing word
+      // (a no-op tween for it); the rest rise out of their masks.
+      gsap.to(words, {
+        yPercent: 0,
+        duration: 0.7,
+        ease: "power3.out",
+        stagger: 0.06,
+      });
+    },
+    { scope: containerRef, dependencies: [introDone] }
+  );
+
   return (
-    <div className="w-full h-screen relative overflow-hidden">
+    <div
+      ref={containerRef}
+      className="w-full h-screen relative overflow-hidden"
+    >
       {/* Mobile view - full screen image and text below */}
       <div className="lg:hidden w-full h-full flex flex-col overflow-hidden">
         <div className="relative h-[70vh] w-full">
@@ -45,12 +103,7 @@ export default function HeroHeader() {
         </div>
         {/* Mobile text below image */}
         <div className="min-h-[30vh] flex flex-col justify-between px-4 py-3">
-          <div
-            ref={mobileTextRef}
-            className="leading-[1.1] text-left text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold opacity-0 mb-6"
-          >
-            HEY! I&apos;M FRIMAN, DEVELOPER & DIGITAL CONSULTANT WITH BUSINESS ACUMEN
-          </div>
+          <HeroHeadline className="leading-[1.05] text-left text-3xl sm:text-5xl md:text-6xl mb-6 text-brand-ink" />
 
           {/* Animation box for mobile view - positioned to be partially visible outside viewport */}
           <div className="flex justify-center relative mb-2">
@@ -78,12 +131,7 @@ export default function HeroHeader() {
 
         {/* Desktop text at the bottom */}
         <div className="absolute bottom-10 left-0 right-0 px-4 z-10">
-          <div
-            ref={desktopTextRef}
-            className="leading-[1] text-left text-3xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-9xl font-black max-w-full opacity-0"
-          >
-            HEY! I&apos;M FRIMAN, DEVELOPER & DIGITAL CONSULTANT WITH BUSINESS ACUMEN
-          </div>
+          <HeroHeadline className="leading-[1.02] text-left text-5xl xl:text-7xl 2xl:text-8xl max-w-full text-brand-ink" />
 
           {/* Animation box to entice scrolling - positioned partially outside viewport */}
           <div className="flex justify-center mt-8 sm:mt-0 absolute bottom-[-40px] left-0 right-0">
