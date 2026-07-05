@@ -25,7 +25,7 @@ export default function ProjectsSection() {
               <ProjectCard
                 text={project.title}
                 subtext={project.shortDescription}
-                href={project.liveUrl}
+                href={`/projects/${project.name}`}
                 technologies={project.technologies}
               />
             </div>

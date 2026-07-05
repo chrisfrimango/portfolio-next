@@ -1,0 +1,33 @@
+{
+  "intro": "Motion and interaction experiments, built for this site. Each entry is something you can see in action right here — and something I can explain line by line.",
+  "entries": [
+    {
+      "id": "001",
+      "title": "Preloader that becomes the headline",
+      "summary": "The intro greeting doesn't fade out — it flies into position as the first word of the hero headline, so loading and arrival read as one continuous sentence.",
+      "detail": "A GSAP timeline cycles greetings, then measures both the flying word and its landing slot with getBoundingClientRect — after document.fonts.ready, so glyph metrics are final. The word travels with a transform-only tween (x, y, scale) and is swapped for the real headline word the frame it lands. Plays once per session; skipped entirely under prefers-reduced-motion.",
+      "tags": ["GSAP", "FLIP technique", "font loading", "accessibility"]
+    },
+    {
+      "id": "002",
+      "title": "Lenis × ScrollTrigger as one system",
+      "summary": "Smooth scroll and scroll-triggered choreography share a single clock instead of fighting each other.",
+      "detail": "Lenis runs without its own rAF loop — gsap.ticker drives it, and Lenis' scroll events call ScrollTrigger.update. The nav scrollspy is four ScrollTriggers toggling active state, which replaced a hand-rolled scroll listener and a 1000 ms timing hack. When motion is reduced, Lenis is never created and everything falls back to native scrolling.",
+      "tags": ["Lenis", "ScrollTrigger", "architecture", "performance"]
+    },
+    {
+      "id": "003",
+      "title": "A two-easing motion grammar",
+      "summary": "Every animation on this site uses one of two easing curves and four durations. Restraint is the system.",
+      "detail": "Entrances use power3.out, transitions use power2.inOut, and a bouncy back.out is reserved for small hover moments. Durations come from a four-step scale (0.3 / 0.6 / 0.9 / 1.4 s) and word reveals stagger at 0.06 s. The constants live in one file, so the site can't drift into having eleven different fade-ins. There are no idle loops — motion only responds to scroll or input.",
+      "tags": ["motion design", "design tokens", "GSAP"]
+    },
+    {
+      "id": "004",
+      "title": "Micro-interactions with cleanup",
+      "summary": "Magnetic links, 3D flip hovers and a scroll-reactive accent bar — all transform-only, all properly reverted.",
+      "detail": "The contact links use gsap.quickTo for per-frame cursor following without re-renders, with an elastic return on leave. The nav's flip hover is one reusable component instead of copy-pasted listeners. Everything registers through useGSAP scopes so unmounting reverts cleanly — no leaked ScrollTriggers, no orphaned listeners. Hover effects only attach on hover-capable devices.",
+      "tags": ["gsap.quickTo", "React", "useGSAP", "interaction design"]
+    }
+  ]
+}

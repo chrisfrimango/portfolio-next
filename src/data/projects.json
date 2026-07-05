@@ -27,7 +27,33 @@
         "Content Management via Contentful",
         "SEO-Optimized Dynamic Pages",
         "Custom Animation Effects for UI Elements"
-      ]
+      ],
+      "caseStudy": {
+        "role": "Solo project — design, development & content",
+        "year": "[FYLL I: årtal, t.ex. 2024–2025]",
+        "problem": "Camping information in Sweden is scattered across municipal websites, PDFs and forums — there was no single place to browse every campsite on a map, compare them and plan a trip. I wanted a product that solved a real discovery problem end to end, and that forced me to handle real-world constraints: geodata at scale, content operations, SEO and performance on mobile networks.",
+        "approach": "I built it as a content-driven Next.js application. Every campsite lives in Contentful with a structured content model (location, facilities, imagery, seasonal info), which keeps the data editable without deployments. The frontend statically generates a page per campsite for SEO, while the map experience is fully client-side and interactive. The stack is deliberately boring where it should be — TypeScript, Next.js, Tailwind — so the effort could go into the parts users feel: the map, the filtering and the speed.",
+        "craft": [
+          {
+            "title": "Map performance at scale",
+            "text": "Rendering hundreds of markers kills the frame rate on mobile, so markers are clustered and the map only renders what the viewport needs. Panning and zooming stay smooth even on mid-range phones."
+          },
+          {
+            "title": "List ↔ map as one surface",
+            "text": "Hovering a campsite in the list highlights its marker on the map and vice versa, so the two views behave as one connected surface instead of two parallel UIs."
+          },
+          {
+            "title": "SEO as architecture, not afterthought",
+            "text": "Each campsite gets a statically generated, indexable page with structured content from the CMS — the map is the experience, but the pages are what search engines and shared links land on."
+          },
+          {
+            "title": "Two languages, one content model",
+            "text": "Swedish and English are handled through the CMS localization model rather than duplicated content, keeping translations in sync with a single source of truth."
+          }
+        ],
+        "outcome": "The platform is live at allacampingplatser.se and in active use. [FYLL I: 2–3 verifierbara utfall — t.ex. antal campingplatser i databasen, organisk trafik/månad, antal indexerade sidor i Google Search Console, Lighthouse-poäng]",
+        "reflection": "[FYLL I: vad du skulle gjort annorlunda — t.ex. val du omprövat kring datamodell, karta eller rendering. En ärlig reflektion väger tyngre än en säljande avslutning.]"
+      }
     }
   ]
 }

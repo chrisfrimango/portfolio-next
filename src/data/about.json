@@ -2,15 +2,15 @@
   "content": [
     {
       "title": "Who am I?",
-      "description": "Curious and driven developer and digital consultant based in Sweden. With a background in sales and marketing, I bring a blend of business insight and technical skills to every project whether it's hands-on coding or supporting organizations in their digital transformation. I thrive in roles where technology and business meet."
+      "description": "Developer and digital consultant based in Sweden. I started in sales and marketing, so I build software with the business case in view — not just the ticket. I'm at my best where technology and business meet: hands-on coding, or helping organizations make sense of their digital transformation."
     },
     {
       "title": "My Journey",
-      "description": "I'm also an enthusiastic adopter of AI tools and technologies, leveraging them to enhance my productivity and deliver high-quality results in less time. Exploring the cutting edge of AI in development is not just about efficiency; it's an exciting journey into how these tools can transform our approach to problem-solving and creative work."
+      "description": "AI is part of my daily workflow — not to ship faster noise, but to spend my hours on the decisions that matter: architecture, UX and the actual business problem. This site was designed and built that way."
     },
     {
       "title": "Technical",
-      "description": "HTML/ CSS/ JavaScript/ TypeScript/ React/ Next.js/ Vue/ Nuxt/ GSAP/ React Native/ Electron/ Node.js/ Express/ SQL/ NoSQL/ Cypress/ DevOps/ CI/CD/ Docker/ UX/UI/ Contentful/ Prismic/ Vercel/ Process & Strategy: Familiar with ITIL framework, Agile methodologies, digital transformation "
+      "description": "TypeScript/ React/ Next.js/ Vue/ Nuxt/ Node.js/ GSAP/ Tailwind/ SQL/ NoSQL/ CI/CD/ Docker/ UX/UI/ Contentful/ Prismic/ Vercel/ Process & Strategy: Agile methodologies, digital transformation"
     },
     {
       "title": "Soft values",

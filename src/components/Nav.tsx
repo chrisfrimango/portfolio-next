@@ -70,6 +70,7 @@ export default function Nav() {
       { text: "Home", url: "#hero", section: "hero" },
       { text: "About", url: "#about", section: "about" },
       { text: "Projects", url: "#projects", section: "projects" },
+      { text: "Lab", url: "#lab", section: "lab" },
       { text: "Say hi", url: "#sayhi", section: "sayhi" },
     ],
     []

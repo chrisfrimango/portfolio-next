@@ -108,7 +108,7 @@ export default function ProjectCard({
   );
 
   return href ? (
-    <Link target="_blank" href={href}>
+    <Link href={href} target={href.startsWith("http") ? "_blank" : undefined}>
       {cardContent}
     </Link>
   ) : (
