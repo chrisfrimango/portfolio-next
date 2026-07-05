@@ -6,6 +6,7 @@ import surfart from "../../public/images/surfart.webp";
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
+import { STAGGER, prefersReducedMotion } from "@/lib/motion";
 import { useIntro } from "@/components/intro/IntroContext";
 
 const HEADLINE_WORDS = [
@@ -63,7 +64,7 @@ export default function HeroHeader() {
       if (words.length === 0) return;
 
       // Reduced motion: leave the SSR state (fully visible) untouched
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (prefersReducedMotion()) {
         return;
       }
 
@@ -79,7 +80,19 @@ export default function HeroHeader() {
         yPercent: 0,
         duration: 0.7,
         ease: "power3.out",
-        stagger: 0.06,
+        stagger: STAGGER.word,
+      });
+
+      // Subtle parallax: the image drifts as the hero scrolls away
+      gsap.to(".hero-image", {
+        yPercent: 8,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
       });
     },
     { scope: containerRef, dependencies: [introDone] }
@@ -92,12 +105,12 @@ export default function HeroHeader() {
     >
       {/* Mobile view - full screen image and text below */}
       <div className="lg:hidden w-full h-full flex flex-col overflow-hidden">
-        <div className="relative h-[70vh] w-full">
+        <div className="relative h-[70vh] w-full overflow-hidden">
           <Image
             src={surfart}
             alt="Developer"
             fill
-            className="object-cover object-top"
+            className="hero-image object-cover object-top scale-110"
             priority
           />
         </div>
@@ -123,7 +136,7 @@ export default function HeroHeader() {
               src={surfart}
               alt="Developer"
               fill
-              className="object-contain object-right"
+              className="hero-image object-contain object-right"
               priority
             />
           </div>

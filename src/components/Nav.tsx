@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
-import ServicesAnimation from "@/components/ui/ServicesAnimation";
 import FlipHover from "@/components/ui/FlipHover";
 import { useLenis, useScrollTo } from "@/components/SmoothScroll";
 
@@ -59,7 +58,6 @@ const NavLink = ({ link, handleNavClick, isActive }: NavLinkProps) => (
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeLink, setActiveLink] = useState<string>("hero");
-  const [showServicesAnimation, setShowServicesAnimation] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const menuLinksRef = useRef<HTMLDivElement>(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
@@ -178,35 +176,6 @@ export default function Nav() {
                   isActive={activeLink === link.section}
                 />
               ))}
-            </div>
-            <div className="relative">
-              <div
-                className="group cursor-pointer"
-                onClick={() => setShowServicesAnimation(!showServicesAnimation)}
-              >
-                <FlipHover
-                  front={
-                    <span className="text-gray-300 text-nowrap text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl 2xl:text-4xl pr-2 uppercase font-bold">
-                      OPEN TO WORK
-                      <span className="ml-1 inline-block transition-all duration-300 opacity-0 group-hover:opacity-100">
-                        <span className="inline-block w-2 h-2 bg-brand-accent rounded-full" />
-                      </span>
-                    </span>
-                  }
-                  back={
-                    <span className="text-black text-nowrap text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl pr-2 uppercase font-bold">
-                      OPEN TO WORK
-                      <span className="ml-1 inline-block">
-                        <span className="inline-block w-2 h-2 bg-brand-accent rounded-full" />
-                      </span>
-                    </span>
-                  }
-                />
-              </div>
-              <ServicesAnimation
-                isVisible={showServicesAnimation}
-                onClose={() => setShowServicesAnimation(false)}
-              />
             </div>
           </div>
 

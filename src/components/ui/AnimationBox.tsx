@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { EASE, DUR, prefersReducedMotion } from "@/lib/motion";
 
 interface AnimationBoxProps {
   position?: "hero" | "about";
@@ -20,44 +21,28 @@ export default function AnimationBox({
 
   useGSAP(
     () => {
+      if (prefersReducedMotion()) return;
+
       if (position === "hero") {
-        // Initial fade in, then continuous bounce
-        gsap
-          .timeline()
-          .fromTo(
-            boxRef.current,
-            { opacity: 0, scale: 0.8 },
-            { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" }
-          )
-          .fromTo(
-            boxRef.current,
-            { y: -15 },
-            {
-              y: 15,
-              duration: 1.2,
-              ease: "power1.inOut",
-              repeat: -1,
-              yoyo: true,
-            },
-            ">"
-          );
+        // Entrance, then the bar reacts to scroll instead of idling:
+        // it stretches and drifts as the hero scrolls away.
+        gsap.fromTo(
+          boxRef.current,
+          { opacity: 0, scale: 0.8 },
+          { opacity: 1, scale: 1, duration: DUR.element, ease: EASE.out }
+        );
 
         gsap.to(boxRef.current, {
-          rotation: 12,
-          duration: 2.5,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-          delay: 0.4,
-        });
-
-        gsap.to(boxRef.current, {
-          x: 8,
-          duration: 3,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-          delay: 0.2,
+          y: 80,
+          scaleY: 2.2,
+          rotation: 8,
+          ease: "none",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 90%",
+            end: "top -20%",
+            scrub: 1,
+          },
         });
       } else {
         // Slide in animation for about section
@@ -72,8 +57,8 @@ export default function AnimationBox({
                 x: 0,
                 opacity: 1,
                 rotation: 0,
-                duration: 0.8,
-                ease: "power2.out",
+                duration: DUR.section,
+                ease: EASE.out,
               }
             );
           },

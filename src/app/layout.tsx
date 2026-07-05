@@ -4,6 +4,7 @@ import "../styles/globals.css";
 import { RootLayoutProps } from "@/types/rootLayoutTypes";
 import Nav from "@/components/Nav";
 import SmoothScroll from "@/components/SmoothScroll";
+import StatusChip from "@/components/ui/StatusChip";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <SmoothScroll>
           <Nav />
           <main className="w-full h-full">{children}</main>
+          <StatusChip />
         </SmoothScroll>
       </body>
     </html>

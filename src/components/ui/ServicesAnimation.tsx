@@ -42,7 +42,7 @@ const ServicesAnimation: React.FC<ServicesAnimationProps> = ({
     <div
       ref={containerRef}
       aria-hidden={!isVisible}
-      className={`fixed top-[80px] right-0 bg-brand-accent text-white p-6 rounded-l-lg shadow-lg z-50 max-w-[300px] translate-x-full opacity-0 ${
+      className={`fixed bottom-16 right-0 bg-brand-accent text-white p-6 rounded-l-lg shadow-lg z-[85] max-w-[300px] translate-x-full opacity-0 ${
         isVisible ? "" : "pointer-events-none"
       }`}
     >

@@ -2,11 +2,10 @@
 
 import React, { useRef } from "react";
 import { TextSectionProps } from "@/types/aboutTypes";
-import ServicesAnimation from "@/components/ui/ServicesAnimation";
-import { useState } from "react";
 import Accordion from "@/components/ui/Accordion";
 import aboutData from "@/data/about.json";
 import { gsap, useGSAP } from "@/lib/gsap";
+import { EASE, DUR, prefersReducedMotion } from "@/lib/motion";
 import { useScrollTo } from "@/components/SmoothScroll";
 
 const TextSection: React.FC<TextSectionProps> = ({
@@ -17,7 +16,6 @@ const TextSection: React.FC<TextSectionProps> = ({
   descriptionSection2,
   descriptionSection3,
 }) => {
-  const [showServicesAnimation, setShowServicesAnimation] = useState(false);
   const scrollTo = useScrollTo();
 
   // Refs for animation targets
@@ -30,18 +28,32 @@ const TextSection: React.FC<TextSectionProps> = ({
 
   // GSAP animations — scoped so all tweens/ScrollTriggers revert on unmount
   useGSAP(() => {
+    const allTargets = [
+      titleRef.current,
+      section1Ref.current,
+      section2Ref.current,
+      section3Ref.current,
+      softValuesRef.current,
+    ].filter(Boolean);
+
+    // Reduced motion: content simply visible, no choreography
+    if (prefersReducedMotion()) {
+      gsap.set(allTargets, { opacity: 1, y: 0 });
+      return;
+    }
+
     // Initial animation for title and first section
     if (titleRef.current && section1Ref.current) {
       gsap.fromTo(
         titleRef.current,
         { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }
+        { y: 0, opacity: 1, duration: DUR.section, ease: EASE.out }
       );
 
       gsap.fromTo(
         section1Ref.current,
         { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: "power2.out", delay: 0.3 }
+        { y: 0, opacity: 1, duration: DUR.section, ease: EASE.out, delay: 0.3 }
       );
     }
 
@@ -56,8 +68,8 @@ const TextSection: React.FC<TextSectionProps> = ({
           {
             y: 0,
             opacity: 1,
-            duration: 0.8,
-            ease: "power2.out",
+            duration: DUR.section,
+            ease: EASE.out,
             scrollTrigger: {
               trigger: ref.current,
               start: "top 80%",
@@ -146,20 +158,6 @@ const TextSection: React.FC<TextSectionProps> = ({
         </Accordion>
       </section>
 
-      <section className="mb-10 text-left sm:hidden sm:text-center ">
-        <div className="flex flex-col items-start">
-          <span
-            onClick={() => setShowServicesAnimation(!showServicesAnimation)}
-            className="border border-black bg-brand-ink rounded-3xl text-white font-light text-sm sm:text-lg px-2 cursor-pointer hover:bg-black hover:text-white transition-colors"
-          >
-            OPEN TO WORK
-          </span>
-          <ServicesAnimation
-            isVisible={showServicesAnimation}
-            onClose={() => setShowServicesAnimation(false)}
-          />
-        </div>
-      </section>
       <section className="mb-10 text-left sm:hidden sm:text-center ">
         <div className="flex flex-col items-start">
           <span className="text-brand-ink font-light text-sm sm:text-lg px-1">
