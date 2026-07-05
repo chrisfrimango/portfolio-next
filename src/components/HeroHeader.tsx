@@ -110,6 +110,8 @@ export default function HeroHeader() {
             src={surfart}
             alt="Developer"
             fill
+            quality={60}
+            fetchPriority="high"
             className="hero-image object-cover object-top scale-110"
             priority
           />
@@ -136,6 +138,8 @@ export default function HeroHeader() {
               src={surfart}
               alt="Developer"
               fill
+              quality={60}
+              fetchPriority="high"
               className="hero-image object-contain object-right"
               priority
             />

@@ -17,7 +17,7 @@ export default function LabSection() {
               href="/lab"
               className="group flex items-baseline gap-4 py-5 hover:bg-brand-ink/[0.03] transition-colors"
             >
-              <span className="font-display italic text-brand-accent text-lg shrink-0">
+              <span className="font-display italic text-brand-accent text-2xl shrink-0">
                 {entry.id}
               </span>
               <span className="font-display text-2xl sm:text-3xl text-brand-ink group-hover:text-brand-accent transition-colors">

@@ -165,6 +165,7 @@ const TextSection: React.FC<TextSectionProps> = ({
           </span>
           <button
             onClick={() => scrollTo("#sayhi")}
+            aria-label="Scroll to contact section"
             className="mt-2 cursor-pointer transition-transform hover:scale-110"
           >
             <svg

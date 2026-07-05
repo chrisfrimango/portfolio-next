@@ -37,7 +37,7 @@ function isDraft(text: string) {
 function CaseHeading({ number, title }: { number: string; title: string }) {
   return (
     <div className="flex items-baseline gap-3 border-t border-brand-ink/15 pt-3 mb-6">
-      <span className="font-display italic text-brand-accent text-lg leading-none">
+      <span className="font-display italic text-brand-accent text-2xl leading-none">
         {number}
       </span>
       <h2 className="text-xs tracking-[0.25em] uppercase text-brand-gray">

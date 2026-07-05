@@ -81,9 +81,9 @@ export default function Preloader() {
             tl.fromTo(
               word,
               { opacity: 0, yPercent: 30 },
-              { opacity: 1, yPercent: 0, duration: 0.14, ease: "power2.out" }
+              { opacity: 1, yPercent: 0, duration: 0.12, ease: "power2.out" }
             );
-            tl.to(word, { opacity: 1, duration: 0.08 });
+            tl.to(word, { opacity: 1, duration: 0.05 });
           });
 
           // Final word lands…
@@ -106,10 +106,10 @@ export default function Preloader() {
                 x: to.left - from.left,
                 y: to.top - from.top,
                 scale,
-                duration: 0.65,
+                duration: 0.6,
                 ease: "power3.inOut",
               },
-              "+=0.2"
+              "+=0.15"
             );
             tl.to(bg, { opacity: 0, duration: 0.5 }, "<0.15");
             // The moment it lands: swap in the real headline word
@@ -142,7 +142,9 @@ export default function Preloader() {
       aria-hidden="true"
       className="fixed inset-0 z-[1100] flex items-center justify-center"
     >
-      <div ref={bgRef} className="absolute inset-0 bg-brand-paper" />
+      {/* 0.99 opacity keeps the browser painting the hero underneath,
+          so the preloader doesn't delay LCP (occluded content is skipped) */}
+      <div ref={bgRef} className="absolute inset-0 bg-brand-paper opacity-[0.99]" />
       <span
         ref={wordRef}
         className="relative font-display text-6xl md:text-8xl text-brand-ink opacity-0 whitespace-nowrap"

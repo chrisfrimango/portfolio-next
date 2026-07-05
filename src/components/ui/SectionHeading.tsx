@@ -45,7 +45,7 @@ export default function SectionHeading({ number, label }: SectionHeadingProps) {
       className="w-full mx-auto max-w-7xl xl:max-w-8xl 2xl:max-w-screen-2xl px-4 sm:px-8"
     >
       <div className="flex items-baseline gap-3 border-t border-brand-ink/15 pt-3">
-        <span className="font-display italic text-brand-accent text-lg leading-none">
+        <span className="font-display italic text-brand-accent text-2xl leading-none">
           {number}
         </span>
         <span className="text-xs tracking-[0.25em] uppercase text-brand-gray">

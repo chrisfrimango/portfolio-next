@@ -10,6 +10,7 @@ export default function SayHiSection() {
         <Magnetic>
           <Link
             href="mailto:christoffer.k.friman@gmail.com"
+            aria-label="Send me an email"
             className="text-brand-ink hover:text-brand-accent transition-colors"
           >
             <svg
@@ -27,6 +28,7 @@ export default function SayHiSection() {
           <Link
             href="https://www.linkedin.com/in/christoffer-friman/"
             target="_blank"
+            aria-label="Visit my LinkedIn profile"
             className="text-brand-ink hover:text-brand-accent transition-colors"
           >
             <svg
@@ -44,6 +46,7 @@ export default function SayHiSection() {
           <Link
             href="https://github.com/chrisfrimango"
             target="_blank"
+            aria-label="Visit my GitHub profile"
             className="text-brand-ink hover:text-brand-accent transition-colors"
           >
             <svg
