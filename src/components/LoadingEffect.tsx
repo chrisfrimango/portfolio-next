@@ -62,19 +62,19 @@ export default function LoadingEffect({
 
   return (
     <>
-      <div className="absolute top-0 left-0 w-full h-[97vh] bg-[#fcfcfc]" />
+      <div className="absolute top-0 left-0 w-full h-[97vh] bg-brand-paper" />
       <div
-        className={`absolute top-0 left-0 w-full h-screen bg-[#fcfcfc] z-[1100] flex justify-center items-center
+        className={`absolute top-0 left-0 w-full h-screen bg-brand-paper z-[1100] flex justify-center items-center
         `}
       >
         {helloIndex > 0 && (
-          <h3 ref={textRef} className="text-5xl font-normal text-[#131313]">
+          <h3 ref={textRef} className="text-5xl font-normal text-brand-ink">
             {currentHello}
           </h3>
         )}
       </div>
       <div
-        className={`absolute top-0 left-0 w-full h-screen bg-[#ff3b00]
+        className={`absolute top-0 left-0 w-full h-screen bg-brand-accent
       `}
       />
     </>

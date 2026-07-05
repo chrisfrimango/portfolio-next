@@ -19,6 +19,26 @@ export default function ProjectCard({
   technologies = [],
 }: CardDemoProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Only load and play the video when the card enters the viewport
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     // Register ScrollTrigger
@@ -48,10 +68,12 @@ export default function ProjectCard({
         )}
       >
         <video
-          autoPlay
+          ref={videoRef}
           loop
           muted
           playsInline
+          preload="none"
+          poster="/footage/camping_poster.webp"
           className="absolute inset-0 w-full h-full object-cover z-0"
         >
           <source src="/footage/camping_video.mp4" type="video/mp4" />
@@ -59,7 +81,7 @@ export default function ProjectCard({
         </video>
         <div className="absolute w-full h-full top-0 left-0 transition duration-300 group-hover/card:bg-black opacity-60"></div>
         <div className="flex flex-row items-center space-x-4 z-10">
-          <div className="h-10 w-10 rounded-full border-2 bg-[#ff3b00] flex items-center justify-center text-white font-bold" />
+          <div className="h-10 w-10 rounded-full border-2 bg-brand-accent flex items-center justify-center text-white font-bold" />
           <div className="flex flex-col">
             <p className="font-normal text-base text-gray-50 relative z-10">
               {text}

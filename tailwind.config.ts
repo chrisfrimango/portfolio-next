@@ -11,6 +11,12 @@ export default {
   theme: {
     extend: {
       colors: {
+        brand: {
+          paper: "#fcfcfc",
+          ink: "#131313",
+          accent: "#ff3b00",
+          gray: "#6f6f6f",
+        },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

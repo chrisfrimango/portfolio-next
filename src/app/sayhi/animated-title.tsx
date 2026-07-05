@@ -96,13 +96,13 @@ const AnimatedSayHi: React.FC<AnimatedSayHiProps> = ({ className = "" }) => {
       <div className="flex items-center justify-center relative">
         <span
           ref={sayRef}
-          className="text-[#ff3b00] font-bold uppercase inline-block"
+          className="text-brand-accent font-bold uppercase inline-block"
         >
           say
         </span>
         <div
           ref={coffeeRef}
-          className="mx-1 text-[#ff3b00] opacity-0"
+          className="mx-1 text-brand-accent opacity-0"
           aria-hidden="true"
           style={{
             width: isHovered && isDesktop ? "auto" : "0.1em",
@@ -114,7 +114,7 @@ const AnimatedSayHi: React.FC<AnimatedSayHiProps> = ({ className = "" }) => {
         </div>
         <span
           ref={hiRef}
-          className="text-[#ff3b00] font-bold uppercase inline-block"
+          className="text-brand-accent font-bold uppercase inline-block"
         >
           hi!
         </span>

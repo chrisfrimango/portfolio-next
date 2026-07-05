@@ -137,7 +137,7 @@ const NavLink = ({
               isActive && "opacity-100"
             )}
           >
-            <span className="inline-block w-3 h-3 bg-[#ff3b00] rounded-full" />
+            <span className="inline-block w-3 h-3 bg-brand-accent rounded-full" />
           </span>
         </span>
 
@@ -149,7 +149,7 @@ const NavLink = ({
           {link.text}
           {/* Red dot that is always visible on the clone */}
           <span className="ml-1 inline-block">
-            <span className="inline-block w-3 h-3 bg-[#ff3b00] rounded-full" />
+            <span className="inline-block w-3 h-3 bg-brand-accent rounded-full" />
           </span>
         </span>
       </div>
@@ -458,13 +458,13 @@ export default function Nav() {
                 <span className="text-gray-300 text-nowrap text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl 2xl:text-4xl pr-2 uppercase font-bold relative inline-block backface-hidden open-for-work-text">
                   OPEN TO WORK
                   <span className="ml-1 inline-block transition-all duration-300 opacity-0 group-hover:opacity-100">
-                    <span className="inline-block w-2 h-2 bg-[#ff3b00] rounded-full" />
+                    <span className="inline-block w-2 h-2 bg-brand-accent rounded-full" />
                   </span>
                 </span>
                 <span className="absolute top-0 left-0 text-black text-nowrap text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl pr-2 uppercase font-bold inline-block backface-hidden open-for-work-clone">
                   OPEN TO WORK
                   <span className="ml-1 inline-block">
-                    <span className="inline-block w-2 h-2 bg-[#ff3b00] rounded-full" />
+                    <span className="inline-block w-2 h-2 bg-brand-accent rounded-full" />
                   </span>
                 </span>
               </div>
@@ -478,11 +478,11 @@ export default function Nav() {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className={`lg:hidden text-sm font-light tracking-wider menu-item z-[1002] relative group text-[#131313]`}
+            className={`lg:hidden text-sm font-light tracking-wider menu-item z-[1002] relative group text-brand-ink`}
           >
             {isOpen ? "Close" : "Menu"}
             <span className="inline-block ml-1">
-              <span className="inline-block w-1 h-1 bg-[#ff3b00] rounded-full" />
+              <span className="inline-block w-1 h-1 bg-brand-accent rounded-full" />
             </span>
           </button>
         </div>
@@ -490,7 +490,7 @@ export default function Nav() {
         {/* Mobile Menu Overlay */}
         <div
           ref={menuRef}
-          className="lg:hidden fixed inset-0 bg-[#ff3b00] w-full flex flex-col justify-between z-[1001] h-full px-12 py-28 lg:p-28 border-b-2 border-[#131313]"
+          className="lg:hidden fixed inset-0 bg-brand-accent w-full flex flex-col justify-between z-[1001] h-full px-12 py-28 lg:p-28 border-b-2 border-brand-ink"
         >
           <div
             ref={menuLinksRef}
@@ -501,7 +501,7 @@ export default function Nav() {
                 key={index}
                 href={link.url}
                 onClick={(e) => handleNavClick(e, link.section)}
-                className={`text-[#131313] text-4xl lg:text-6xl font-light hover:text-[#fcfcfc] transition-colors w-fit block ${
+                className={`text-brand-ink text-4xl lg:text-6xl font-light hover:text-brand-paper transition-colors w-fit block ${
                   activeLink === link.section ? "font-bold" : ""
                 }`}
               >
@@ -509,32 +509,32 @@ export default function Nav() {
                 {/* Red dot for mobile menu */}
                 {activeLink === link.section && (
                   <span className="ml-1 inline-block">
-                    <span className="inline-block w-2 h-2 bg-[#fcfcfc] rounded-full" />
+                    <span className="inline-block w-2 h-2 bg-brand-paper rounded-full" />
                   </span>
                 )}
               </Link>
             ))}
           </div>
           <div className="flex items-end w-full">
-            <p className="text-[#131313] font-light text-xs uppercase">
+            <p className="text-brand-ink font-light text-xs uppercase">
               <span className="font-bold">Say hi</span> &rarr;{" "}
               <Link
                 href="https://www.linkedin.com/in/christoffer-friman/"
-                className="hover:text-[#fcfcfc] transition-colors"
+                className="hover:text-brand-paper transition-colors"
               >
                 linkedin
               </Link>{" "}
               &rarr;{" "}
               <Link
-                href="https://github.com/friman"
-                className="hover:text-[#fcfcfc] transition-colors"
+                href="https://github.com/chrisfrimango"
+                className="hover:text-brand-paper transition-colors"
               >
                 github
               </Link>{" "}
               &rarr;{" "}
               <Link
-                href="mailto:christoffer@friman.se"
-                className="hover:text-[#fcfcfc] transition-colors"
+                href="mailto:christoffer.k.friman@gmail.com"
+                className="hover:text-brand-paper transition-colors"
               >
                 mail
               </Link>

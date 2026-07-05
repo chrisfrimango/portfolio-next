@@ -119,13 +119,13 @@ export default function AnimationBox({
       <div
         className={`${
           position === "hero" ? "w-[10px] h-[100px]" : "w-[200px] h-[20px]"
-        } bg-[#ff3b00] shadow-lg ${className}`}
+        } bg-brand-accent shadow-lg ${className}`}
         ref={boxRef}
         aria-hidden="true"
       />
       {position === "hero" && (
         <div
-          className={`absolute whitespace-nowrap text-[#ff3b00] italic font-light text-sm transition-all duration-300 ${
+          className={`absolute whitespace-nowrap text-brand-accent italic font-light text-sm transition-all duration-300 ${
             isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
           } ${
             position === "hero"

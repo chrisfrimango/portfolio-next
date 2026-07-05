@@ -75,18 +75,18 @@ const TextSection: React.FC<TextSectionProps> = ({
       <section className="mb-4 text-left sm:text-center z-10 w-full">
         <h1
           ref={titleRef}
-          className="text-[#131313] text-4xl sm:text-7xl font-extrabold uppercase leading-[1.1] opacity-0"
+          className="text-brand-ink text-4xl sm:text-7xl font-extrabold uppercase leading-[1.1] opacity-0"
         >
           {title}{" "}
           {italicText && (
-            <span className="text-[#131313] font-light  text-sm sm:text-xl  px-1">
+            <span className="text-brand-ink font-light  text-sm sm:text-xl  px-1">
               {italicText}
             </span>
           )}
         </h1>
         <div
           ref={section1Ref}
-          className="text-2xl pt-2 sm:pt-4 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl uppercase font-bold md:font-extrabold text-[#131313] leading-[1.1] tracking-wide w-full opacity-0"
+          className="text-2xl pt-2 sm:pt-4 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl uppercase font-bold md:font-extrabold text-brand-ink leading-[1.1] tracking-wide w-full opacity-0"
         >
           {descriptionSection1?.split("\n\n").map((paragraph, index) => (
             <p key={index} className="mb-4">
@@ -97,10 +97,10 @@ const TextSection: React.FC<TextSectionProps> = ({
       </section>
       {children}
       <section className="mb-10 text-left sm:text-center w-full">
-        <span className="text-[#131313] font-light text-sm sm:text-xl">AI</span>
+        <span className="text-brand-ink font-light text-sm sm:text-xl">AI</span>
         <div
           ref={section2Ref}
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl uppercase font-bold md:font-extrabold text-[#131313] mt-6 sm:mt-10 leading-[1.1] tracking-wide w-full opacity-0"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl uppercase font-bold md:font-extrabold text-brand-ink mt-6 sm:mt-10 leading-[1.1] tracking-wide w-full opacity-0"
         >
           {descriptionSection2?.split("\n\n").map((paragraph, index) => (
             <p key={index} className="mb-4">
@@ -116,7 +116,7 @@ const TextSection: React.FC<TextSectionProps> = ({
       >
         {descriptionSection3 && (
           <Accordion title="Technical" initiallyOpen={true}>
-            <div className="text-2xl sm:text-4xl md:text-6xl uppercase text-center font-normal text-[#131313] leading-[1.1] tracking-wide w-full">
+            <div className="text-2xl sm:text-4xl md:text-6xl uppercase text-center font-normal text-brand-ink leading-[1.1] tracking-wide w-full">
               {descriptionSection3?.split("\n\n").map((paragraph, index) => (
                 <p key={index} className="mb-4">
                   {paragraph}
@@ -133,7 +133,7 @@ const TextSection: React.FC<TextSectionProps> = ({
         className="mb-10 w-full border-t border-gray-200 pt-4 opacity-0"
       >
         <Accordion title="Soft skills" initiallyOpen={true}>
-          <div className="text-2xl sm:text-4xl md:text-6xl uppercase text-center font-normal italic text-[#131313] leading-[1.1] tracking-wide w-full">
+          <div className="text-2xl sm:text-4xl md:text-6xl uppercase text-center font-normal italic text-brand-ink leading-[1.1] tracking-wide w-full">
             {aboutData.content[3]?.description
               .split("\n\n")
               .map((paragraph, index) => (
@@ -149,7 +149,7 @@ const TextSection: React.FC<TextSectionProps> = ({
         <div className="flex flex-col items-start">
           <span
             onClick={() => setShowServicesAnimation(!showServicesAnimation)}
-            className="border border-black bg-[#131313] rounded-3xl text-white font-light text-sm sm:text-lg px-2 cursor-pointer hover:bg-black hover:text-white transition-colors"
+            className="border border-black bg-brand-ink rounded-3xl text-white font-light text-sm sm:text-lg px-2 cursor-pointer hover:bg-black hover:text-white transition-colors"
           >
             OPEN TO WORK
           </span>
@@ -161,7 +161,7 @@ const TextSection: React.FC<TextSectionProps> = ({
       </section>
       <section className="mb-10 text-left sm:hidden sm:text-center ">
         <div className="flex flex-col items-start">
-          <span className="text-[#131313] font-light text-sm sm:text-lg px-1">
+          <span className="text-brand-ink font-light text-sm sm:text-lg px-1">
             GET IN TOUCH
           </span>
           <button

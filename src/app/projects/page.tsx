@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Projects() {
   return (
     <div className="w-full h-full flex flex-col p-5 py-20 sm:py-38">
-      <AnimatedTitle className="font-bold text-[#131313] uppercase tracking-[10px] text-5xl sm:text-center sm:text-6xl md:text-8xl z-[1]" />
+      <AnimatedTitle className="font-bold text-brand-ink uppercase tracking-[10px] text-5xl sm:text-center sm:text-6xl md:text-8xl z-[1]" />
 
       {/* Projects container with higher z-index */}
       <div className="w-full md:mx-auto max-w-4xl z-[2] py-12 sm:py-32">

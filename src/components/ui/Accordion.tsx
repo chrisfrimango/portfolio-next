@@ -92,7 +92,7 @@ const Accordion: React.FC<AccordionProps> = ({
         className="w-full py-4 flex justify-between items-center text-left focus:outline-none"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className="text-[#131313] font-light text-sm sm:text-lg sm:text-center sm:mx-auto">
+        <span className="text-brand-ink font-light text-sm sm:text-lg sm:text-center sm:mx-auto">
           {title}
         </span>
         <div

@@ -12,10 +12,10 @@ export default function NotFound() {
         transition={{ duration: 0.5 }}
         className="text-center"
       >
-        <h1 className="text-[#ff3b00] text-4xl mb-8">Oops! Page not found</h1>
+        <h1 className="text-brand-accent text-4xl mb-8">Oops! Page not found</h1>
         <Link
           href="/"
-          className="text-[#6f6f6f] hover:text-[#ff3b00] transition-colors duration-300"
+          className="text-brand-gray hover:text-brand-accent transition-colors duration-300"
         >
           Return to home
         </Link>

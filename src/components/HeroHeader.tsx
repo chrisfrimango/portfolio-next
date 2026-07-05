@@ -40,7 +40,6 @@ export default function HeroHeader() {
             src={surfart}
             alt="Developer"
             fill
-            quality={100}
             className="object-cover object-top"
             priority
           />
@@ -51,7 +50,7 @@ export default function HeroHeader() {
             ref={mobileTextRef}
             className="leading-[1.1] text-left text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold opacity-0 mb-6"
           >
-            HEY! IM FRIMAN, DEVELOPER & DIGITAL CONSULTANT WITH BUSINESS ACCUMEN
+            HEY! I&apos;M FRIMAN, DEVELOPER & DIGITAL CONSULTANT WITH BUSINESS ACUMEN
           </div>
 
           {/* Animation box for mobile view - positioned to be partially visible outside viewport */}
@@ -72,7 +71,6 @@ export default function HeroHeader() {
               src={surfart}
               alt="Developer"
               fill
-              quality={100}
               className="object-contain object-right"
               priority
             />
@@ -85,7 +83,7 @@ export default function HeroHeader() {
             ref={desktopTextRef}
             className="leading-[1] text-left text-3xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-9xl font-black max-w-full opacity-0"
           >
-            HEY! IM FRIMAN, DEVELOPER & DIGITAL CONSULTANT WITH BUSINESS ACCUMEN
+            HEY! I&apos;M FRIMAN, DEVELOPER & DIGITAL CONSULTANT WITH BUSINESS ACUMEN
           </div>
 
           {/* Animation box to entice scrolling - positioned partially outside viewport */}
