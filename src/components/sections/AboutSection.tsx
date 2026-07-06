@@ -1,5 +1,6 @@
 import React, { type ReactNode } from "react";
 import aboutData from "@/data/about.json";
+import AboutMotion from "@/components/sections/AboutMotion";
 
 const EMPHASIS = "where technology and business meet";
 
@@ -46,23 +47,25 @@ export default function AboutSection() {
 
   return (
     <div className="mx-auto w-full max-w-content px-5 sm:px-8 lg:px-12">
-      <LedgerRow label="Who am I">
-        <p
-          data-about-statement
-          className="font-display text-statement text-brand-ink"
-        >
-          <Statement text={who.description} />
-        </p>
-      </LedgerRow>
+      <AboutMotion>
+        <LedgerRow label="Who am I">
+          <p
+            data-about-statement
+            className="font-display text-statement text-brand-ink"
+          >
+            <Statement text={who.description} />
+          </p>
+        </LedgerRow>
 
-      <LedgerRow label="How I work">
-        <p
-          data-about-statement
-          className="font-display text-statement text-brand-ink"
-        >
-          {journey.description}
-        </p>
-      </LedgerRow>
+        <LedgerRow label="How I work">
+          <p
+            data-about-statement
+            className="font-display text-statement text-brand-ink"
+          >
+            {journey.description}
+          </p>
+        </LedgerRow>
+      </AboutMotion>
 
       <LedgerRow label="Stack" wide>
         <ul className="flex flex-wrap gap-x-6 gap-y-3">

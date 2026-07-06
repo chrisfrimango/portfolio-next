@@ -2,6 +2,7 @@ import React from "react";
 import { notFound } from "next/navigation";
 import projects from "@/data/projects.json";
 import Link from "next/link";
+import CaseMotion from "./case-motion";
 
 export function generateStaticParams() {
   return projects.projects.map((project) => ({
@@ -64,17 +65,20 @@ export default async function ProjectPage({
   const caseStudy = project.caseStudy;
 
   return (
+    <CaseMotion>
     <article className="w-full max-w-4xl mx-auto px-4 sm:px-8 pt-28 pb-24">
       {/* Header */}
-      <p className="text-xs tracking-[0.25em] uppercase text-brand-gray">
+      <div data-case-header>
+      <p className="text-meta font-medium uppercase text-brand-gray">
         Case study
       </p>
-      <h1 className="font-display text-5xl sm:text-7xl text-brand-ink mt-3 mb-6">
+      <h1 className="font-display text-title sm:text-display text-brand-ink mt-3 mb-6">
         {project.title}
       </h1>
       <p className="text-lg sm:text-xl text-brand-ink/80 max-w-2xl mb-8">
         {project.shortDescription}
       </p>
+      </div>
 
       {/* Meta row */}
       <div className="flex flex-wrap gap-x-10 gap-y-4 border-t border-brand-ink/15 pt-4 mb-12 text-sm">
@@ -105,7 +109,7 @@ export default async function ProjectPage({
       </div>
 
       {/* Video */}
-      <div className="relative w-full overflow-hidden rounded-lg mb-16 border border-brand-ink/10">
+      <div data-case-video className="relative w-full overflow-hidden rounded-lg mb-16 border border-brand-ink/10">
         <video
           autoPlay
           loop
@@ -121,21 +125,21 @@ export default async function ProjectPage({
 
       {caseStudy ? (
         <div className="space-y-16">
-          <section>
+          <section data-case-section>
             <CaseHeading number="01" title="Problem" />
             <p className="text-xl sm:text-2xl leading-relaxed text-brand-ink">
               {caseStudy.problem}
             </p>
           </section>
 
-          <section>
+          <section data-case-section>
             <CaseHeading number="02" title="Approach" />
             <p className="text-xl sm:text-2xl leading-relaxed text-brand-ink">
               {caseStudy.approach}
             </p>
           </section>
 
-          <section>
+          <section data-case-section>
             <CaseHeading number="03" title="Craft details" />
             <div className="grid sm:grid-cols-2 gap-8">
               {caseStudy.craft.map((item) => (
@@ -151,7 +155,7 @@ export default async function ProjectPage({
             </div>
           </section>
 
-          <section>
+          <section data-case-section>
             <CaseHeading number="04" title="Outcome" />
             <p className="text-xl sm:text-2xl leading-relaxed text-brand-ink mb-6">
               {isDraft(caseStudy.outcome)
@@ -186,5 +190,6 @@ export default async function ProjectPage({
         </Link>
       </div>
     </article>
+    </CaseMotion>
   );
 }

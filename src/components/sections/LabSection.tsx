@@ -1,18 +1,20 @@
 import Link from "next/link";
 import labData from "@/data/lab.json";
+import LabMotion from "@/components/sections/LabMotion";
 
 /**
  * Homepage teaser for the Lab: the experiments powering this very site.
  */
 export default function LabSection() {
   return (
+    <LabMotion>
     <div className="w-full mx-auto max-w-content px-5 sm:px-8 lg:px-12 py-12">
-      <p className="font-display text-statement text-brand-ink max-w-2xl mb-12">
+      <p data-lab-intro className="font-display text-statement text-brand-ink max-w-2xl mb-12">
         {labData.intro}
       </p>
       <ul className="divide-y divide-brand-ink/10 border-y border-brand-ink/10">
         {labData.entries.map((entry) => (
-          <li key={entry.id}>
+          <li key={entry.id} data-lab-row>
             <Link
               href="/lab"
               className="group flex items-baseline gap-5 py-6 hover:bg-brand-ink/[0.03] transition-colors"
@@ -34,11 +36,13 @@ export default function LabSection() {
         ))}
       </ul>
       <Link
+        data-lab-outro
         href="/lab"
         className="inline-block mt-8 text-meta font-medium uppercase text-brand-gray hover:text-brand-ink transition-colors"
       >
         All experiments &rarr;
       </Link>
     </div>
+    </LabMotion>
   );
 }
