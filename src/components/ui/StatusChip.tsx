@@ -19,12 +19,31 @@ export default function StatusChip() {
   const [showServices, setShowServices] = useState(false);
   // Rendered empty on the server to avoid hydration mismatch
   const [time, setTime] = useState("");
+  // Narrative time from the homepage day cycle overrides the real clock
+  const [narrativeTime, setNarrativeTime] = useState<string | null>(null);
 
   useEffect(() => {
     setTime(stockholmTime());
     const interval = setInterval(() => setTime(stockholmTime()), 30_000);
-    return () => clearInterval(interval);
+
+    const onCycleTime = (e: Event) => {
+      const minutes = (e as CustomEvent<number>).detail;
+      const hh = String(Math.floor(minutes / 60)).padStart(2, "0");
+      const mm = String(minutes % 60).padStart(2, "0");
+      setNarrativeTime(`${hh}:${mm}`);
+    };
+    const onCycleEnd = () => setNarrativeTime(null);
+
+    window.addEventListener("daycycle:time", onCycleTime);
+    window.addEventListener("daycycle:end", onCycleEnd);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("daycycle:time", onCycleTime);
+      window.removeEventListener("daycycle:end", onCycleEnd);
+    };
   }, []);
+
+  const displayTime = narrativeTime ?? time;
 
   return (
     <>
@@ -38,9 +57,9 @@ export default function StatusChip() {
           <span className="relative inline-flex rounded-full w-2 h-2 bg-brand-accent" />
         </span>
         Open to work
-        {time && (
+        {displayTime && (
           <span className="text-brand-paper/60 normal-case tracking-normal tabular-nums">
-            · STHLM {time}
+            · STHLM {displayTime}
           </span>
         )}
       </button>

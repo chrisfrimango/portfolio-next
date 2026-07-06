@@ -2,9 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Brand palette as RGB triplets — tweened by the homepage day cycle */
+  --brand-paper: 252 252 252;
+  --brand-ink: 19 19 19;
+  --brand-gray: 111 111 111;
+}
+
 body {
   font-family: Inter, Helvetica, sans-serif;
-  background-color: #fcfcfc;
+  background-color: rgb(var(--brand-paper));
   overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 

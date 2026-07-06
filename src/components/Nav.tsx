@@ -23,8 +23,8 @@ const NavLink = ({ link, handleNavClick, isActive }: NavLinkProps) => (
     href={link.url}
     onClick={(e) => handleNavClick(e, link.section)}
     className={cn(
-      "text-gray-400 text-3xl text-nowrap sm:text-2xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-4xl uppercase font-bold menu-item relative group",
-      isActive && "text-black"
+      "text-brand-gray text-3xl text-nowrap sm:text-2xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-4xl uppercase font-bold menu-item relative group",
+      isActive && "text-brand-ink"
     )}
   >
     <FlipHover
@@ -43,7 +43,7 @@ const NavLink = ({ link, handleNavClick, isActive }: NavLinkProps) => (
         </>
       }
       back={
-        <span className="text-black">
+        <span className="text-brand-ink">
           {link.text}
           {/* Red dot that is always visible on the clone */}
           <span className="ml-1 inline-block">
@@ -158,7 +158,7 @@ export default function Nav() {
     <div className="w-full relative">
       {/* Navigation bar */}
       <nav
-        className={`fixed border-b-2 border-black lg:border-none bg-white ${
+        className={`fixed border-b-2 border-brand-ink lg:border-none bg-brand-paper ${
           activeLink === "hero" ? "lg:bg-transparent" : "lg:bg-brand-paper"
         } top-0 left-0 w-full z-[90]`}
       >

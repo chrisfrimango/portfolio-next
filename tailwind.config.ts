@@ -15,10 +15,12 @@ export default {
       },
       colors: {
         brand: {
-          paper: "#fcfcfc",
-          ink: "#131313",
+          // RGB-triplet CSS vars so the day-cycle can tween the whole
+          // palette at runtime while opacity modifiers keep working
+          paper: "rgb(var(--brand-paper) / <alpha-value>)",
+          ink: "rgb(var(--brand-ink) / <alpha-value>)",
           accent: "#ff3b00",
-          gray: "#6f6f6f",
+          gray: "rgb(var(--brand-gray) / <alpha-value>)",
         },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
