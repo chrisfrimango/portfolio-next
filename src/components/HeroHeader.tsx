@@ -130,7 +130,7 @@ export default function HeroHeader() {
         </div>
         {/* Mobile text below image */}
         <div className="min-h-[30vh] flex flex-col justify-between px-4 py-3">
-          <HeroHeadline className="text-title text-left mb-6 text-brand-ink" />
+          <HeroHeadline className="text-[clamp(2.5rem,10vw,4rem)] leading-[0.95] tracking-[-0.015em] text-left mb-6 text-brand-ink" />
 
           {/* Animation box for mobile view - positioned to be partially visible outside viewport */}
           <div className="flex justify-center relative mb-2">

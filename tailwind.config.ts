@@ -16,8 +16,8 @@ export default {
       fontSize: {
         // The five-token Ledger scale — no other display sizes allowed
         display: [
-          "clamp(2.75rem, 1.2rem + 7.2vw, 8.25rem)",
-          { lineHeight: "0.95", letterSpacing: "-0.01em" },
+          "clamp(3.25rem, 0.5rem + 10vw, 11rem)",
+          { lineHeight: "0.92", letterSpacing: "-0.015em" },
         ],
         title: [
           "clamp(2rem, 1.35rem + 3.1vw, 4.25rem)",
