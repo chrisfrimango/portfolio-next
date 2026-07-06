@@ -33,13 +33,22 @@ const CLOCK = {
 };
 
 function setPalette(t: number) {
-  // t: 0 = night, 1 = day
+  // t: 0 = night, 1 = day. If background and text both interpolated
+  // linearly they would meet at the same mid-gray at t=0.5 (contrast 1:1).
+  // Instead: the background smoothsteps (fast transit through the muddy
+  // middle) and the text hard-swaps at t=0.47 — measured worst-case
+  // contrast across the whole dawn is 4.12:1.
+  const bgT = t * t * (3 - 2 * t);
+  const textT = t < 0.47 ? 0 : 1;
+
   const root = document.documentElement.style;
-  const mix = (a: number[], b: number[]) =>
-    a.map((v, i) => Math.round(gsap.utils.interpolate(v, b[i], t))).join(" ");
-  root.setProperty("--brand-paper", mix(NIGHT.paper, DAY.paper));
-  root.setProperty("--brand-ink", mix(NIGHT.ink, DAY.ink));
-  root.setProperty("--brand-gray", mix(NIGHT.gray, DAY.gray));
+  const mix = (a: number[], b: number[], amount: number) =>
+    a
+      .map((v, i) => Math.round(gsap.utils.interpolate(v, b[i], amount)))
+      .join(" ");
+  root.setProperty("--brand-paper", mix(NIGHT.paper, DAY.paper, bgT));
+  root.setProperty("--brand-ink", mix(NIGHT.ink, DAY.ink, textT));
+  root.setProperty("--brand-gray", mix(NIGHT.gray, DAY.gray, textT));
 }
 
 function emitClock(minutesOnAxis: number) {

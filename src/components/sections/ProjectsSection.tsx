@@ -25,9 +25,9 @@ export default function ProjectsSection() {
           <p data-project-detail className="font-display italic text-statement text-brand-accent">
             01 / 02
           </p>
-          <h3 data-project-detail className="font-display text-title text-brand-ink mt-2">
+          <h2 data-project-detail className="font-display text-title text-brand-ink mt-2">
             {flagship.title}
-          </h3>
+          </h2>
           <p data-project-detail className="text-body text-brand-gray max-w-[42ch] mt-4">
             {flagship.shortDescription}
           </p>
@@ -50,7 +50,7 @@ export default function ProjectsSection() {
           02 / 02
         </p>
         <div className="lg:col-start-4 lg:col-span-8">
-          <h3 className="font-display text-title text-brand-ink">This site</h3>
+          <h2 className="font-display text-title text-brand-ink">This site</h2>
           <p className="font-display text-statement text-brand-ink mt-4">
             You&apos;re looking at it. The build notes are in the{" "}
             <Link

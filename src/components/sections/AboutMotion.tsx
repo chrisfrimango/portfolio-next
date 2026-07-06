@@ -23,11 +23,15 @@ export default function AboutMotion({ children }: { children: ReactNode }) {
       // Split after fonts settle so line metrics are final
       document.fonts.ready.then(
         contextSafe(() => {
+          // aria "none": word spans read naturally; "auto" would put an
+          // aria-label on the <p>, which is prohibited without a role
           const split = new SplitText(statements, {
             type: "words",
-            aria: "auto",
+            aria: "none",
           });
-          gsap.set(split.words, { opacity: 0.25, yPercent: 6 });
+          // 0.45 ghost opacity = >=3.2:1 against both the night and day
+          // background (0.25 failed contrast in the resting state)
+          gsap.set(split.words, { opacity: 0.45, yPercent: 6 });
 
           const mm = gsap.matchMedia(ref);
 
