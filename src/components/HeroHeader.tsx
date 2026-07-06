@@ -106,8 +106,8 @@ export default function HeroHeader() {
         return;
       }
 
-      // Reveal. Word 0 is already placed by the preloader's landing word
-      // (a no-op tween for it); the rest rise out of their masks.
+      // Reveal. Word 0 is already placed by the preloader's landing word;
+      // the rest rise out of their masks in reading order.
       gsap.to(words, {
         yPercent: 0,
         duration: 0.7,
