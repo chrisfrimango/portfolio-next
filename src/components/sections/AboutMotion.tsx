@@ -29,9 +29,10 @@ export default function AboutMotion({ children }: { children: ReactNode }) {
             type: "words",
             aria: "none",
           });
-          // 0.45 ghost opacity = >=3.2:1 against both the night and day
-          // background (0.25 failed contrast in the resting state)
-          gsap.set(split.words, { opacity: 0.45, yPercent: 6 });
+          // 0.6 ghost opacity keeps the un-illuminated words above 4.5:1
+          // on paper (day) as well as on the night hero — the resting
+          // state must pass WCAG AA even before the scrub illuminates them
+          gsap.set(split.words, { opacity: 0.6, yPercent: 6 });
 
           const mm = gsap.matchMedia(ref);
 

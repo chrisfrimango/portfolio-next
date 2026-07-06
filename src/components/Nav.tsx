@@ -14,13 +14,14 @@ interface NavLinkProps {
     url: string;
     section: string;
   };
+  href: string;
   handleNavClick: (e: React.MouseEvent, sectionId: string) => void;
   isActive: boolean;
 }
 
-const NavLink = ({ link, handleNavClick, isActive }: NavLinkProps) => (
+const NavLink = ({ link, href, handleNavClick, isActive }: NavLinkProps) => (
   <Link
-    href={link.url}
+    href={href}
     onClick={(e) => handleNavClick(e, link.section)}
     className={cn(
       "text-brand-gray text-3xl text-nowrap sm:text-2xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-4xl uppercase font-bold menu-item relative group",
@@ -62,8 +63,13 @@ export default function Nav() {
   const menuLinksRef = useRef<HTMLDivElement>(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
   const pathname = usePathname();
+  const isHome = pathname === "/";
   const lenis = useLenis();
   const scrollTo = useScrollTo();
+
+  // On the homepage the links smooth-scroll to sections; elsewhere they
+  // navigate home to that section (e.g. "/#about").
+  const hrefFor = (url: string) => (isHome ? url : `/${url}`);
 
   const navLinks = useMemo(
     () => [
@@ -141,13 +147,16 @@ export default function Nav() {
   };
 
   const handleNavClick = (e: React.MouseEvent, sectionId: string) => {
-    e.preventDefault();
-    const element = document.getElementById(sectionId);
-    if (!element) return;
-
     if (isOpen) {
       toggleMenu();
     }
+
+    // Off the homepage, let the browser navigate to "/#section"
+    if (!isHome) return;
+
+    e.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (!element) return;
 
     setActiveLink(sectionId);
     scrollTo(element);
@@ -172,6 +181,7 @@ export default function Nav() {
                 <NavLink
                   key={index}
                   link={link}
+                  href={hrefFor(link.url)}
                   handleNavClick={handleNavClick}
                   isActive={activeLink === link.section}
                 />
@@ -194,6 +204,7 @@ export default function Nav() {
         {/* Mobile Menu Overlay */}
         <div
           ref={menuRef}
+          inert={!isOpen}
           className="lg:hidden fixed inset-0 bg-brand-accent w-full flex flex-col justify-between z-[1001] h-full px-12 py-28 lg:p-28 border-b-2 border-brand-ink"
         >
           <div
@@ -203,7 +214,7 @@ export default function Nav() {
             {navLinks.map((link, index) => (
               <Link
                 key={index}
-                href={link.url}
+                href={hrefFor(link.url)}
                 onClick={(e) => handleNavClick(e, link.section)}
                 className={`text-brand-ink text-4xl lg:text-6xl font-light hover:text-brand-paper transition-colors w-fit block ${
                   activeLink === link.section ? "font-bold" : ""
