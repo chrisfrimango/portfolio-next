@@ -55,7 +55,7 @@ export default function WorkSection() {
             <Link
               data-project-detail
               href={`/projects/${flagship.name}`}
-              className="inline-block mt-6 text-body text-brand-ink underline underline-offset-4 decoration-brand-accent hover:text-brand-accent transition-colors"
+              className="link-underline inline-block mt-6 text-body text-brand-ink hover:text-brand-accent transition-colors"
             >
               View case study &rarr;
             </Link>

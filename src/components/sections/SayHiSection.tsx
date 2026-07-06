@@ -14,7 +14,7 @@ export default function SayHiSection() {
       <div className="mt-12 lg:mt-0 lg:col-start-8 lg:col-span-5 flex flex-col gap-6">
         <Link
           href="mailto:christoffer.k.friman@gmail.com"
-          className="font-display text-statement text-brand-ink underline-offset-8 decoration-brand-accent hover:underline break-all"
+          className="link-underline font-display text-statement text-brand-ink hover:text-brand-accent transition-colors break-all"
         >
           christoffer.k.friman@gmail.com
         </Link>

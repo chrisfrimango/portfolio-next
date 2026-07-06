@@ -51,7 +51,41 @@ function HeroHeadline({ className }: { className?: string }) {
 
 export default function HeroHeader() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const lightRef = useRef<HTMLDivElement>(null);
   const { introDone } = useIntro();
+
+  // A warm light follows the cursor across the night hero — you carry a
+  // little sun. Desktop + hover only, off under reduced motion.
+  useGSAP(
+    () => {
+      const light = lightRef.current;
+      const container = containerRef.current;
+      if (!light || !container) return;
+      if (prefersReducedMotion()) return;
+      if (!window.matchMedia("(hover: hover)").matches) return;
+
+      const xTo = gsap.quickTo(light, "x", { duration: 0.6, ease: "power3.out" });
+      const yTo = gsap.quickTo(light, "y", { duration: 0.6, ease: "power3.out" });
+
+      const move = (e: PointerEvent) => {
+        const rect = container.getBoundingClientRect();
+        xTo(e.clientX - rect.left);
+        yTo(e.clientY - rect.top);
+      };
+      const show = () => gsap.to(light, { opacity: 1, duration: 0.6 });
+      const hide = () => gsap.to(light, { opacity: 0, duration: 0.6 });
+
+      container.addEventListener("pointermove", move);
+      container.addEventListener("pointerenter", show);
+      container.addEventListener("pointerleave", hide);
+      return () => {
+        container.removeEventListener("pointermove", move);
+        container.removeEventListener("pointerenter", show);
+        container.removeEventListener("pointerleave", hide);
+      };
+    },
+    { scope: containerRef }
+  );
 
   useGSAP(
     () => {
@@ -126,8 +160,19 @@ export default function HeroHeader() {
       ref={containerRef}
       className="w-full h-screen relative overflow-hidden flex flex-col justify-between px-6 lg:px-12 pt-28 pb-10"
     >
+      {/* Cursor-following warm light */}
+      <div
+        ref={lightRef}
+        aria-hidden
+        className="pointer-events-none absolute top-0 left-0 -ml-[300px] -mt-[300px] w-[600px] h-[600px] rounded-full opacity-0 blur-3xl z-0"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(255,59,0,0.18) 0%, rgba(255,59,0,0) 70%)",
+        }}
+      />
+
       {/* Eyebrow */}
-      <div className="flex items-baseline justify-between">
+      <div className="relative z-10 flex items-baseline justify-between">
         <p className="hero-meta text-meta font-medium uppercase text-brand-paper/70 opacity-0">
           Developer &amp; digital consultant
         </p>
@@ -137,12 +182,12 @@ export default function HeroHeader() {
       </div>
 
       {/* The headline is the whole stage */}
-      <div className="flex-1 flex items-center">
+      <div className="relative z-10 flex-1 flex items-center">
         <HeroHeadline className="text-display text-left text-brand-ink" />
       </div>
 
       {/* Scroll cue */}
-      <div className="flex items-end justify-between">
+      <div className="relative z-10 flex items-end justify-between">
         <div className="hero-meta opacity-0 flex items-center gap-3">
           <AnimationBox className="cursor-pointer h-[60px]" />
           <span className="text-meta font-medium uppercase text-brand-paper/70">
