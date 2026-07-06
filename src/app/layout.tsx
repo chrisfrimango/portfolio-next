@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import { Inter, Fraunces } from "next/font/google";
 import "../styles/globals.css";
 import { RootLayoutProps } from "@/types/rootLayoutTypes";
 import Nav from "@/components/Nav";
@@ -8,9 +8,11 @@ import StatusChip from "@/components/ui/StatusChip";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const instrumentSerif = Instrument_Serif({
+// Fraunces: an expressive variable serif (weights to 900, optical sizing)
+// — the heavier, more characterful display voice of the site.
+const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: "400",
+  axes: ["opsz", "SOFT"],
   style: ["normal", "italic"],
   variable: "--font-display",
 });
@@ -45,7 +47,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body
-        className={`${inter.className} ${instrumentSerif.variable} flex flex-col items-center mx-auto`}
+        className={`${inter.className} ${fraunces.variable} flex flex-col items-center mx-auto`}
       >
         <SmoothScroll>
           <Nav />

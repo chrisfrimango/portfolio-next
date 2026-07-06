@@ -29,7 +29,7 @@ const HEADLINE_WORDS = [
  */
 function HeroHeadline({ className }: { className?: string }) {
   return (
-    <h1 className={cn("font-display font-normal", className)}>
+    <h1 className={cn("font-display font-semibold", className)}>
       {HEADLINE_WORDS.map((word, index) => (
         <span
           key={index}
