@@ -6,8 +6,8 @@ import labData from "@/data/lab.json";
  */
 export default function LabSection() {
   return (
-    <div className="w-full mx-auto max-w-7xl xl:max-w-8xl 2xl:max-w-screen-2xl px-4 sm:px-8 py-12">
-      <p className="text-lg sm:text-xl text-brand-ink/80 max-w-2xl mb-10">
+    <div className="w-full mx-auto max-w-content px-5 sm:px-8 lg:px-12 py-12">
+      <p className="font-display text-statement text-brand-ink max-w-2xl mb-12">
         {labData.intro}
       </p>
       <ul className="divide-y divide-brand-ink/10 border-y border-brand-ink/10">
@@ -15,15 +15,18 @@ export default function LabSection() {
           <li key={entry.id}>
             <Link
               href="/lab"
-              className="group flex items-baseline gap-4 py-5 hover:bg-brand-ink/[0.03] transition-colors"
+              className="group flex items-baseline gap-5 py-6 hover:bg-brand-ink/[0.03] transition-colors"
             >
-              <span className="font-display italic text-brand-accent text-2xl shrink-0">
+              <span className="font-display italic text-brand-accent text-statement w-12 shrink-0">
                 {entry.id}
               </span>
-              <span className="font-display text-2xl sm:text-3xl text-brand-ink group-hover:text-brand-accent transition-colors">
+              <span className="font-display text-statement text-brand-ink group-hover:text-brand-accent transition-colors">
                 {entry.title}
               </span>
-              <span className="ml-auto text-brand-gray text-sm hidden sm:inline">
+              <span className="hidden lg:block ml-auto max-w-[38ch] text-right text-body text-brand-gray">
+                {entry.summary}
+              </span>
+              <span className="text-brand-gray text-sm hidden sm:inline shrink-0">
                 &rarr;
               </span>
             </Link>
@@ -32,7 +35,7 @@ export default function LabSection() {
       </ul>
       <Link
         href="/lab"
-        className="inline-block mt-8 text-sm text-brand-gray hover:text-brand-ink transition-colors"
+        className="inline-block mt-8 text-meta font-medium uppercase text-brand-gray hover:text-brand-ink transition-colors"
       >
         All experiments &rarr;
       </Link>

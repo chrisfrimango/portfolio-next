@@ -13,6 +13,29 @@ export default {
       fontFamily: {
         display: ["var(--font-display)", "Georgia", "serif"],
       },
+      fontSize: {
+        // The five-token Ledger scale — no other display sizes allowed
+        display: [
+          "clamp(2.75rem, 1.2rem + 7.2vw, 8.25rem)",
+          { lineHeight: "0.95", letterSpacing: "-0.01em" },
+        ],
+        title: [
+          "clamp(2rem, 1.35rem + 3.1vw, 4.25rem)",
+          { lineHeight: "1.05", letterSpacing: "-0.01em" },
+        ],
+        statement: [
+          "clamp(1.5rem, 1.23rem + 1.35vw, 2.5rem)",
+          { lineHeight: "1.3" },
+        ],
+        body: ["clamp(1rem, 0.96rem + 0.2vw, 1.125rem)", { lineHeight: "1.65" }],
+        meta: ["0.75rem", { lineHeight: "1", letterSpacing: "0.22em" }],
+      },
+      spacing: {
+        section: "clamp(5rem, 3rem + 8vw, 10rem)",
+      },
+      maxWidth: {
+        content: "84rem",
+      },
       colors: {
         brand: {
           // RGB-triplet CSS vars so the day-cycle can tween the whole
