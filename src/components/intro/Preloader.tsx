@@ -5,7 +5,7 @@ import { gsap, useGSAP } from "@/lib/gsap";
 import { useIntro } from "./IntroContext";
 
 const GREETINGS = ["Hej", "Hola", "Ciao", "Bonjour", "안녕하세요"];
-const FINAL_WORD = "HEY!";
+const FINAL_WORD = "Hey!";
 const SESSION_KEY = "friman-intro-seen";
 
 /** Pick the hero word target that is actually visible (mobile vs desktop block). */

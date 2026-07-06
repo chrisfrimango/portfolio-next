@@ -10,16 +10,16 @@ import { STAGGER, prefersReducedMotion } from "@/lib/motion";
 import { useIntro } from "@/components/intro/IntroContext";
 
 const HEADLINE_WORDS = [
-  "HEY!",
-  "I'M",
-  "FRIMAN,",
-  "DEVELOPER",
+  "Hey!",
+  "I'm",
+  "Friman,",
+  "developer",
   "&",
-  "DIGITAL",
-  "CONSULTANT",
-  "WITH",
-  "BUSINESS",
-  "ACUMEN",
+  "digital",
+  "consultant",
+  "with",
+  "business",
+  "acumen",
 ];
 
 /**
@@ -40,7 +40,7 @@ function HeroHeadline({ className }: { className?: string }) {
             data-hero-word={index}
             className={cn(
               "hero-word inline-block",
-              word === "FRIMAN," && "italic"
+              word === "Friman," && "italic text-brand-accent"
             )}
           >
             {word}
@@ -83,17 +83,29 @@ export default function HeroHeader() {
         stagger: STAGGER.word,
       });
 
-      // Subtle parallax: the image drifts as the hero scrolls away
-      gsap.to(".hero-image", {
-        yPercent: 8,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
+      // Exit: the entrance played in reverse, conducted by the scroll —
+      // words dissolve last-word-first through their masks while the
+      // image drifts. One scrubbed timeline owns the whole goodbye.
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        })
+        .to(".hero-image", { yPercent: 8, ease: "none" }, 0)
+        .to(
+          words,
+          {
+            yPercent: -70,
+            opacity: 0,
+            ease: "none",
+            stagger: { each: 0.03, from: "end" },
+          },
+          0
+        );
     },
     { scope: containerRef, dependencies: [introDone] }
   );
@@ -118,14 +130,11 @@ export default function HeroHeader() {
         </div>
         {/* Mobile text below image */}
         <div className="min-h-[30vh] flex flex-col justify-between px-4 py-3">
-          <HeroHeadline className="leading-[1.05] text-left text-3xl sm:text-5xl md:text-6xl mb-6 text-brand-ink" />
+          <HeroHeadline className="text-title text-left mb-6 text-brand-ink" />
 
           {/* Animation box for mobile view - positioned to be partially visible outside viewport */}
           <div className="flex justify-center relative mb-2">
-            <AnimationBox
-              position="hero"
-              className="cursor-pointer opacity-90 w-[10px] h-[50px] sm:w-[12px] sm:h-[80px]"
-            />
+            <AnimationBox className="cursor-pointer opacity-90 w-[10px] h-[50px] sm:w-[12px] sm:h-[80px]" />
           </div>
         </div>
       </div>
@@ -148,11 +157,11 @@ export default function HeroHeader() {
 
         {/* Desktop text at the bottom */}
         <div className="absolute bottom-10 left-0 right-0 px-4 z-10">
-          <HeroHeadline className="leading-[1.02] text-left text-5xl xl:text-7xl 2xl:text-8xl max-w-full text-brand-ink" />
+          <HeroHeadline className="text-display text-left max-w-full text-brand-ink" />
 
           {/* Animation box to entice scrolling - positioned partially outside viewport */}
           <div className="flex justify-center mt-8 sm:mt-0 absolute bottom-[-40px] left-0 right-0">
-            <AnimationBox position="hero" className="cursor-pointer h-[80px]" />
+            <AnimationBox className="cursor-pointer h-[80px]" />
           </div>
         </div>
       </div>
