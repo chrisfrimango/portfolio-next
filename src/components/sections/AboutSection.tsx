@@ -1,5 +1,7 @@
 import React, { type ReactNode } from "react";
+import Image from "next/image";
 import aboutData from "@/data/about.json";
+import surfart from "../../../public/images/surfart.webp";
 import AboutMotion from "@/components/sections/AboutMotion";
 
 const EMPHASIS = "where technology and business meet";
@@ -47,6 +49,32 @@ export default function AboutSection() {
 
   return (
     <div className="mx-auto w-full max-w-content px-5 sm:px-8 lg:px-12">
+      {/* Art-directed portrait figure — offset to the right */}
+      <div className="lg:grid lg:grid-cols-12 lg:gap-x-6 mb-16 lg:mb-24">
+        <figure className="lg:col-start-7 lg:col-span-6 relative aspect-[4/3] overflow-hidden rounded-sm border border-brand-ink/10">
+          <Image
+            src={surfart}
+            alt="Christoffer Friman"
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            quality={70}
+            className="object-cover grayscale contrast-[1.05]"
+          />
+          {/* Grain + warm wash tie the photo to the day cycle */}
+          <div className="pointer-events-none absolute inset-0 bg-brand-accent/5 mix-blend-multiply" />
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-overlay"
+            style={{
+              backgroundImage:
+                "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+            }}
+          />
+          <figcaption className="absolute bottom-3 left-3 text-meta font-medium uppercase text-brand-paper/90 mix-blend-difference">
+            Off duty &mdash; Stockholm
+          </figcaption>
+        </figure>
+      </div>
+
       <AboutMotion>
         <LedgerRow label="Who am I">
           <p

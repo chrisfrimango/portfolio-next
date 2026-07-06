@@ -1,8 +1,6 @@
 "use client";
 
-import Image from "next/image";
 import AnimationBox from "./ui/AnimationBox";
-import surfart from "../../public/images/surfart.webp";
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
@@ -25,7 +23,7 @@ const HEADLINE_WORDS = [
 /**
  * Headline rendered as per-word masked spans: SSR-safe (full text in HTML),
  * revealed word by word after the preloader hands off. The first word is the
- * landing target for the preloader's flying "HEY!".
+ * landing target for the preloader's flying "Hey!".
  */
 function HeroHeadline({ className }: { className?: string }) {
   return (
@@ -34,7 +32,7 @@ function HeroHeadline({ className }: { className?: string }) {
         <span
           key={index}
           data-hero-word-mask={index}
-          className="inline-block overflow-hidden align-bottom mr-[0.22em] pb-[0.06em]"
+          className="inline-block overflow-hidden align-bottom mr-[0.2em] pb-[0.08em]"
         >
           <span
             data-hero-word={index}
@@ -83,9 +81,22 @@ export default function HeroHeader() {
         stagger: STAGGER.word,
       });
 
+      // Meta lines fade up under the headline
+      gsap.fromTo(
+        ".hero-meta",
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power3.out",
+          stagger: 0.08,
+          delay: 0.5,
+        }
+      );
+
       // Exit: the entrance played in reverse, conducted by the scroll —
-      // words dissolve last-word-first through their masks while the
-      // image drifts. One scrubbed timeline owns the whole goodbye.
+      // words dissolve last-word-first through their masks.
       gsap
         .timeline({
           scrollTrigger: {
@@ -95,7 +106,6 @@ export default function HeroHeader() {
             scrub: true,
           },
         })
-        .to(".hero-image", { yPercent: 8, ease: "none" }, 0)
         .to(
           words,
           {
@@ -105,7 +115,8 @@ export default function HeroHeader() {
             stagger: { each: 0.03, from: "end" },
           },
           0
-        );
+        )
+        .to(".hero-meta", { opacity: 0, y: -20, ease: "none" }, 0);
     },
     { scope: containerRef, dependencies: [introDone] }
   );
@@ -113,56 +124,30 @@ export default function HeroHeader() {
   return (
     <div
       ref={containerRef}
-      className="w-full h-screen relative overflow-hidden"
+      className="w-full h-screen relative overflow-hidden flex flex-col justify-between px-6 lg:px-12 pt-28 pb-10"
     >
-      {/* Mobile view - full screen image and text below */}
-      <div className="lg:hidden w-full h-full flex flex-col overflow-hidden">
-        <div className="relative h-[70vh] w-full overflow-hidden">
-          <Image
-            src={surfart}
-            alt="Developer"
-            fill
-            quality={60}
-            fetchPriority="high"
-            className="hero-image object-cover object-top scale-110"
-            priority
-          />
-        </div>
-        {/* Mobile text below image */}
-        <div className="min-h-[30vh] flex flex-col justify-between px-4 py-3">
-          <HeroHeadline className="text-[clamp(2.5rem,10vw,4rem)] leading-[0.95] tracking-[-0.015em] text-left mb-6 text-brand-ink" />
-
-          {/* Animation box for mobile view - positioned to be partially visible outside viewport */}
-          <div className="flex justify-center relative mb-2">
-            <AnimationBox className="cursor-pointer opacity-90 w-[10px] h-[50px] sm:w-[12px] sm:h-[80px]" />
-          </div>
-        </div>
+      {/* Eyebrow */}
+      <div className="flex items-baseline justify-between">
+        <p className="hero-meta text-meta font-medium uppercase text-brand-paper/70 opacity-0">
+          Developer &amp; digital consultant
+        </p>
+        <p className="hero-meta text-meta font-medium uppercase text-brand-paper/70 opacity-0 hidden sm:block">
+          Based in Stockholm
+        </p>
       </div>
 
-      {/* Desktop view - headline owns the left, image sits on the right */}
-      <div className="hidden lg:block relative h-full">
-        <div className="absolute top-0 right-0 w-[40vw] max-w-[600px] h-[72vh] overflow-hidden">
-          <div className="relative w-full h-full">
-            <Image
-              src={surfart}
-              alt="Developer"
-              fill
-              quality={60}
-              fetchPriority="high"
-              className="hero-image object-contain object-right-top"
-              priority
-            />
-          </div>
-        </div>
+      {/* The headline is the whole stage */}
+      <div className="flex-1 flex items-center">
+        <HeroHeadline className="text-display text-left text-brand-ink" />
+      </div>
 
-        {/* Desktop headline — big, left-aligned, clear of the image */}
-        <div className="absolute bottom-12 left-0 right-0 px-6 xl:px-12 z-10">
-          <HeroHeadline className="text-display text-left max-w-[16ch] text-brand-ink" />
-
-          {/* Animation box to entice scrolling - positioned partially outside viewport */}
-          <div className="flex justify-start mt-8 absolute bottom-[-40px] left-6 xl:left-12">
-            <AnimationBox className="cursor-pointer h-[80px]" />
-          </div>
+      {/* Scroll cue */}
+      <div className="flex items-end justify-between">
+        <div className="hero-meta opacity-0 flex items-center gap-3">
+          <AnimationBox className="cursor-pointer h-[60px]" />
+          <span className="text-meta font-medium uppercase text-brand-paper/70">
+            Scroll
+          </span>
         </div>
       </div>
     </div>
