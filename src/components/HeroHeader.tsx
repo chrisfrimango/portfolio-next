@@ -139,9 +139,9 @@ export default function HeroHeader() {
         </div>
       </div>
 
-      {/* Desktop view - image positioned to the right */}
+      {/* Desktop view - headline owns the left, image sits on the right */}
       <div className="hidden lg:block relative h-full">
-        <div className="absolute top-0 right-0 w-[55vw] max-w-[800px] h-[80vh] overflow-hidden">
+        <div className="absolute top-0 right-0 w-[40vw] max-w-[600px] h-[72vh] overflow-hidden">
           <div className="relative w-full h-full">
             <Image
               src={surfart}
@@ -149,18 +149,18 @@ export default function HeroHeader() {
               fill
               quality={60}
               fetchPriority="high"
-              className="hero-image object-contain object-right"
+              className="hero-image object-contain object-right-top"
               priority
             />
           </div>
         </div>
 
-        {/* Desktop text at the bottom */}
-        <div className="absolute bottom-10 left-0 right-0 px-4 z-10">
-          <HeroHeadline className="text-display text-left max-w-full text-brand-ink" />
+        {/* Desktop headline — big, left-aligned, clear of the image */}
+        <div className="absolute bottom-12 left-0 right-0 px-6 xl:px-12 z-10">
+          <HeroHeadline className="text-display text-left max-w-[16ch] text-brand-ink" />
 
           {/* Animation box to entice scrolling - positioned partially outside viewport */}
-          <div className="flex justify-center mt-8 sm:mt-0 absolute bottom-[-40px] left-0 right-0">
+          <div className="flex justify-start mt-8 absolute bottom-[-40px] left-6 xl:left-12">
             <AnimationBox className="cursor-pointer h-[80px]" />
           </div>
         </div>
