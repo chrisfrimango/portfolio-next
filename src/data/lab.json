@@ -25,9 +25,23 @@
     {
       "id": "004",
       "title": "Micro-interactions with cleanup",
-      "summary": "Magnetic links, 3D flip hovers and a scroll-reactive accent bar — all transform-only, all properly reverted.",
-      "detail": "The contact links use gsap.quickTo for per-frame cursor following without re-renders, with an elastic return on leave. The nav's flip hover is one reusable component instead of copy-pasted listeners. Everything registers through useGSAP scopes so unmounting reverts cleanly — no leaked ScrollTriggers, no orphaned listeners. Hover effects only attach on hover-capable devices.",
-      "tags": ["gsap.quickTo", "React", "useGSAP", "interaction design"]
+      "summary": "3D flip hovers and a scroll-reactive accent bar — all transform-only, all properly reverted.",
+      "detail": "The nav's flip hover is one reusable component instead of copy-pasted listeners. The hero's accent bar enters once, then couples to scroll position rather than looping idly. Everything registers through useGSAP scopes so unmounting reverts cleanly — no leaked ScrollTriggers, no orphaned listeners. Hover effects only attach on hover-capable devices.",
+      "tags": ["React", "useGSAP", "interaction design", "cleanup"]
+    },
+    {
+      "id": "005",
+      "title": "The dawn is the interface",
+      "summary": "The homepage opens at night and dawn breaks as you scroll to the work. Scroll position drives a whole-palette interpolation and a narrative Stockholm clock.",
+      "detail": "The brand palette is three RGB-triplet CSS custom properties on :root, so a single ScrollTrigger can tween every token-coloured element at once by interpolating them. Night hands to warm day across the About section; dusk returns at the contact act, closing the loop the preloader opened. The status chip's clock is bound to the same scroll — 23:41 at the hero, 04:32 (real midsummer sunrise) as day breaks, back to 23:41 at the end — so the time is the narrator, not decoration. Reduced motion pins a static day theme and the real clock.",
+      "tags": ["ScrollTrigger", "CSS variables", "art direction", "storytelling"]
+    },
+    {
+      "id": "006",
+      "title": "Keeping contrast legible mid-fade",
+      "summary": "Fading text and background from dark to light naively meets at the same grey in the middle — 1:1 contrast. The dawn never dips below 4:1.",
+      "detail": "If both text and background interpolate linearly they cross at an identical mid-grey halfway through the transition, where the type disappears. Instead the background eases with a smoothstep — moving fast through the muddy middle values — while the text colour hard-swaps at 47% progress. Sampling contrast at every one-percent step of the scrub, the measured worst case across the whole dawn is 4.12:1, above the WCAG AA large-text bar. Accessibility survived a colour animation because the maths was checked, not eyeballed.",
+      "tags": ["accessibility", "WCAG", "colour", "animation"]
     }
   ]
 }
