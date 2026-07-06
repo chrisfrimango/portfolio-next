@@ -94,12 +94,13 @@ export default function DayCycle({ children }: { children: ReactNode }) {
       },
     });
 
-    // Full day: the clock runs while the work and Lab pass by
+    // Full day: the clock runs while the Work section (case study + lab
+    // experiments) passes by
     ScrollTrigger.create({
       trigger: "#projects",
       start: "top 80%",
-      endTrigger: "#lab",
-      end: "bottom 40%",
+      endTrigger: "#sayhi",
+      end: "top 60%",
       scrub: true,
       onUpdate: (self) => {
         emitClock(

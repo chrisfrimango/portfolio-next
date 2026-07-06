@@ -1,8 +1,7 @@
 import HeroHeader from "@/components/HeroHeader";
 import AboutSection from "@/components/sections/AboutSection";
-import ProjectsSection from "@/components/sections/ProjectsSection";
+import WorkSection from "@/components/sections/WorkSection";
 import SayHiSection from "@/components/sections/SayHiSection";
-import LabSection from "@/components/sections/LabSection";
 import { IntroProvider } from "@/components/intro/IntroContext";
 import Preloader from "@/components/intro/Preloader";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -24,17 +23,12 @@ export default function Home() {
           </section>
 
           <section id="projects" className="py-section">
-            <SectionHeading number="02" label="Selected works" />
-            <ProjectsSection />
-          </section>
-
-          <section id="lab" className="py-section">
-            <SectionHeading number="03" label="Lab" />
-            <LabSection />
+            <SectionHeading number="02" label="Work" />
+            <WorkSection />
           </section>
 
           <section id="sayhi" className="py-section">
-            <SectionHeading number="04" label="Say hi" />
+            <SectionHeading number="03" label="Say hi" />
             <SayHiSection />
           </section>
         </div>

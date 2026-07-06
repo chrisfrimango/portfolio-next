@@ -1,10 +1,14 @@
 import { Metadata } from "next";
-import ProjectsSection from "@/components/sections/ProjectsSection";
+import WorkSection from "@/components/sections/WorkSection";
 
 export const metadata: Metadata = {
-  title: "Projects | Christoffer Friman",
+  title: "Work | Christoffer Friman",
 };
 
 export default function Projects() {
-  return <ProjectsSection />;
+  return (
+    <div className="pt-28">
+      <WorkSection />
+    </div>
+  );
 }
