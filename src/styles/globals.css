@@ -2,10 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Brand palette as RGB triplets — tweened by the homepage day cycle */
+  --brand-paper: 252 252 252;
+  --brand-ink: 19 19 19;
+  --brand-gray: 111 111 111;
+}
+
+html {
+  scrollbar-gutter: stable; /* full-bleed sections can't cause a width CLS */
+}
+
 body {
   font-family: Inter, Helvetica, sans-serif;
-  background-color: #fcfcfc;
+  background-color: rgb(var(--brand-paper));
   overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Lenis smooth scroll (https://github.com/darkroomengineering/lenis#recommended-css) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 .backface-hidden {
@@ -25,6 +51,23 @@ body {
 /* Add smooth transition for non-GSAP animations */
 .smooth-transition {
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Premium link underline that draws in from the left on hover */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.link-underline:hover {
+  background-size: 100% 1px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .link-underline {
+    transition: none;
+  }
 }
 
 @layer base {

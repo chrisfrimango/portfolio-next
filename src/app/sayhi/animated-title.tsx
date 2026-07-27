@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { gsap } from "gsap";
+import { useRef, useState } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface AnimatedSayHiProps {
   className?: string;
@@ -13,45 +14,26 @@ const AnimatedSayHi: React.FC<AnimatedSayHiProps> = ({ className = "" }) => {
   const hiRef = useRef<HTMLSpanElement>(null);
   const coffeeRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  // Check if desktop on mount and window resize
-  useEffect(() => {
-    const checkIfDesktop = () => {
-      setIsDesktop(window.innerWidth >= 768); // Consider 768px and above as desktop
-    };
-
-    // Initial check
-    checkIfDesktop();
-
-    // Add resize listener
-    window.addEventListener("resize", checkIfDesktop);
-
-    // Cleanup
-    return () => window.removeEventListener("resize", checkIfDesktop);
-  }, []);
-
-  // Initialize GSAP animations
-  useEffect(() => {
-    // Set initial state
-    if (sayRef.current && hiRef.current && coffeeRef.current) {
+  // Initial state: coffee cup hidden
+  useGSAP(
+    () => {
       gsap.set(coffeeRef.current, {
         opacity: 0,
         scale: 0.5,
-        width: "0.1em", // Very narrow when not hovered
+        width: "0.1em",
       });
-    }
-  }, []);
+    },
+    { scope: containerRef }
+  );
 
-  // Handle hover animations - only on desktop
-  useEffect(() => {
-    if (!sayRef.current || !hiRef.current || !coffeeRef.current) return;
+  // Hover: "say" and "hi!" split apart, coffee cup pops in (desktop only)
+  useGSAP(
+    () => {
+      if (!sayRef.current || !hiRef.current || !coffeeRef.current) return;
 
-    // Only run animations on desktop
-    if (isDesktop) {
-      // Create separate animations for hover enter/leave to ensure complete state changes
-      if (isHovered) {
-        // When hovering, ensure animation plays to completion
+      if (isDesktop && isHovered) {
         gsap.to(sayRef.current, { x: -40, duration: 0.4, ease: "power2.out" });
         gsap.to(hiRef.current, { x: 40, duration: 0.4, ease: "power2.out" });
         gsap.to(coffeeRef.current, {
@@ -62,7 +44,6 @@ const AnimatedSayHi: React.FC<AnimatedSayHiProps> = ({ className = "" }) => {
           ease: "elastic.out(1, 0.5)",
         });
       } else {
-        // When not hovering, ensure animation fully reverses
         gsap.to(sayRef.current, { x: 0, duration: 0.4, ease: "power2.out" });
         gsap.to(hiRef.current, { x: 0, duration: 0.4, ease: "power2.out" });
         gsap.to(coffeeRef.current, {
@@ -73,18 +54,9 @@ const AnimatedSayHi: React.FC<AnimatedSayHiProps> = ({ className = "" }) => {
           ease: "power2.in",
         });
       }
-    } else {
-      // On mobile, reset all elements to their default state
-      gsap.set(sayRef.current, { x: 0 });
-      gsap.set(hiRef.current, { x: 0 });
-      gsap.set(coffeeRef.current, { opacity: 0, scale: 0.5 });
-    }
-
-    return () => {
-      // Cleanup all animations
-      gsap.killTweensOf([sayRef.current, hiRef.current, coffeeRef.current]);
-    };
-  }, [isHovered, isDesktop]);
+    },
+    { scope: containerRef, dependencies: [isHovered, isDesktop] }
+  );
 
   return (
     <div
@@ -96,13 +68,13 @@ const AnimatedSayHi: React.FC<AnimatedSayHiProps> = ({ className = "" }) => {
       <div className="flex items-center justify-center relative">
         <span
           ref={sayRef}
-          className="text-[#ff3b00] font-bold uppercase inline-block"
+          className="text-brand-accent inline-block"
         >
-          say
+          Say
         </span>
         <div
           ref={coffeeRef}
-          className="mx-1 text-[#ff3b00] opacity-0"
+          className="mx-1 text-brand-accent opacity-0"
           aria-hidden="true"
           style={{
             width: isHovered && isDesktop ? "auto" : "0.1em",
@@ -114,7 +86,7 @@ const AnimatedSayHi: React.FC<AnimatedSayHiProps> = ({ className = "" }) => {
         </div>
         <span
           ref={hiRef}
-          className="text-[#ff3b00] font-bold uppercase inline-block"
+          className="text-brand-accent inline-block"
         >
           hi!
         </span>

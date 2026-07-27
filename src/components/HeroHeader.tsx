@@ -1,97 +1,133 @@
 "use client";
 
-import Image from "next/image";
 import AnimationBox from "./ui/AnimationBox";
-import surfart from "../../public/images/surfart.webp";
 import { useRef } from "react";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
+import { gsap, useGSAP } from "@/lib/gsap";
+import { cn } from "@/lib/utils";
+import { prefersReducedMotion } from "@/lib/motion";
+import { useIntro } from "@/components/intro/IntroContext";
+
+const HEADLINE_WORDS = [
+  "Hey!",
+  "I'm",
+  "Friman,",
+  "developer",
+  "&",
+  "digital",
+  "consultant",
+  "with",
+  "business",
+  "acumen.",
+];
+
+/**
+ * Headline rendered as per-word masked spans: SSR-safe (full text in HTML),
+ * revealed word by word after the preloader hands off. The first word is the
+ * landing target for the preloader's flying "Hey!".
+ */
+function HeroHeadline({ className }: { className?: string }) {
+  return (
+    <h1 className={cn("font-display", className)}>
+      {HEADLINE_WORDS.map((word, index) => (
+        <span
+          key={index}
+          data-hero-word-mask={index}
+          className="inline-block overflow-hidden align-bottom mr-[0.2em] pb-[0.08em]"
+        >
+          <span
+            data-hero-word={index}
+            className={cn(
+              "hero-word inline-block",
+              word === "Friman," && "italic text-brand-accent"
+            )}
+          >
+            {word}
+          </span>
+        </span>
+      ))}
+    </h1>
+  );
+}
 
 export default function HeroHeader() {
-  const mobileTextRef = useRef<HTMLDivElement>(null);
-  const desktopTextRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { introDone } = useIntro();
 
-  // GSAP animation for text elements
-  useGSAP(() => {
-    // Animation for mobile text
-    if (mobileTextRef.current) {
-      gsap.fromTo(
-        mobileTextRef.current,
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: "power2.out", delay: 0.3 }
-      );
-    }
+  useGSAP(
+    () => {
+      // Reduced motion: leave the SSR state (fully visible) untouched, just
+      // make sure the meta lines (opacity-0 in markup) are shown.
+      if (prefersReducedMotion()) {
+        gsap.set(".hero-meta", { opacity: 1, y: 0 });
+        return;
+      }
 
-    // Animation for desktop text
-    if (desktopTextRef.current) {
-      gsap.fromTo(
-        desktopTextRef.current,
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: "power2.out", delay: 0.5 }
+      // Until the preloader hands off, do NOTHING to the headline. It stays
+      // exactly as server-rendered (fully painted) so it can be the LCP
+      // element without waiting on JS — the opaque preloader curtain covers
+      // it, then lifts to reveal it. No JS transform gates the paint.
+      if (!introDone) return;
+
+      const words = gsap.utils.toArray<HTMLElement>(
+        ".hero-word",
+        containerRef.current
       );
-    }
-  }, []);
+
+      // Meta lines fade up under the headline as the curtain lifts
+      gsap.fromTo(
+        ".hero-meta",
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power3.out",
+          stagger: 0.08,
+          delay: 0.2,
+        }
+      );
+
+      // Exit: conducted by the scroll — words dissolve last-word-first
+      // through their masks as the hero scrolls away.
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        })
+        .to(
+          words,
+          {
+            yPercent: -70,
+            opacity: 0,
+            ease: "none",
+            stagger: { each: 0.03, from: "end" },
+          },
+          0
+        )
+        .to(".hero-meta", { opacity: 0, y: -20, ease: "none" }, 0);
+    },
+    { scope: containerRef, dependencies: [introDone] }
+  );
+
   return (
-    <div id="hero" className="w-full h-screen relative overflow-hidden">
-      {/* Mobile view - full screen image and text below */}
-      <div className="lg:hidden w-full h-full flex flex-col overflow-hidden">
-        <div className="relative h-[70vh] w-full">
-          <Image
-            src={surfart}
-            alt="Developer"
-            fill
-            quality={100}
-            className="object-cover object-top"
-            priority
-          />
-        </div>
-        {/* Mobile text below image */}
-        <div className="min-h-[30vh] flex flex-col justify-between px-4 py-3">
-          <div
-            ref={mobileTextRef}
-            className="leading-[1.1] text-left text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold opacity-0 mb-6"
-          >
-            HEY! IM FRIMAN, DEVELOPER & DIGITAL CONSULTANT WITH BUSINESS ACCUMEN
-          </div>
-
-          {/* Animation box for mobile view - positioned to be partially visible outside viewport */}
-          <div className="flex justify-center relative mb-2">
-            <AnimationBox
-              position="hero"
-              className="cursor-pointer opacity-90 w-[10px] h-[50px] sm:w-[12px] sm:h-[80px]"
-            />
-          </div>
-        </div>
+    <div
+      ref={containerRef}
+      className="w-full h-screen relative overflow-hidden flex flex-col justify-between px-6 lg:px-12 pt-28 pb-10"
+    >
+      {/* The headline is the whole stage — anchored low like a printed cover.
+          No eyebrow labels: the giant type carries the frame on its own. */}
+      <div className="relative z-10 flex-1 flex items-end">
+        <HeroHeadline className="text-[clamp(2.5rem,0.5rem+6.6vw,7rem)] leading-[0.98] tracking-[-0.02em] text-left text-brand-ink max-w-[16ch]" />
       </div>
 
-      {/* Desktop view - image positioned to the right */}
-      <div className="hidden lg:block relative h-full">
-        <div className="absolute top-0 right-0 w-[55vw] max-w-[800px] h-[80vh] overflow-hidden">
-          <div className="relative w-full h-full">
-            <Image
-              src={surfart}
-              alt="Developer"
-              fill
-              quality={100}
-              className="object-contain object-right"
-              priority
-            />
-          </div>
-        </div>
-
-        {/* Desktop text at the bottom */}
-        <div className="absolute bottom-10 left-0 right-0 px-4 z-10">
-          <div
-            ref={desktopTextRef}
-            className="leading-[1] text-left text-3xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-9xl font-black max-w-full opacity-0"
-          >
-            HEY! IM FRIMAN, DEVELOPER & DIGITAL CONSULTANT WITH BUSINESS ACCUMEN
-          </div>
-
-          {/* Animation box to entice scrolling - positioned partially outside viewport */}
-          <div className="flex justify-center mt-8 sm:mt-0 absolute bottom-[-40px] left-0 right-0">
-            <AnimationBox position="hero" className="cursor-pointer h-[80px]" />
-          </div>
+      {/* Minimal scroll cue — just the accent bar, no label */}
+      <div className="relative z-10">
+        <div className="hero-meta opacity-0">
+          <AnimationBox className="cursor-pointer h-[52px]" />
         </div>
       </div>
     </div>
