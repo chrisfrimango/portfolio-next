@@ -10,7 +10,42 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        display: ["var(--font-display)", "Georgia", "serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
+      },
+      fontSize: {
+        // The five-token Ledger scale — no other display sizes allowed
+        display: [
+          "clamp(3.5rem, 0.5rem + 12vw, 13.5rem)",
+          { lineHeight: "0.9", letterSpacing: "-0.02em" },
+        ],
+        title: [
+          "clamp(2rem, 1.35rem + 3.1vw, 4.25rem)",
+          { lineHeight: "1.05", letterSpacing: "-0.01em" },
+        ],
+        statement: [
+          "clamp(1.5rem, 1.23rem + 1.35vw, 2.5rem)",
+          { lineHeight: "1.3" },
+        ],
+        body: ["clamp(1rem, 0.96rem + 0.2vw, 1.125rem)", { lineHeight: "1.65" }],
+        meta: ["0.75rem", { lineHeight: "1", letterSpacing: "0.22em" }],
+      },
+      spacing: {
+        section: "clamp(5rem, 3rem + 8vw, 10rem)",
+      },
+      maxWidth: {
+        content: "84rem",
+      },
       colors: {
+        brand: {
+          // RGB-triplet CSS vars so the day-cycle can tween the whole
+          // palette at runtime while opacity modifiers keep working
+          paper: "rgb(var(--brand-paper) / <alpha-value>)",
+          ink: "rgb(var(--brand-ink) / <alpha-value>)",
+          accent: "#ff3b00",
+          gray: "rgb(var(--brand-gray) / <alpha-value>)",
+        },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -56,19 +91,6 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-      },
-      animation: {
-        gradient: "gradient 6s linear infinite",
-      },
-      keyframes: {
-        gradient: {
-          "0%, 100%": {
-            backgroundPosition: "0% 50%",
-          },
-          "50%": {
-            backgroundPosition: "100% 50%",
-          },
-        },
       },
     },
   },

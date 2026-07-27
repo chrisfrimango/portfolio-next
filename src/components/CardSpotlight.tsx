@@ -10,11 +10,8 @@ export const CardSpotlight = ({
   className?: string;
 }) => {
   const divRef = useRef<HTMLDivElement>(null);
-  const [isFocused, setIsFocused] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = useState(0);
-
-  console.log(isFocused);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!divRef.current) return;
@@ -29,12 +26,10 @@ export const CardSpotlight = ({
   };
 
   const handleFocus = () => {
-    setIsFocused(true);
     setOpacity(1);
   };
 
   const handleBlur = () => {
-    setIsFocused(false);
     setOpacity(0);
   };
 
@@ -45,7 +40,7 @@ export const CardSpotlight = ({
       onMouseEnter={handleFocus}
       onMouseLeave={handleBlur}
       className={cn(
-        "relative flex flex-col items-center justify-center overflow-hidden rounded-xl border border-[#131313]/20 bg-white px-8 py-16",
+        "relative flex flex-col items-center justify-center overflow-hidden rounded-xl border border-brand-ink/20 bg-white px-8 py-16",
         className
       )}
     >
