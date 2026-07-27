@@ -44,13 +44,15 @@ function LedgerRow({
  * labels in the left column, serif statements to the right.
  */
 export default function AboutSection() {
-  const [who, journey, stack, soft] = aboutData.content;
+  const [who, journey] = aboutData.content;
 
   return (
     <div className="mx-auto w-full max-w-content px-5 sm:px-8 lg:px-12">
-      {/* Art-directed portrait figure — offset to the right */}
-      <div className="lg:grid lg:grid-cols-12 lg:gap-x-6 mb-16 lg:mb-24">
-        <AboutPortrait />
+      {/* Portrait — offset right, shown whole */}
+      <div className="mb-16 lg:mb-24 lg:grid lg:grid-cols-12 lg:gap-x-6">
+        <div className="mx-auto max-w-[360px] lg:col-start-8 lg:col-span-5 lg:mx-0 lg:max-w-none">
+          <AboutPortrait />
+        </div>
       </div>
 
       <AboutMotion>
@@ -72,33 +74,6 @@ export default function AboutSection() {
           </p>
         </LedgerRow>
       </AboutMotion>
-
-      <LedgerRow label="Stack" wide>
-        <ul className="flex flex-wrap gap-x-6 gap-y-3">
-          {stack.description
-            .split(",")
-            .map((item) => item.trim())
-            .filter(Boolean)
-            .map((item) => (
-              <li key={item} className="text-body text-brand-ink">
-                {item}
-              </li>
-            ))}
-        </ul>
-      </LedgerRow>
-
-      <LedgerRow label="Soft values">
-        <p className="font-display italic text-statement text-brand-ink">
-          {soft.description.split("^").map((value, index, all) => (
-            <span key={value}>
-              {value.trim()}
-              {index < all.length - 1 && (
-                <span className="text-brand-accent not-italic"> · </span>
-              )}
-            </span>
-          ))}
-        </p>
-      </LedgerRow>
     </div>
   );
 }

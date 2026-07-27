@@ -1,96 +1,48 @@
 "use client";
 
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
-import FlipHover from "@/components/ui/FlipHover";
 import { useLenis, useScrollTo } from "@/components/SmoothScroll";
+import { prefersReducedMotion } from "@/lib/motion";
 
-interface NavLinkProps {
-  link: {
-    text: string;
-    url: string;
-    section: string;
-  };
-  href: string;
-  handleNavClick: (e: React.MouseEvent, sectionId: string) => void;
-  isActive: boolean;
-}
+const NAV_LINKS = [
+  { text: "About", url: "#about", section: "about" },
+  { text: "Work", url: "#projects", section: "projects" },
+  { text: "Say hi", url: "#sayhi", section: "sayhi" },
+];
 
-const NavLink = ({ link, href, handleNavClick, isActive }: NavLinkProps) => (
-  <Link
-    href={href}
-    onClick={(e) => handleNavClick(e, link.section)}
-    className={cn(
-      "text-brand-gray text-3xl text-nowrap sm:text-2xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-4xl uppercase font-bold menu-item relative group",
-      isActive && "text-brand-ink"
-    )}
-  >
-    <FlipHover
-      front={
-        <>
-          {link.text}
-          {/* Red dot that appears on hover or when active */}
-          <span
-            className={cn(
-              "ml-1 inline-block transition-all duration-300 opacity-0 group-hover:opacity-100",
-              isActive && "opacity-100"
-            )}
-          >
-            <span className="inline-block w-3 h-3 bg-brand-accent rounded-full" />
-          </span>
-        </>
-      }
-      back={
-        <span className="text-brand-ink">
-          {link.text}
-          {/* Red dot that is always visible on the clone */}
-          <span className="ml-1 inline-block">
-            <span className="inline-block w-3 h-3 bg-brand-accent rounded-full" />
-          </span>
-        </span>
-      }
-    />
-  </Link>
-);
-
+/**
+ * Minimalist distributed nav — a mono wordmark on the left, whisper-thin
+ * "/ LABEL" links on the right. Colors ride the day-cycle tokens (light over
+ * the night hero, dark over paper day). The accent lives only in the "/" tick
+ * and the active label; no dots. Mobile opens a quiet token-coloured sheet,
+ * never a colour flood.
+ */
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState<string>("hero");
-  const menuRef = useRef<HTMLDivElement>(null);
-  const menuLinksRef = useRef<HTMLDivElement>(null);
+  const [activeLink, setActiveLink] = useState("hero");
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const sheetItemsRef = useRef<HTMLDivElement>(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
+
   const pathname = usePathname();
   const isHome = pathname === "/";
   const lenis = useLenis();
   const scrollTo = useScrollTo();
 
-  // On the homepage the links smooth-scroll to sections; elsewhere they
-  // navigate home to that section (e.g. "/#about").
   const hrefFor = (url: string) => (isHome ? url : `/${url}`);
 
-  const navLinks = useMemo(
-    () => [
-      { text: "Home", url: "#hero", section: "hero" },
-      { text: "About", url: "#about", section: "about" },
-      { text: "Work", url: "#projects", section: "projects" },
-      { text: "Say hi", url: "#sayhi", section: "sayhi" },
-    ],
-    []
-  );
-
-  // Scrollspy: one ScrollTrigger per section marks the link active while
-  // that section spans the viewport center. Updates via Lenis' scroll events.
+  // Scrollspy — one trigger per section marks its link active.
   useGSAP(
     () => {
-      navLinks.forEach(({ section }) => {
-        const element = document.getElementById(section);
-        if (!element) return;
-
+      ["hero", "about", "projects", "sayhi"].forEach((section) => {
+        const el = document.getElementById(section);
+        if (!el) return;
         ScrollTrigger.create({
-          trigger: element,
+          trigger: el,
           start: "top center",
           end: "bottom center",
           onToggle: (self) => {
@@ -99,45 +51,44 @@ export default function Nav() {
         });
       });
     },
-    { dependencies: [pathname, navLinks], revertOnUpdate: true }
+    { dependencies: [pathname], revertOnUpdate: true }
   );
 
-  // Mobile menu open/close timeline
-  useGSAP(() => {
-    gsap.set(menuRef.current, {
-      yPercent: -100,
-      opacity: 0,
-    });
+  // Mobile sheet timeline — one paused timeline, played/reversed (interruptible).
+  useGSAP(
+    () => {
+      if (!sheetRef.current) return;
+      const reduce = prefersReducedMotion();
+      const items = Array.from(sheetItemsRef.current?.children ?? []);
 
-    const menuItems = Array.from(menuLinksRef.current?.children || []);
-    gsap.set(menuItems, { y: 40, opacity: 0 });
+      gsap.set(sheetRef.current, { yPercent: -100 });
+      gsap.set(items, { y: reduce ? 0 : 24, opacity: 0 });
 
-    tl.current = gsap
-      .timeline({ paused: true })
-      .to(menuRef.current, {
-        yPercent: 0,
-        opacity: 1,
-        duration: 1.3,
-        ease: "power3.inOut",
-      })
-      .to(
-        menuItems,
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.5,
-          stagger: 0.2,
-          ease: "power2.out",
-        },
-        "-=0.4"
-      );
-  });
+      tl.current = gsap
+        .timeline({ paused: true })
+        .to(sheetRef.current, {
+          yPercent: 0,
+          duration: reduce ? 0.2 : 0.9,
+          ease: "power2.inOut",
+        })
+        .to(
+          items,
+          {
+            y: 0,
+            opacity: 1,
+            duration: reduce ? 0.2 : 0.6,
+            ease: "power3.out",
+            stagger: reduce ? 0 : 0.08,
+          },
+          reduce ? "<" : "-=0.55"
+        );
+    },
+    { dependencies: [pathname] }
+  );
 
-  const toggleMenu = () => {
-    const nextOpen = !isOpen;
-    setIsOpen(nextOpen);
-
-    if (nextOpen) {
+  const setOpen = (next: boolean) => {
+    setIsOpen(next);
+    if (next) {
       tl.current?.play();
       lenis?.stop();
     } else {
@@ -146,117 +97,114 @@ export default function Nav() {
     }
   };
 
-  const handleNavClick = (e: React.MouseEvent, sectionId: string) => {
-    if (isOpen) {
-      toggleMenu();
-    }
+  // Escape closes the sheet
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
 
-    // Off the homepage, let the browser navigate to "/#section"
-    if (!isHome) return;
-
+  const onNavClick = (e: React.MouseEvent, section: string) => {
+    if (isOpen) setOpen(false);
+    if (!isHome) return; // let the browser navigate to "/#section"
     e.preventDefault();
-    const element = document.getElementById(sectionId);
-    if (!element) return;
-
-    setActiveLink(sectionId);
-    scrollTo(element);
+    const el = document.getElementById(section);
+    if (!el) return;
+    setActiveLink(section);
+    scrollTo(el);
   };
 
+  const linkClass = (section: string) =>
+    cn(
+      "font-mono text-[11px] tracking-[0.18em] uppercase transition-colors duration-300",
+      activeLink === section
+        ? "text-brand-ink"
+        : "text-brand-gray hover:text-brand-ink"
+    );
+
   return (
-    <div className="w-full relative">
-      {/* Navigation bar */}
-      <nav
-        className={`fixed border-b-2 border-brand-ink lg:border-none bg-brand-paper ${
-          activeLink === "hero" ? "lg:bg-transparent" : "lg:bg-brand-paper"
-        } top-0 left-0 w-full z-[90]`}
-      >
-        <div className="relative z-[1002] mx-auto px-4 py-4 flex items-center justify-between">
-          {/* Empty div for spacing on mobile */}
-          <div className="lg:hidden"></div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center justify-between w-full">
-            <div className="flex items-center space-x-8">
-              {navLinks.map((link, index) => (
-                <NavLink
-                  key={index}
-                  link={link}
-                  href={hrefFor(link.url)}
-                  handleNavClick={handleNavClick}
-                  isActive={activeLink === link.section}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={toggleMenu}
-            className={`lg:hidden text-sm font-light tracking-wider menu-item z-[1002] relative group text-brand-ink`}
-          >
-            {isOpen ? "Close" : "Menu"}
-            <span className="inline-block ml-1">
-              <span className="inline-block w-1 h-1 bg-brand-accent rounded-full" />
-            </span>
-          </button>
-        </div>
-
-        {/* Mobile Menu Overlay */}
-        <div
-          ref={menuRef}
-          inert={!isOpen}
-          className="lg:hidden fixed inset-0 bg-brand-accent w-full flex flex-col justify-between z-[1001] h-full px-12 py-28 lg:p-28 border-b-2 border-brand-ink"
+    <header className="fixed top-0 left-0 w-full z-[90]">
+      <div className="relative z-[1002] flex items-center justify-between px-5 sm:px-8 lg:px-12 py-5">
+        {/* Wordmark = home */}
+        <Link
+          href={hrefFor("#hero")}
+          onClick={(e) => onNavClick(e, "hero")}
+          className="font-mono text-[11px] tracking-[0.18em] uppercase text-brand-ink hover:text-brand-accent transition-colors"
         >
-          <div
-            ref={menuLinksRef}
-            className="flex flex-col text-left space-y-2 uppercase"
-          >
-            {navLinks.map((link, index) => (
-              <Link
-                key={index}
-                href={hrefFor(link.url)}
-                onClick={(e) => handleNavClick(e, link.section)}
-                className={`text-brand-ink text-4xl lg:text-6xl font-light hover:text-brand-paper transition-colors w-fit block ${
-                  activeLink === link.section ? "font-bold" : ""
-                }`}
-              >
-                {link.text}
-                {/* Red dot for mobile menu */}
-                {activeLink === link.section && (
-                  <span className="ml-1 inline-block">
-                    <span className="inline-block w-2 h-2 bg-brand-paper rounded-full" />
-                  </span>
-                )}
-              </Link>
-            ))}
-          </div>
-          <div className="flex items-end w-full">
-            <p className="text-brand-ink font-light text-xs uppercase">
-              <span className="font-bold">Say hi</span> &rarr;{" "}
-              <Link
-                href="https://www.linkedin.com/in/christoffer-friman/"
-                className="hover:text-brand-paper transition-colors"
-              >
-                linkedin
-              </Link>{" "}
-              &rarr;{" "}
-              <Link
-                href="https://github.com/chrisfrimango"
-                className="hover:text-brand-paper transition-colors"
-              >
-                github
-              </Link>{" "}
-              &rarr;{" "}
-              <Link
-                href="mailto:christoffer.k.friman@gmail.com"
-                className="hover:text-brand-paper transition-colors"
-              >
-                mail
-              </Link>
-            </p>
-          </div>
+          Christoffer Friman
+        </Link>
+
+        {/* Desktop / tablet distributed links */}
+        <nav className="hidden sm:flex items-center gap-6 lg:gap-9">
+          {NAV_LINKS.map((l) => (
+            <Link
+              key={l.section}
+              href={hrefFor(l.url)}
+              onClick={(e) => onNavClick(e, l.section)}
+              className={linkClass(l.section)}
+            >
+              <span className="text-brand-accent">/</span> {l.text}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Mobile trigger */}
+        <button
+          onClick={() => setOpen(!isOpen)}
+          aria-expanded={isOpen}
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+          className="sm:hidden font-mono text-[11px] tracking-[0.18em] uppercase text-brand-ink"
+        >
+          {isOpen ? "Close" : "Menu"}
+        </button>
+      </div>
+
+      {/* Mobile sheet — quiet, token-coloured, editorial numbered index */}
+      <div
+        ref={sheetRef}
+        inert={!isOpen}
+        className="sm:hidden fixed inset-0 z-[1001] bg-brand-paper flex flex-col justify-between px-6 pt-24 pb-10"
+      >
+        <div ref={sheetItemsRef} className="flex flex-col gap-1">
+          {NAV_LINKS.map((l, i) => (
+            <Link
+              key={l.section}
+              href={hrefFor(l.url)}
+              onClick={(e) => onNavClick(e, l.section)}
+              className="flex items-baseline gap-4 py-1 font-display text-title text-brand-ink"
+            >
+              <span className="font-mono text-meta text-brand-accent">
+                0{i + 1}
+              </span>
+              {l.text}
+            </Link>
+          ))}
         </div>
-      </nav>
-    </div>
+        <div className="flex flex-wrap gap-x-5 gap-y-1 font-mono text-[11px] tracking-[0.15em] uppercase text-brand-gray">
+          <a
+            href="https://www.linkedin.com/in/christoffer-friman/"
+            className="hover:text-brand-ink transition-colors"
+          >
+            LinkedIn
+          </a>
+          <a
+            href="https://github.com/chrisfrimango"
+            className="hover:text-brand-ink transition-colors"
+          >
+            GitHub
+          </a>
+          <a
+            href="mailto:christoffer.k.friman@gmail.com"
+            className="hover:text-brand-ink transition-colors"
+          >
+            Email
+          </a>
+        </div>
+      </div>
+    </header>
   );
 }

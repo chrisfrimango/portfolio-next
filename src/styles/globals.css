@@ -9,6 +9,10 @@
   --brand-gray: 111 111 111;
 }
 
+html {
+  scrollbar-gutter: stable; /* full-bleed sections can't cause a width CLS */
+}
+
 body {
   font-family: Inter, Helvetica, sans-serif;
   background-color: rgb(var(--brand-paper));

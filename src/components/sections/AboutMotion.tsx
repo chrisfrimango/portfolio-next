@@ -50,6 +50,7 @@ export default function AboutMotion({ children }: { children: ReactNode }) {
                 scrub: 0.5,
                 pin: true,
                 anticipatePin: 1,
+                refreshPriority: 1,
               },
             });
           });

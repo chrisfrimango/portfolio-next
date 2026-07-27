@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces } from "next/font/google";
+import { Inter, Fraunces, IBM_Plex_Mono } from "next/font/google";
 import "../styles/globals.css";
 import { RootLayoutProps } from "@/types/rootLayoutTypes";
 import Nav from "@/components/Nav";
 import SmoothScroll from "@/components/SmoothScroll";
 import StatusChip from "@/components/ui/StatusChip";
+import Meridian from "@/components/Meridian";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +16,14 @@ const fraunces = Fraunces({
   axes: ["opsz", "SOFT"],
   style: ["normal", "italic"],
   variable: "--font-display",
+});
+
+// IBM Plex Mono: the "engineering" voice — labels, metadata, coordinates,
+// the clock and marks. The third register that speaks the tech half.
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -47,9 +56,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body
-        className={`${inter.className} ${fraunces.variable} flex flex-col items-center mx-auto`}
+        className={`${inter.className} ${fraunces.variable} ${plexMono.variable} flex flex-col items-center mx-auto`}
       >
         <SmoothScroll>
+          <Meridian />
           <Nav />
           <main className="w-full h-full">{children}</main>
           <StatusChip />

@@ -62,8 +62,15 @@ export default function Preloader() {
       // measured handoff target can't move.
       document.documentElement.style.overflow = "hidden";
 
-      // Wait for fonts so both measurements use final glyph metrics.
-      document.fonts.ready.then(
+      // Prefer final glyph metrics, but never let a slow font download hold
+      // back the first paint (the hero headline is the LCP element) — cap the
+      // wait so the intro starts promptly; fonts finish during the greeting
+      // cycle, so the flight measurement below is still accurate in practice.
+      const fontsReadyOrSoon = Promise.race([
+        document.fonts.ready,
+        new Promise((resolve) => setTimeout(resolve, 400)),
+      ]);
+      fontsReadyOrSoon.then(
         contextSafe(() => {
           // Measure the flight path with the final word in place
           word.textContent = FINAL_WORD;

@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import ServicesAnimation from "@/components/ui/ServicesAnimation";
 
-function stockholmTime(): string {
+function localTime(): string {
   return new Intl.DateTimeFormat("sv-SE", {
     hour: "2-digit",
     minute: "2-digit",
-    timeZone: "Europe/Stockholm",
+    timeZone: "Europe/Stockholm", // Trollhättan shares Sweden's timezone
   }).format(new Date());
 }
 
@@ -23,8 +23,8 @@ export default function StatusChip() {
   const [narrativeTime, setNarrativeTime] = useState<string | null>(null);
 
   useEffect(() => {
-    setTime(stockholmTime());
-    const interval = setInterval(() => setTime(stockholmTime()), 30_000);
+    setTime(localTime());
+    const interval = setInterval(() => setTime(localTime()), 30_000);
 
     const onCycleTime = (e: Event) => {
       const minutes = (e as CustomEvent<number>).detail;
@@ -59,7 +59,7 @@ export default function StatusChip() {
         Open to work
         {displayTime && (
           <span className="text-brand-paper/60 normal-case tracking-normal tabular-nums">
-            · STHLM {displayTime}
+            · Trollhättan {displayTime}
           </span>
         )}
       </button>

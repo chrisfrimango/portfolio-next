@@ -32,7 +32,7 @@
     {
       "id": "005",
       "title": "The dawn is the interface",
-      "summary": "The homepage opens at night and dawn breaks as you scroll to the work. Scroll position drives a whole-palette interpolation and a narrative Stockholm clock.",
+      "summary": "The homepage opens at night and dawn breaks as you scroll to the work. Scroll position drives a whole-palette interpolation and a narrative Trollhättan clock.",
       "detail": "The brand palette is three RGB-triplet CSS custom properties on :root, so a single ScrollTrigger can tween every token-coloured element at once by interpolating them. Night hands to warm day across the About section; dusk returns at the contact act, closing the loop the preloader opened. The status chip's clock is bound to the same scroll — 23:41 at the hero, 04:32 (real midsummer sunrise) as day breaks, back to 23:41 at the end — so the time is the narrator, not decoration. Reduced motion pins a static day theme and the real clock.",
       "tags": ["ScrollTrigger", "CSS variables", "art direction", "storytelling"]
     },

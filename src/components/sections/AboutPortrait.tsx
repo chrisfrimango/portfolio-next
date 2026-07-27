@@ -7,55 +7,25 @@ import { gsap, useGSAP } from "@/lib/gsap";
 import { EASE, DUR, prefersReducedMotion } from "@/lib/motion";
 
 /**
- * Art-directed portrait with a masked reveal: an ink panel wipes upward to
- * uncover the image while it settles from a slow zoom, then the image drifts
- * with a gentle in-frame parallax as you keep scrolling.
+ * Art-directed portrait shown whole (its true 2:3 ratio — no crop). An ink
+ * panel wipes upward to uncover it as it scrolls into view.
  */
 export default function AboutPortrait() {
   const frameRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
   const coverRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       if (prefersReducedMotion()) return;
-
-      // Masked reveal — cover wipes up, image settles from a zoom
-      gsap
-        .timeline({
-          scrollTrigger: { trigger: frameRef.current, start: "top 80%", once: true },
-        })
-        .set(coverRef.current, { scaleY: 1, transformOrigin: "bottom" })
-        .fromTo(
-          imageRef.current,
-          { scale: 1.25 },
-          { scale: 1, duration: DUR.act, ease: EASE.inOut },
-          0
-        )
-        .to(
-          coverRef.current,
-          {
-            scaleY: 0,
-            transformOrigin: "top",
-            duration: DUR.act,
-            ease: EASE.inOut,
-          },
-          0
-        );
-
-      // In-frame parallax
       gsap.fromTo(
-        imageRef.current,
-        { yPercent: -6 },
+        coverRef.current,
+        { scaleY: 1, transformOrigin: "bottom" },
         {
-          yPercent: 6,
-          ease: "none",
-          scrollTrigger: {
-            trigger: frameRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
+          scaleY: 0,
+          transformOrigin: "top",
+          duration: DUR.act,
+          ease: EASE.inOut,
+          scrollTrigger: { trigger: frameRef.current, start: "top 80%", once: true },
         }
       );
     },
@@ -65,19 +35,18 @@ export default function AboutPortrait() {
   return (
     <figure
       ref={frameRef}
-      className="lg:col-start-7 lg:col-span-6 relative aspect-[4/3] overflow-hidden rounded-sm border border-brand-ink/10"
+      className="relative aspect-[2/3] overflow-hidden border border-brand-ink/10"
     >
-      <div ref={imageRef} className="absolute inset-0">
-        <Image
-          src={surfart}
-          alt="Christoffer Friman"
-          fill
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          quality={70}
-          className="object-cover grayscale contrast-[1.05]"
-        />
-      </div>
-      {/* Grain + warm wash tie the photo to the day cycle */}
+      <Image
+        src={surfart}
+        alt="Christoffer Friman"
+        fill
+        sizes="(max-width: 1024px) 100vw, 42vw"
+        quality={75}
+        placeholder="blur"
+        className="object-cover grayscale contrast-[1.05]"
+      />
+      {/* Warm wash + grain tie the image to the day cycle */}
       <div className="pointer-events-none absolute inset-0 bg-brand-accent/5 mix-blend-multiply" />
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-overlay"
@@ -92,8 +61,8 @@ export default function AboutPortrait() {
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-brand-ink"
       />
-      <figcaption className="absolute bottom-3 left-3 text-meta font-medium uppercase text-brand-paper/90 mix-blend-difference">
-        Off duty &mdash; Stockholm
+      <figcaption className="absolute bottom-3 left-3 font-mono text-meta uppercase text-brand-paper/90 mix-blend-difference">
+        Trollhättan
       </figcaption>
     </figure>
   );

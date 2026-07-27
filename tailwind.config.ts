@@ -12,6 +12,7 @@ export default {
     extend: {
       fontFamily: {
         display: ["var(--font-display)", "Georgia", "serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       fontSize: {
         // The five-token Ledger scale — no other display sizes allowed
@@ -90,19 +91,6 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-      },
-      animation: {
-        gradient: "gradient 6s linear infinite",
-      },
-      keyframes: {
-        gradient: {
-          "0%, 100%": {
-            backgroundPosition: "0% 50%",
-          },
-          "50%": {
-            backgroundPosition: "100% 50%",
-          },
-        },
       },
     },
   },

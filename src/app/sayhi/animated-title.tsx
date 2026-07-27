@@ -68,9 +68,9 @@ const AnimatedSayHi: React.FC<AnimatedSayHiProps> = ({ className = "" }) => {
       <div className="flex items-center justify-center relative">
         <span
           ref={sayRef}
-          className="text-brand-accent font-bold uppercase inline-block"
+          className="text-brand-accent inline-block"
         >
-          say
+          Say
         </span>
         <div
           ref={coffeeRef}
@@ -86,7 +86,7 @@ const AnimatedSayHi: React.FC<AnimatedSayHiProps> = ({ className = "" }) => {
         </div>
         <span
           ref={hiRef}
-          className="text-brand-accent font-bold uppercase inline-block"
+          className="text-brand-accent inline-block"
         >
           hi!
         </span>
