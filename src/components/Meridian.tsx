@@ -5,12 +5,11 @@ import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { prefersReducedMotion } from "@/lib/motion";
 
 /**
- * MERIDIAN — the site's one constant. A fixed horizon hairline with a single
- * small sun that rides it. As you read down the page the sun rises from the
- * left horizon (night, deep ember), climbs white-hot over the work at midday,
- * and sinks to the right horizon at the contact dusk — one disc, one arc, the
- * whole site. The accent (#ff3b00) is the sun and nothing else. Kept
- * astronomical and typographic, never an illustrated "scene".
+ * MERIDIAN — the site's one constant: a single small sun on its arc. As you
+ * read down the page it rises from the lower left (night, deep ember), climbs
+ * white-hot over the work at midday, and sinks to the lower right at the
+ * contact dusk — one disc, one arc, the whole site. The accent (#ff3b00) is
+ * the sun and nothing else. Kept astronomical, never an illustrated "scene".
  */
 
 const EMBER = "#D1300A"; // low sun — atmospheric
@@ -68,11 +67,6 @@ export default function Meridian() {
       aria-hidden
       className="pointer-events-none fixed inset-0 z-[2] overflow-hidden"
     >
-      {/* The horizon — a single hairline the whole site aligns to */}
-      <div
-        className="absolute left-0 right-0 bg-brand-ink/10"
-        style={{ top: "82vh", height: 1 }}
-      />
       {/* The sun — the one disc, positioned by transform (GPU) */}
       <div
         ref={sunRef}
