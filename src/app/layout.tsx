@@ -28,15 +28,15 @@ const plexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://christofferfriman.com"),
-  title: "Christoffer Friman | Developer & Digital Consultant",
+  title: "Christoffer Friman | Digital Transformation & Technology",
   description:
-    "Developer and digital consultant based in Sweden with expertise in React, Next.js, TypeScript and business strategy. Specializing in creating digital solutions where technology and business meet.",
+    "I help companies navigate digital transformation — connecting what's technically possible with the organizational change that AI makes possible. Based in Trollhättan, Sweden, with the rare mix of business, change and hands-on engineering.",
   keywords:
-    "developer, digital consultant, React, Next.js, TypeScript, Sweden, frontend developer, technical strategist",
+    "digital transformation, digitalization, AI, change management, technology strategy, digital consultant, developer, Sweden, Trollhättan",
   openGraph: {
-    title: "Christoffer Friman | Developer & Digital Consultant",
+    title: "Christoffer Friman | Digital Transformation & Technology",
     description:
-      "Developer and digital consultant based in Sweden — where technology and business meet.",
+      "I help companies navigate digital transformation — the technology, and the change that comes with it.",
     url: "https://christofferfriman.com",
     siteName: "Christoffer Friman",
     images: [{ url: "/images/og-image.jpg", width: 1200, height: 630 }],
@@ -45,9 +45,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Christoffer Friman | Developer & Digital Consultant",
+    title: "Christoffer Friman | Digital Transformation & Technology",
     description:
-      "Developer and digital consultant based in Sweden — where technology and business meet.",
+      "I help companies navigate digital transformation — the technology, and the change that comes with it.",
     images: ["/images/og-image.jpg"],
   },
 };

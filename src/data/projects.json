@@ -14,6 +14,10 @@
         "Contentful Headless CMS"
       ],
       "image": "",
+      "media": {
+        "poster": "/footage/camping_poster.webp",
+        "video": "/footage/camping_video.mp4"
+      },
       "githubUrl": "",
       "liveUrl": "https://allacampingplatser.se",
       "features": [
@@ -53,6 +57,62 @@
         ],
         "outcome": "The platform is live at allacampingplatser.se and in active use. [FYLL I: 2–3 verifierbara utfall — t.ex. antal campingplatser i databasen, organisk trafik/månad, antal indexerade sidor i Google Search Console, Lighthouse-poäng]",
         "reflection": "[FYLL I: vad du skulle gjort annorlunda — t.ex. val du omprövat kring datamodell, karta eller rendering. En ärlig reflektion väger tyngre än en säljande avslutning.]"
+      }
+    },
+    {
+      "id": 2,
+      "title": "meetingtimecalculator.com",
+      "subTitle": "A focused SEO utility.",
+      "name": "meetingtimecalculator",
+      "description": "A free, single-purpose web tool that finds the best meeting time for 2–10 participants spread across time zones. Each participant sets their timezone and working hours; a fairness-first algorithm ranks the top overlapping windows so no one is repeatedly stuck with a 6 AM or a 10 PM call. All calculations run in the browser using official IANA timezone data, so daylight-saving transitions are handled automatically and no participant data ever leaves the device. Results are shareable via a single link.",
+      "shortDescription": "A DST-safe meeting scheduler that ranks the fairest overlapping times for 2–10 people across time zones — entirely in the browser.",
+      "technologies": [
+        "TypeScript",
+        "Next.js",
+        "Tailwind CSS"
+      ],
+      "image": "",
+      "media": {
+        "poster": "/footage/meetingtime_poster.webp",
+        "video": "/footage/meetingtime_video.mp4"
+      },
+      "githubUrl": "",
+      "liveUrl": "https://meetingtimecalculator.com",
+      "features": [
+        "Multi-participant scheduling (2–10 people)",
+        "Fairness-first ranking of overlapping windows",
+        "Automatic daylight-saving (DST) handling via IANA data",
+        "Per-participant timezone and work-hours input",
+        "Shareable result links",
+        "Client-side only — no data stored or sent",
+        "Weekday-only and outside-work-hours filters",
+        "Instant, signup-free results"
+      ],
+      "caseStudy": {
+        "role": "Solo project — design, development & SEO",
+        "year": "[FYLL I: årtal, t.ex. 2025]",
+        "problem": "Coordinating a meeting across time zones is deceptively hard: offsets shift with daylight saving, tools quietly favour one region, and the math gets worse with every participant added. Most existing converters answer 'what time is it there' but not the question people actually have — 'when can all of us reasonably meet?' I wanted to solve that specific job with a tool fast and honest enough that people would reach for it over a spreadsheet.",
+        "approach": "I built it as a focused, SEO-first Next.js tool: statically prerendered for search and speed, with the entire scheduling engine running client-side so there's no server round-trip and no data leaves the browser. The core is a fairness-first algorithm that scores candidate slots across every participant's working hours instead of just intersecting them, and all timezone math is driven by official IANA data so DST transitions are correct by construction rather than by hand-tuned offsets. The scope is deliberately narrow — one job, done well.",
+        "craft": [
+          {
+            "title": "Fairness over naive overlap",
+            "text": "Rather than returning any shared slot, candidate times are scored so the cost of an awkward hour is spread fairly — the tool won't keep handing the same person the 6 AM call."
+          },
+          {
+            "title": "DST correct by construction",
+            "text": "All conversions use IANA timezone data, so daylight-saving jumps are handled automatically — no manual offsets to drift out of date twice a year."
+          },
+          {
+            "title": "Private by default",
+            "text": "The whole calculation runs in the browser. Nothing is stored or sent, which keeps it fast, cheap to run, and trustworthy for scheduling work conversations."
+          },
+          {
+            "title": "SEO as the distribution model",
+            "text": "The page is statically prerendered and structured around the real questions people search — 'best meeting time for US and Europe' — so the tool is discoverable at the moment of need."
+          }
+        ],
+        "outcome": "The tool is live at meetingtimecalculator.com. [FYLL I: 2–3 verifierbara utfall — t.ex. organisk trafik/månad, antal rankande sökord, Core Web Vitals/Lighthouse-poäng, användning per månad]",
+        "reflection": "[FYLL I: en ärlig reflektion — t.ex. vad du lärde dig om att bygga för sök vs. för användare, eller vad du skulle förenkla/utöka i algoritmen eller U:t.]"
       }
     }
   ]

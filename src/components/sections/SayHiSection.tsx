@@ -7,7 +7,6 @@ const CONTACTS = [
     href: "https://www.linkedin.com/in/christoffer-friman/",
     external: true,
   },
-  { label: "GitHub", href: "https://github.com/chrisfrimango", external: true },
 ];
 
 /**
@@ -22,8 +21,9 @@ export default function SayHiSection() {
         {/* Invitation */}
         <div className="lg:col-span-6">
           <SayHiContent />
-          <p className="mt-8 max-w-[20ch] font-display text-statement text-brand-ink">
-            Got something where business meets code? Let&rsquo;s talk about it.
+          <p className="mt-8 max-w-[24ch] font-display text-statement text-brand-ink">
+            Thinking about your next step in digital transformation?
+            Let&rsquo;s talk about where it could go.
           </p>
         </div>
 

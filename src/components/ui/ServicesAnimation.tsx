@@ -66,21 +66,25 @@ const ServicesAnimation: React.FC<ServicesAnimationProps> = ({
           <path d="M6 6L18 18" />
         </svg>
       </button>
-      <h3 className="text-xl font-bold mb-4">Open for assignments within:</h3>
+      <h3 className="text-xl font-bold mb-4">Where I can help:</h3>
       <ul className="space-y-2">
-        <li className="flex items-center">
+        <li className="flex items-start">
           <span className="mr-2">•</span>
-          <span>Web Development</span>
+          <span>Digital transformation &amp; strategy</span>
         </li>
-        <li className="flex items-center">
+        <li className="flex items-start">
           <span className="mr-2">•</span>
-          <span>Frontend Development</span>
+          <span>AI as an enabler — from idea to adoption</span>
         </li>
-        <li className="flex items-center">
+        <li className="flex items-start">
+          <span className="mr-2">•</span>
+          <span>Building the products &amp; platforms to match</span>
+        </li>
+        <li className="flex items-start">
           <span className="mr-2">•</span>
           <span>
-            I’m open to developer roles as well as hybrid positions that combine
-            technical work with strategic, business-oriented challenges.
+            Open to consulting and to hybrid roles that combine technical work
+            with strategic, business-oriented challenges.
           </span>
         </li>
       </ul>

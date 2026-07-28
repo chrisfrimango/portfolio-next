@@ -10,14 +10,23 @@ import { useIntro } from "@/components/intro/IntroContext";
 const HEADLINE_WORDS = [
   "Hey!",
   "I'm",
-  "Friman,",
-  "developer",
-  "&",
+  "Friman.",
+  "I",
+  "help",
+  "companies",
+  "navigate",
   "digital",
-  "consultant",
+  "transformation",
+  "—",
+  "the",
+  "technology,",
+  "and",
+  "the",
+  "change",
+  "that",
+  "comes",
   "with",
-  "business",
-  "acumen.",
+  "it.",
 ];
 
 /**
@@ -38,7 +47,7 @@ function HeroHeadline({ className }: { className?: string }) {
             data-hero-word={index}
             className={cn(
               "hero-word inline-block",
-              word === "Friman," && "italic text-brand-accent"
+              word === "Friman." && "italic text-brand-accent"
             )}
           >
             {word}
@@ -121,7 +130,7 @@ export default function HeroHeader() {
       {/* The headline is the whole stage — anchored low like a printed cover.
           No eyebrow labels: the giant type carries the frame on its own. */}
       <div className="relative z-10 flex-1 flex items-end">
-        <HeroHeadline className="text-[clamp(2.5rem,0.5rem+6.6vw,7rem)] leading-[0.98] tracking-[-0.02em] text-left text-brand-ink max-w-[16ch]" />
+        <HeroHeadline className="text-[clamp(2rem,0.9rem+3.2vw,4.5rem)] leading-[1.02] tracking-[-0.02em] text-left text-brand-ink max-w-[19ch]" />
       </div>
 
       {/* Minimal scroll cue — just the accent bar, no label */}

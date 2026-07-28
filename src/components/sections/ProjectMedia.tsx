@@ -1,21 +1,25 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { prefersReducedMotion } from "@/lib/motion";
 
 interface ProjectMediaProps {
-  src: string;
+  /** Optional looping film. When absent, the poster is shown as a still frame. */
+  src?: string;
   poster: string;
+  alt?: string;
 }
 
 /**
- * The cinematic frame: a video that only plays in view, two letterbox bars
- * that the stage timeline retracts ("emerge from black"), and a soft ink
- * vignette for spotlight focus. This is a dumb frame — all motion is driven
- * by ProjectsMotion. Autoplay is gated off under reduced motion, Save-Data
- * and 2G so the footage never costs the mobile budget.
+ * The cinematic frame: a looping video (when provided) that only plays in view,
+ * or a still poster, plus two letterbox bars the stage timeline retracts
+ * ("emerge from black") and a soft ink vignette for spotlight focus. This is a
+ * dumb frame — all motion is driven by ProjectsMotion. Autoplay is gated off
+ * under reduced motion, Save-Data and 2G so footage never costs the mobile
+ * budget.
  */
-export default function ProjectMedia({ src, poster }: ProjectMediaProps) {
+export default function ProjectMedia({ src, poster, alt = "" }: ProjectMediaProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -42,21 +46,32 @@ export default function ProjectMedia({ src, poster }: ProjectMediaProps) {
     );
     observer.observe(video);
     return () => observer.disconnect();
-  }, []);
+  }, [src]);
 
   return (
     <div className="relative aspect-[16/10] overflow-hidden bg-brand-ink">
-      <video
-        ref={videoRef}
-        loop
-        muted
-        playsInline
-        preload="none"
-        poster={poster}
-        className="h-full w-full object-cover"
-      >
-        <source src={src} type="video/mp4" />
-      </video>
+      {src ? (
+        <video
+          ref={videoRef}
+          loop
+          muted
+          playsInline
+          preload="none"
+          poster={poster}
+          className="h-full w-full object-cover"
+        >
+          <source src={src} type="video/mp4" />
+        </video>
+      ) : (
+        <Image
+          src={poster}
+          alt={alt}
+          fill
+          sizes="(max-width: 1024px) 88vw, 66vw"
+          quality={75}
+          className="object-cover"
+        />
+      )}
 
       {/* Ink vignette — spotlight focus, faded out as the stage settles */}
       <div

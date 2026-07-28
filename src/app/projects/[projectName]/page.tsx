@@ -114,22 +114,33 @@ export default async function ProjectPage({
           </div>
         </div>
 
-        {/* Full-bleed video */}
+        {/* Full-bleed media — looping film when available, else the poster */}
         <div
           data-case-video
           className="relative left-1/2 -translate-x-1/2 w-screen my-16 overflow-hidden"
         >
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            poster="/footage/camping_poster.webp"
-            className="w-full h-[50vh] lg:h-[75vh] object-cover"
-          >
-            <source src="/footage/camping_video.mp4" type="video/mp4" />
-          </video>
+          {project.media?.video ? (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              poster={project.media.poster}
+              className="w-full h-[50vh] lg:h-[75vh] object-cover"
+            >
+              <source src={project.media.video} type="video/mp4" />
+            </video>
+          ) : (
+            project.media?.poster && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={project.media.poster}
+                alt={`${project.title} — ${project.shortDescription}`}
+                className="w-full h-[50vh] lg:h-[75vh] object-cover"
+              />
+            )
+          )}
         </div>
 
         {caseStudy ? (
@@ -166,7 +177,7 @@ export default async function ProjectPage({
               <CaseHeading number="04" title="Outcome" />
               <p className="text-statement font-display text-brand-ink mb-6">
                 {isDraft(caseStudy.outcome)
-                  ? "The platform is live at allacampingplatser.se and in active use."
+                  ? caseStudy.outcome.split("[FYLL")[0].trim()
                   : caseStudy.outcome}
               </p>
               {!isDraft(caseStudy.reflection) && (
