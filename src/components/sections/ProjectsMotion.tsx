@@ -19,13 +19,12 @@ export default function ProjectsMotion({ children }: { children: ReactNode }) {
       const root = ref.current;
       if (!root) return;
 
-      const flagship = root.querySelector("[data-project-flagship]");
+      const stage = root.querySelector("[data-project-stage]");
       const media = root.querySelector("[data-project-media]");
       const bars = root.querySelectorAll("[data-letterbox]");
       const vignette = root.querySelector("[data-vignette]");
-      const flanks = root.querySelectorAll("[data-project-flank]");
       const details = root.querySelectorAll("[data-project-detail]");
-      if (!flagship || !media) return;
+      if (!stage || !media) return;
 
       // Reduced motion: static final composition (bars open, vignette calm).
       if (prefersReducedMotion()) {
@@ -40,7 +39,7 @@ export default function ProjectsMotion({ children }: { children: ReactNode }) {
       mm.add("(min-width: 769px)", () => {
         const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: flagship,
+            trigger: stage,
             start: "top top",
             end: "+=100%",
             scrub: 0.5,
@@ -58,12 +57,6 @@ export default function ProjectsMotion({ children }: { children: ReactNode }) {
             0.15
           )
           .fromTo(
-            flanks,
-            { opacity: 0 },
-            { opacity: 1, duration: 0.2, ease: "none" },
-            0.2
-          )
-          .fromTo(
             details,
             { opacity: 0, y: 16 },
             { opacity: 1, y: 0, duration: 0.2, ease: "none", stagger: 0.06 },
@@ -77,14 +70,14 @@ export default function ProjectsMotion({ children }: { children: ReactNode }) {
         gsap.set(bars, { scaleY: 0 });
         gsap.set(vignette, { opacity: 0.18 });
         gsap.fromTo(
-          flagship,
+          stage,
           { y: 40, opacity: 0 },
           {
             y: 0,
             opacity: 1,
             duration: DUR.section,
             ease: EASE.out,
-            scrollTrigger: { trigger: flagship, start: "top 80%", once: true },
+            scrollTrigger: { trigger: stage, start: "top 80%", once: true },
           }
         );
       });
