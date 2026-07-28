@@ -3,7 +3,7 @@ import aboutData from "@/data/about.json";
 import AboutMotion from "@/components/sections/AboutMotion";
 import AboutPortrait from "@/components/sections/AboutPortrait";
 
-const EMPHASIS = "where technology and business meet";
+const EMPHASIS = "what's technically possible, and the organizational change";
 
 /** Wraps the positioning phrase in true italics. */
 function Statement({ text }: { text: string }) {
