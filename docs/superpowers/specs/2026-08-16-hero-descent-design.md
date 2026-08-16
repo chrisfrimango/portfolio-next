@@ -30,7 +30,8 @@ Back to front:
 | z2 | Mid mountain band | |
 | z3 | Near mountain band | Darkest silhouette |
 | z4 | Mist wisp | A thin drifting band along the mountain bases |
-| z5 | Warm scrim | Unchanged — text-contrast gradient |
+| z5 | Warm scrim (bottom/left, text) | Unchanged — headline-contrast gradient |
+| z5 | Warm scrim (top, nav) | **New** — see Nav contrast below |
 | z10 | Headline | Unchanged DOM |
 
 - Mountain bands are **inline SVG** paths (no network requests, no image
@@ -61,6 +62,27 @@ The differing rates read as sinking *toward* the peaks; the near band growing
 and rising fastest sells the approach. All animation is transform/opacity only
 (GPU), matching Meridian's and the hero's existing patterns. Percentages are a
 starting point and will be tuned live in the browser during implementation.
+
+## Nav contrast over the hero
+
+The global nav (`Nav.tsx`) colours ride the day-cycle tokens — inactive links
+`text-brand-gray`, active link and wordmark `text-brand-ink`. At the night hero
+both are light (ink 246, gray 154), and over the brightest region of the video
+(the sun / upper-right sky) they wash out. This is only a problem over the hero
+video; over the flat paper of every other section the nav is fine.
+
+Fix: a **top scrim inside `HeroAmbient`** — a `--brand-paper` gradient falling
+from the top edge, mirroring the existing bottom/left scrim. Because it is
+`--brand-paper`, it is dark behind the nav at the night hero (light nav text
+pops) and self-corrects toward day as the palette tweens. It is scoped to the
+hero, so the nav's appearance over other sections is untouched. `Nav.tsx`
+itself is **not modified** — the fix is purely the hero backdrop.
+
+The gradient must be strong enough to clear WCAG AA for the nav text (small
+text → 4.5:1) against the brightest hero frame, verified by the same live
+pixel-sampling method used for the headline. It covers roughly the top 12–18%
+of the hero, feathered to transparent, so it reads as sky framing rather than a
+bar.
 
 ## Coherence, performance, accessibility
 
@@ -103,4 +125,6 @@ starting point and will be tuned live in the browser during implementation.
 2. The arrival lands as dawn breaks into About, with no visible seam.
 3. LCP regression < 200 ms vs the current committed state; CLS unaffected.
 4. Reduced-motion shows a calm, settled peaks-in-mist still, no parallax.
-5. No existing component restructured; feature is removable in isolation.
+5. Nav links clear AA contrast (4.5:1) over the brightest hero frame, verified
+   by live measurement, with `Nav.tsx` unmodified.
+6. No existing component restructured; feature is removable in isolation.
