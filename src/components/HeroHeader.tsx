@@ -1,6 +1,7 @@
 "use client";
 
 import AnimationBox from "./ui/AnimationBox";
+import HeroMountains from "@/components/hero/HeroMountains";
 import { useEffect, useRef, useState } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
@@ -112,6 +113,9 @@ function HeroAmbient({ introDone }: { introDone: boolean }) {
           <source src="/video/hero_ambient.mp4" type="video/mp4" />
         </video>
       ) : null}
+
+      {/* Mountain silhouettes — same mount gate as the footage */}
+      {mounted && (reduced || introDone) ? <HeroMountains /> : null}
 
       {/* Warm scrim — two stacked --brand-paper gradients (one rising from the
           low edge, one from the left) that veil the bottom-left column where the
