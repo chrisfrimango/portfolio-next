@@ -27,9 +27,8 @@ const DAY = {
 // Narrative clock waypoints, in minutes on a continuous axis (>1440 = next day)
 const CLOCK = {
   heroStart: 23 * 60 + 41, // 23:41 — night
-  dawnEnd: 24 * 60 + 4 * 60 + 32, // 04:32 — actual Stockholm midsummer sunrise
-  dayEnd: 24 * 60 + 17 * 60 + 30, // 17:30 — golden hour reaches the Lab
-  nightReturn: 24 * 60 + 23 * 60 + 41, // 23:41 — the loop closes
+  dayPeak: 24 * 60 + 11 * 60, // 11:00 — full light over About (the mountain)
+  nightReturn: 24 * 60 + 23 * 60 + 41, // 23:41 — dusk falls over the work
 };
 
 function setPalette(t: number) {
@@ -80,7 +79,7 @@ export default function DayCycle({ children }: { children: ReactNode }) {
     setPalette(0);
     emitClock(CLOCK.heroStart);
 
-    // Dawn: breaks while About scrolls in
+    // Dawn: breaks while About scrolls in — full light peaks over the mountain
     ScrollTrigger.create({
       trigger: "#about",
       start: "top 85%",
@@ -89,36 +88,22 @@ export default function DayCycle({ children }: { children: ReactNode }) {
       onUpdate: (self) => {
         setPalette(self.progress);
         emitClock(
-          gsap.utils.interpolate(CLOCK.heroStart, CLOCK.dawnEnd, self.progress)
+          gsap.utils.interpolate(CLOCK.heroStart, CLOCK.dayPeak, self.progress)
         );
       },
     });
 
-    // Full day: the clock runs while the Work section (case study + lab
-    // experiments) passes by
+    // Dusk: night falls over the work — the mountain fades out and Projects
+    // arrives dark, holding through Say hi where the loop closes.
     ScrollTrigger.create({
       trigger: "#projects",
-      start: "top 80%",
-      endTrigger: "#sayhi",
-      end: "top 60%",
-      scrub: true,
-      onUpdate: (self) => {
-        emitClock(
-          gsap.utils.interpolate(CLOCK.dawnEnd, CLOCK.dayEnd, self.progress)
-        );
-      },
-    });
-
-    // Dusk: night falls over Say hej — the site ends where it began
-    ScrollTrigger.create({
-      trigger: "#sayhi",
       start: "top 90%",
-      end: "bottom bottom",
+      end: "top 40%",
       scrub: true,
       onUpdate: (self) => {
         setPalette(1 - self.progress);
         emitClock(
-          gsap.utils.interpolate(CLOCK.dayEnd, CLOCK.nightReturn, self.progress)
+          gsap.utils.interpolate(CLOCK.dayPeak, CLOCK.nightReturn, self.progress)
         );
       },
     });
