@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP } from "@/lib/gsap";
 import { prefersReducedMotion } from "@/lib/motion";
 import { useIntro } from "@/components/intro/IntroContext";
 
@@ -24,8 +24,59 @@ export default function MountainBackdrop() {
     setReduced(prefersReducedMotion());
   }, []);
 
-  // Motion added in Task 4. Placeholder scope keeps refs wired.
-  useGSAP(() => {}, { dependencies: [mounted, reduced, introDone] });
+  useGSAP(
+    () => {
+      if (!mounted) return;
+      const root = rootRef.current,
+        img = imgRef.current,
+        scrim = scrimRef.current;
+      if (!root || !img || !scrim) return;
+
+      // The mountain is revealed simply by the opaque hero scrolling off this
+      // fixed layer — no opacity ramp needed. A single trigger owns opacity:
+      // the fade-out before Projects. Parallax is an independent transform.
+      gsap.set(root, { opacity: 1 });
+
+      // Fade out before the first Projects stage (only writer of opacity).
+      gsap.fromTo(
+        root,
+        { opacity: 1 },
+        {
+          opacity: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#projects",
+            start: "top 90%",
+            end: "top 40%",
+            scrub: true,
+          },
+        }
+      );
+
+      if (reduced) {
+        gsap.set(img, { yPercent: 0, scale: 1 });
+        return;
+      }
+
+      // Descent drift — slow parallax over the mountain's visible life (About).
+      gsap.fromTo(
+        img,
+        { yPercent: 6, scale: 1.06 },
+        {
+          yPercent: -4,
+          scale: 1.0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#about",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
+    },
+    { dependencies: [mounted, reduced, introDone] }
+  );
 
   if (!mounted || (!reduced && !introDone)) return null;
 
