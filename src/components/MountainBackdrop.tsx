@@ -15,6 +15,9 @@ export default function MountainBackdrop() {
   const { introDone } = useIntro();
   const [mounted, setMounted] = useState(false);
   const [reduced, setReduced] = useState(false);
+  // The backdrop lives behind the opaque hero until you scroll, so it is not
+  // mounted at load — that keeps its video/poster out of LCP entirely.
+  const [armed, setArmed] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
   const scrimRef = useRef<HTMLDivElement>(null);
@@ -22,7 +25,21 @@ export default function MountainBackdrop() {
 
   useEffect(() => {
     setMounted(true);
-    setReduced(prefersReducedMotion());
+    const rm = prefersReducedMotion();
+    setReduced(rm);
+    if (rm) {
+      setArmed(true); // reduced motion: show the static mountain right away
+      return;
+    }
+    const onScroll = () => {
+      if (window.scrollY > window.innerHeight * 0.3) {
+        setArmed(true);
+        window.removeEventListener("scroll", onScroll);
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // Guarantee muted + start playback once the video mounts (React can drop the
@@ -32,7 +49,7 @@ export default function MountainBackdrop() {
     if (!v) return;
     v.muted = true;
     v.play().catch(() => {});
-  }, [mounted, reduced, introDone]);
+  }, [mounted, armed, reduced, introDone]);
 
   useGSAP(
     () => {
@@ -109,16 +126,19 @@ export default function MountainBackdrop() {
         }
       );
     },
-    { dependencies: [mounted, reduced, introDone] }
+    { dependencies: [mounted, armed, reduced, introDone] }
   );
 
-  if (!mounted || (!reduced && !introDone)) return null;
+  if (!mounted || !armed || (!reduced && !introDone)) return null;
 
   return (
     <div
       ref={rootRef}
       aria-hidden
       className="fixed inset-0 -z-10 pointer-events-none overflow-hidden"
+      // Invisible at first paint so the backdrop video/poster can never be the
+      // LCP element; the reveal (or reduced-motion) sets opacity from the effect.
+      style={{ opacity: 0 }}
     >
       <div ref={imgRef} className="absolute inset-0 will-change-transform">
         {reduced ? (
