@@ -4,7 +4,9 @@ import projectsData from "@/data/projects.json";
 const BASE_URL = "https://christofferfriman.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const projectPages = projectsData.projects.map((project) => ({
+  const projectPages = projectsData.projects
+    .filter((project) => !project.hidden)
+    .map((project) => ({
     url: `${BASE_URL}/projects/${project.name}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
