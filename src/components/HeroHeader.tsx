@@ -131,6 +131,17 @@ function HeroAmbient({ introDone }: { introDone: boolean }) {
           ].join(","),
         }}
       />
+
+      {/* Top scrim — backs the global nav over the bright footage. --brand-paper
+          so it darkens at the night hero (light nav text) and self-corrects
+          toward day. Hero-scoped; Nav.tsx is untouched. */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-[22vh]"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgb(var(--brand-paper) / 0.97) 0%, rgb(var(--brand-paper) / 0.85) 55%, transparent 100%)",
+        }}
+      />
     </div>
   );
 }
