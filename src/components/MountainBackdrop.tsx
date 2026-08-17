@@ -95,13 +95,18 @@ export default function MountainBackdrop() {
         />
       </div>
       {/* Contrast scrim over About — --brand-paper so it tracks the day cycle.
-          Starting values; tuned to >=4.5:1 in Task 5. */}
+          A vertical veil secures the body copy (measured >=4.5:1 for --brand-ink),
+          plus a soft left column that lifts the faint --brand-gray section
+          labels; the mountain stays clearest through the centre where the peak
+          sits. */}
       <div
         ref={scrimRef}
         className="absolute inset-0"
         style={{
-          background:
-            "linear-gradient(to bottom, rgb(var(--brand-paper) / 0.5) 0%, rgb(var(--brand-paper) / 0.35) 50%, rgb(var(--brand-paper) / 0.55) 100%)",
+          background: [
+            "linear-gradient(to right, rgb(var(--brand-paper) / 0.9) 0%, transparent 20%)",
+            "linear-gradient(to bottom, rgb(var(--brand-paper) / 0.58) 0%, rgb(var(--brand-paper) / 0.53) 50%, rgb(var(--brand-paper) / 0.63) 100%)",
+          ].join(","),
         }}
       />
     </div>
