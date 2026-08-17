@@ -145,6 +145,11 @@ export default function HeroHeader() {
       // make sure the meta lines (opacity-0 in markup) are shown.
       if (prefersReducedMotion()) {
         gsap.set(".hero-meta", { opacity: 1, y: 0 });
+        // Mountains at their landed end-state — no scrub under reduced motion.
+        gsap.set('[data-mtn="far"]', { yPercent: 0, scale: 1.0 });
+        gsap.set('[data-mtn="mid"]', { yPercent: -5 });
+        gsap.set('[data-mtn="near"]', { yPercent: -12, scale: 1.12 });
+        gsap.set("[data-mist]", { yPercent: -60, opacity: 0 });
         return;
       }
 
@@ -194,7 +199,34 @@ export default function HeroHeader() {
           },
           0
         )
-        .to(".hero-meta", { opacity: 0, y: -20, ease: "none" }, 0);
+        .to(".hero-meta", { opacity: 0, y: -20, ease: "none" }, 0)
+        // Descent: mountain bands lift at differing rates — the near band rises
+        // and grows fastest, reading as sinking toward the peaks — while the
+        // mist thins out as we drop below the cloud line.
+        .fromTo(
+          '[data-mtn="far"]',
+          { yPercent: 20, scale: 1.02 },
+          { yPercent: 0, scale: 1.0, ease: "none" },
+          0
+        )
+        .fromTo(
+          '[data-mtn="mid"]',
+          { yPercent: 45 },
+          { yPercent: -5, ease: "none" },
+          0
+        )
+        .fromTo(
+          '[data-mtn="near"]',
+          { yPercent: 80, scale: 1.05 },
+          { yPercent: -12, scale: 1.12, ease: "none" },
+          0
+        )
+        .fromTo(
+          "[data-mist]",
+          { yPercent: 0, opacity: 0.6 },
+          { yPercent: -60, opacity: 0, ease: "none" },
+          0
+        );
     },
     { scope: containerRef, dependencies: [introDone] }
   );
