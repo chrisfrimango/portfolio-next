@@ -210,6 +210,13 @@ export default function HeroHeader() {
     <div
       ref={containerRef}
       className="w-full h-screen relative overflow-hidden flex flex-col justify-between px-6 lg:px-12 pt-28 pb-10"
+      style={{
+        // Feather the hero's lower edge so the fixed mountain behind emerges
+        // from under the clouds instead of meeting a hard section seam.
+        WebkitMaskImage:
+          "linear-gradient(to bottom, black 78%, transparent 100%)",
+        maskImage: "linear-gradient(to bottom, black 78%, transparent 100%)",
+      }}
     >
       <HeroAmbient introDone={introDone} />
 

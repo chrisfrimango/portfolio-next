@@ -18,11 +18,21 @@ export default function MountainBackdrop() {
   const rootRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
   const scrimRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     setMounted(true);
     setReduced(prefersReducedMotion());
   }, []);
+
+  // Guarantee muted + start playback once the video mounts (React can drop the
+  // muted attribute, and autoplay needs it).
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.play().catch(() => {});
+  }, [mounted, reduced, introDone]);
 
   useGSAP(
     () => {
@@ -61,6 +71,8 @@ export default function MountainBackdrop() {
       }
 
       // Reveal: root fades up as the hero scrolls away (writer of root opacity).
+      // Chrome can pause the occluded backdrop video; nudge it back to playing
+      // once the layer is actually being revealed.
       gsap.fromTo(
         root,
         { opacity: 0 },
@@ -72,6 +84,10 @@ export default function MountainBackdrop() {
             start: "top top",
             end: "bottom top",
             scrub: true,
+            onUpdate: (self) => {
+              const v = videoRef.current;
+              if (v && self.progress > 0.25 && v.paused) v.play().catch(() => {});
+            },
           },
         }
       );
@@ -105,13 +121,40 @@ export default function MountainBackdrop() {
       className="fixed inset-0 -z-10 pointer-events-none overflow-hidden"
     >
       <div ref={imgRef} className="absolute inset-0 will-change-transform">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/mountain_backdrop.webp"
-          alt=""
-          className="h-full w-full object-cover object-bottom"
-        />
+        {reduced ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src="/video/mountain_backdrop_poster.webp"
+            alt=""
+            className="h-full w-full object-cover"
+            style={{ objectPosition: "center 28%" }}
+          />
+        ) : (
+          <video
+            ref={videoRef}
+            muted
+            playsInline
+            loop
+            autoPlay
+            preload="none"
+            poster="/video/mountain_backdrop_poster.webp"
+            className="h-full w-full object-cover"
+            style={{ objectPosition: "center 28%" }}
+          >
+            <source src="/video/mountain_backdrop.webm" type="video/webm" />
+            <source src="/video/mountain_backdrop.mp4" type="video/mp4" />
+          </video>
+        )}
       </div>
+      {/* Cloud line — a mist band that submerges the mountain base so only the
+          peak reads above the clouds, matching the hint of peaks in the hero. */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-[62%]"
+        style={{
+          background:
+            "linear-gradient(to top, rgb(var(--brand-paper)) 0%, rgb(var(--brand-paper) / 0.7) 30%, rgb(var(--brand-paper) / 0.15) 62%, transparent 100%)",
+        }}
+      />
       {/* Contrast scrim over About — --brand-paper so it tracks the day cycle.
           A vertical veil secures the body copy (measured >=4.5:1 for --brand-ink),
           plus a soft left column that lifts the faint --brand-gray section
