@@ -83,7 +83,7 @@ export default function MountainBackdrop() {
       );
 
       if (reduced) {
-        gsap.set(img, { yPercent: 0, scale: 1 });
+        gsap.set(img, { yPercent: 0, scale: 1, rotate: 0 });
         return;
       }
 
@@ -109,13 +109,16 @@ export default function MountainBackdrop() {
         }
       );
 
-      // Descent drift — slow parallax over the mountain's visible life (About).
+      // Descent drift — a pronounced scroll-driven pan + slow turn over the
+      // mountain's visible life (About). The extra base scale keeps the corners
+      // covered while it rotates.
       gsap.fromTo(
         img,
-        { yPercent: 6, scale: 1.06 },
+        { yPercent: 14, scale: 1.2, rotate: -3 },
         {
-          yPercent: -4,
-          scale: 1.0,
+          yPercent: -14,
+          scale: 1.1,
+          rotate: 3,
           ease: "none",
           scrollTrigger: {
             trigger: "#about",
@@ -165,6 +168,15 @@ export default function MountainBackdrop() {
             <source src="/video/mountain_backdrop.mp4" type="video/mp4" />
           </video>
         )}
+        {/* Sun on the peak — a warm glow lifted with screen blend, riding the
+            same transform so it stays on the summit as the mountain turns. */}
+        <div
+          className="absolute inset-0 mix-blend-screen"
+          style={{
+            background:
+              "radial-gradient(38% 26% at 52% 30%, rgba(255,150,70,0.5) 0%, rgba(255,105,35,0.2) 45%, transparent 72%)",
+          }}
+        />
       </div>
       {/* Cloud line — a mist band that submerges the mountain base so only the
           peak reads above the clouds, matching the hint of peaks in the hero. */}
