@@ -32,14 +32,16 @@ export default function MountainBackdrop() {
         scrim = scrimRef.current;
       if (!root || !img || !scrim) return;
 
-      // The mountain is revealed simply by the opaque hero scrolling off this
-      // fixed layer — no opacity ramp needed. A single trigger owns opacity:
-      // the fade-out before Projects. Parallax is an independent transform.
-      gsap.set(root, { opacity: 1 });
+      // Opacity is split across two elements so each has a single writer and
+      // the layer starts invisible — a painted full-viewport image would
+      // otherwise steal LCP from the headline. The ROOT reveals (0->1) as the
+      // opaque hero scrolls off; the IMG WRAPPER fades (1->0) before Projects.
+      // At load the root is opacity 0, so the image is not an LCP candidate.
+      gsap.set(root, { opacity: reduced ? 1 : 0 });
 
-      // Fade out before the first Projects stage (only writer of opacity).
+      // Fade out before the first Projects stage (writer of imgRef opacity).
       gsap.fromTo(
-        root,
+        img,
         { opacity: 1 },
         {
           opacity: 0,
@@ -57,6 +59,22 @@ export default function MountainBackdrop() {
         gsap.set(img, { yPercent: 0, scale: 1 });
         return;
       }
+
+      // Reveal: root fades up as the hero scrolls away (writer of root opacity).
+      gsap.fromTo(
+        root,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
 
       // Descent drift — slow parallax over the mountain's visible life (About).
       gsap.fromTo(
