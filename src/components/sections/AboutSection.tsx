@@ -43,17 +43,23 @@ function LedgerRow({
  * About as an editorial ledger: four hairline rows on the content spine —
  * labels in the left column, serif statements to the right.
  */
+// Hidden for now while the mountain backdrop carries the section — flip to
+// re-enable the portrait.
+const SHOW_PORTRAIT = false;
+
 export default function AboutSection() {
   const [who, journey] = aboutData.content;
 
   return (
     <div className="mx-auto w-full max-w-content px-5 sm:px-8 lg:px-12">
       {/* Portrait — offset right, shown whole */}
-      <div className="mb-16 lg:mb-24 lg:grid lg:grid-cols-12 lg:gap-x-6">
-        <div className="mx-auto max-w-[360px] lg:col-start-8 lg:col-span-5 lg:mx-0 lg:max-w-none">
-          <AboutPortrait />
+      {SHOW_PORTRAIT && (
+        <div className="mb-16 lg:mb-24 lg:grid lg:grid-cols-12 lg:gap-x-6">
+          <div className="mx-auto max-w-[360px] lg:col-start-8 lg:col-span-5 lg:mx-0 lg:max-w-none">
+            <AboutPortrait />
+          </div>
         </div>
-      </div>
+      )}
 
       <AboutMotion>
         <LedgerRow label="Who am I">
