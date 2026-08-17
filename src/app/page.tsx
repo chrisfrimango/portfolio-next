@@ -6,12 +6,14 @@ import { IntroProvider } from "@/components/intro/IntroContext";
 import Preloader from "@/components/intro/Preloader";
 import SectionHeading from "@/components/ui/SectionHeading";
 import DayCycle from "@/components/DayCycle";
+import MountainBackdrop from "@/components/MountainBackdrop";
 
 export default function Home() {
   return (
     <IntroProvider>
       <Preloader />
       <DayCycle>
+        <MountainBackdrop />
         <div className="w-full flex flex-col overflow-hidden">
           <section id="hero" className="min-h-screen flex flex-col">
             <HeroHeader />
