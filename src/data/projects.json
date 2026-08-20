@@ -2,6 +2,7 @@
   "projects": [
     {
       "id": 1,
+      "hidden": true,
       "title": "allacampingplatser.se",
       "subTitle": "A fullstack application.",
       "name": "allacampingplatser",
@@ -61,6 +62,7 @@
     },
     {
       "id": 2,
+      "hidden": false,
       "title": "meetingtimecalculator.com",
       "subTitle": "A focused SEO utility.",
       "name": "meetingtimecalculator",

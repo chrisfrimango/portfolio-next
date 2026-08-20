@@ -5,9 +5,11 @@ import Link from "next/link";
 import CaseMotion from "./case-motion";
 
 export function generateStaticParams() {
-  return projects.projects.map((project) => ({
-    projectName: project.name,
-  }));
+  return projects.projects
+    .filter((project) => !project.hidden)
+    .map((project) => ({
+      projectName: project.name,
+    }));
 }
 
 export async function generateMetadata({
@@ -60,7 +62,7 @@ export default async function ProjectPage({
     (project) => project.name === projectName
   );
 
-  if (!project) {
+  if (!project || project.hidden) {
     return notFound();
   }
 

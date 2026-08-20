@@ -1,7 +1,7 @@
 "use client";
 
 import AnimationBox from "./ui/AnimationBox";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
 import { prefersReducedMotion } from "@/lib/motion";
@@ -55,6 +55,90 @@ function HeroHeadline({ className }: { className?: string }) {
         </span>
       ))}
     </h1>
+  );
+}
+
+/**
+ * Atmospheric hero backdrop. LCP-safe by construction: nothing renders until
+ * after mount, and the video only mounts once the preloader has handed off
+ * (introDone) — so the DOM headline stays the LCP element, never the film.
+ * Under reduced motion the <video> is never mounted; the poster still frame is
+ * shown instead. The warm scrim is a --brand-paper gradient, so it tracks the
+ * day-cycle and always sits as "background" behind the --brand-ink headline —
+ * dark scrim / light text at the night hero, self-correcting toward day.
+ */
+function HeroAmbient({ introDone }: { introDone: boolean }) {
+  const [reduced, setReduced] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+    setReduced(prefersReducedMotion());
+  }, []);
+
+  // Guarantee muted (React can drop the attribute, and autoplay needs it) and
+  // kick playback once the element mounts after the intro hands off.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.play().catch(() => {});
+  }, [mounted, introDone, reduced]);
+
+  return (
+    <div aria-hidden className="absolute inset-0 z-0 overflow-hidden">
+      {mounted && reduced ? (
+        // Reduced motion: poster still only — the video element is never mounted.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src="/video/hero_ambient_poster.webp"
+          alt=""
+          className="h-full w-full object-cover"
+        />
+      ) : mounted && introDone ? (
+        <video
+          ref={videoRef}
+          muted
+          playsInline
+          loop
+          autoPlay
+          preload="auto"
+          poster="/video/hero_ambient_poster.webp"
+          className="h-full w-full object-cover"
+          style={{ objectPosition: "80% 45%" }}
+        >
+          <source src="/video/hero_ambient.webm" type="video/webm" />
+          <source src="/video/hero_ambient.mp4" type="video/mp4" />
+        </video>
+      ) : null}
+
+      {/* Warm scrim — two stacked --brand-paper gradients (one rising from the
+          low edge, one from the left) that veil the bottom-left column where the
+          headline sits, while the sun and haze stay clear on the right. Tuned to
+          a measured worst-case contrast of 4.79:1 for the --brand-ink headline;
+          tracks the day-cycle since it's all --brand-paper. */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: [
+            "linear-gradient(to top, rgb(var(--brand-paper)) 0%, rgb(var(--brand-paper) / 0.66) 34%, rgb(var(--brand-paper) / 0.22) 60%, transparent 82%)",
+            "linear-gradient(to right, rgb(var(--brand-paper)) 0%, rgb(var(--brand-paper) / 0.66) 40%, rgb(var(--brand-paper) / 0.08) 72%, transparent 85%)",
+          ].join(","),
+        }}
+      />
+
+      {/* Top scrim — backs the global nav over the bright footage. --brand-paper
+          so it darkens at the night hero (light nav text) and self-corrects
+          toward day. Hero-scoped; Nav.tsx is untouched. */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-[22vh]"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgb(var(--brand-paper) / 0.97) 0%, rgb(var(--brand-paper) / 0.85) 55%, transparent 100%)",
+        }}
+      />
+    </div>
   );
 }
 
@@ -126,7 +210,16 @@ export default function HeroHeader() {
     <div
       ref={containerRef}
       className="w-full h-screen relative overflow-hidden flex flex-col justify-between px-6 lg:px-12 pt-28 pb-10"
+      style={{
+        // Feather the hero's lower edge so the fixed mountain behind emerges
+        // from under the clouds instead of meeting a hard section seam.
+        WebkitMaskImage:
+          "linear-gradient(to bottom, black 78%, transparent 100%)",
+        maskImage: "linear-gradient(to bottom, black 78%, transparent 100%)",
+      }}
     >
+      <HeroAmbient introDone={introDone} />
+
       {/* The headline is the whole stage — anchored low like a printed cover.
           No eyebrow labels: the giant type carries the frame on its own. */}
       <div className="relative z-10 flex-1 flex items-end">

@@ -11,11 +11,13 @@ const isFilled = (v?: string) => Boolean(v && !v.startsWith("[FYLL"));
  * header announces it (index / count), the film plays, then the title resolves.
  */
 export default function WorkSection() {
-  const total = String(projects.projects.length).padStart(2, "0");
+  // Hidden projects are kept in the data but not shown for now.
+  const visible = projects.projects.filter((project) => !project.hidden);
+  const total = String(visible.length).padStart(2, "0");
 
   return (
     <div className="w-full">
-      {projects.projects.map((project, i) => {
+      {visible.map((project, i) => {
         const index = String(i + 1).padStart(2, "0");
         const year = project.caseStudy?.year;
         return (
