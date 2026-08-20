@@ -1,18 +1,8 @@
 import type { MetadataRoute } from "next";
-import projectsData from "@/data/projects.json";
 
 const BASE_URL = "https://christofferfriman.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const projectPages = projectsData.projects
-    .filter((project) => !project.hidden)
-    .map((project) => ({
-    url: `${BASE_URL}/projects/${project.name}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
-
   return [
     {
       url: BASE_URL,
@@ -26,6 +16,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.7,
     },
-    ...projectPages,
   ];
 }

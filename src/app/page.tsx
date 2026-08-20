@@ -20,7 +20,7 @@ export default function Home() {
           </section>
 
           <section id="about" className="py-section">
-            <SectionHeading number="01" label="About" />
+            <SectionHeading number="01" label="About" rule={false} />
             <AboutSection />
           </section>
 
