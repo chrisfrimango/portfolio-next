@@ -1,6 +1,7 @@
 import projects from "@/data/projects.json";
 import ProjectMedia from "@/components/sections/ProjectMedia";
 import ProjectsMotion from "@/components/sections/ProjectsMotion";
+import PlatformDiagram from "@/components/sections/PlatformDiagram";
 
 const isFilled = (v?: string) => Boolean(v && !v.startsWith("[FYLL"));
 
@@ -38,11 +39,17 @@ export default function WorkSection() {
                 </div>
 
                 <div data-project-media>
-                  <ProjectMedia
-                    src={project.media?.video || undefined}
-                    poster={project.media?.poster ?? ""}
-                    alt={`${project.title} — ${project.subTitle}`}
-                  />
+                  {project.media?.component === "platform" ? (
+                    <ProjectMedia poster="" alt={project.title}>
+                      <PlatformDiagram />
+                    </ProjectMedia>
+                  ) : (
+                    <ProjectMedia
+                      src={project.media?.video || undefined}
+                      poster={project.media?.poster ?? ""}
+                      alt={`${project.title} — ${project.subTitle}`}
+                    />
+                  )}
                 </div>
 
                 <div className="mt-6">

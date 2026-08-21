@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { prefersReducedMotion } from "@/lib/motion";
 
 interface ProjectMediaProps {
@@ -9,6 +9,8 @@ interface ProjectMediaProps {
   src?: string;
   poster: string;
   alt?: string;
+  /** Custom media (e.g. a canvas animation) rendered in the frame instead of film/poster. */
+  children?: ReactNode;
 }
 
 /**
@@ -19,7 +21,12 @@ interface ProjectMediaProps {
  * under reduced motion, Save-Data and 2G so footage never costs the mobile
  * budget.
  */
-export default function ProjectMedia({ src, poster, alt = "" }: ProjectMediaProps) {
+export default function ProjectMedia({
+  src,
+  poster,
+  alt = "",
+  children,
+}: ProjectMediaProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -50,7 +57,9 @@ export default function ProjectMedia({ src, poster, alt = "" }: ProjectMediaProp
 
   return (
     <div className="relative aspect-[16/10] overflow-hidden bg-brand-ink">
-      {src ? (
+      {children ? (
+        children
+      ) : src ? (
         <video
           ref={videoRef}
           loop

@@ -1,6 +1,20 @@
 {
   "projects": [
     {
+      "id": 3,
+      "hidden": false,
+      "title": "Kraftverket",
+      "subTitle": "Eidar Digital Platform.",
+      "name": "kraftverket",
+      "tagline": "A modular platform digitalising a municipal housing company",
+      "technologies": ["Node.js", "TypeScript", "Next.js", "Azure"],
+      "media": {
+        "component": "platform",
+        "poster": "",
+        "video": ""
+      }
+    },
+    {
       "id": 1,
       "hidden": true,
       "title": "allacampingplatser.se",
@@ -17,6 +31,7 @@
       ],
       "image": "",
       "media": {
+        "component": "",
         "poster": "/footage/camping_poster.webp",
         "video": "/footage/camping_video.mp4"
       },
@@ -63,7 +78,7 @@
     },
     {
       "id": 2,
-      "hidden": false,
+      "hidden": true,
       "title": "meetingtimecalculator.com",
       "subTitle": "A focused SEO utility.",
       "tagline": "Fair meeting times across time zones",
@@ -77,6 +92,7 @@
       ],
       "image": "",
       "media": {
+        "component": "",
         "poster": "/footage/meetingtime_poster.webp",
         "video": "/footage/meetingtime_video.mp4"
       },
