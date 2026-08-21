@@ -7,13 +7,19 @@ import { EASE, DUR, prefersReducedMotion } from "@/lib/motion";
 interface SectionHeadingProps {
   number: string;
   label: string;
+  /** The hairline rule above the label. Off for sections with a backdrop. */
+  rule?: boolean;
 }
 
 /**
  * Editorial section marker: the hairline rule draws itself from the left
  * while the index and label rise out of a mask. Revealed once per visit.
  */
-export default function SectionHeading({ number, label }: SectionHeadingProps) {
+export default function SectionHeading({
+  number,
+  label,
+  rule = true,
+}: SectionHeadingProps) {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -53,7 +59,7 @@ export default function SectionHeading({ number, label }: SectionHeadingProps) {
       ref={rootRef}
       className="w-full mx-auto max-w-content px-5 sm:px-8 lg:px-12"
     >
-      <div className="heading-rule h-px bg-brand-ink/15" />
+      {rule && <div className="heading-rule h-px bg-brand-ink/15" />}
       <div className="overflow-hidden pt-3">
         <div className="heading-content flex items-baseline gap-3">
           <span className="font-display italic text-brand-accent text-2xl leading-none">

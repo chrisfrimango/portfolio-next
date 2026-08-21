@@ -1,4 +1,3 @@
-import Link from "next/link";
 import projects from "@/data/projects.json";
 import ProjectMedia from "@/components/sections/ProjectMedia";
 import ProjectsMotion from "@/components/sections/ProjectsMotion";
@@ -46,28 +45,19 @@ export default function WorkSection() {
                   />
                 </div>
 
-                <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                  <div>
-                    <h2
-                      data-project-detail
-                      className="font-display text-title text-brand-ink"
-                    >
-                      {project.title}
-                    </h2>
-                    <p
-                      data-project-detail
-                      className="mt-3 font-mono text-meta text-brand-gray"
-                    >
-                      {project.technologies.join(" · ")}
-                    </p>
-                  </div>
-                  <Link
+                <div className="mt-6">
+                  <h2
                     data-project-detail
-                    href={`/projects/${project.name}`}
-                    className="link-underline shrink-0 font-mono text-meta uppercase text-brand-ink transition-colors hover:text-brand-accent"
+                    className="font-display text-title text-brand-ink"
                   >
-                    View case study &rarr;
-                  </Link>
+                    {project.title}
+                  </h2>
+                  <p
+                    data-project-detail
+                    className="mt-3 font-mono text-meta text-brand-gray"
+                  >
+                    {project.tagline}
+                  </p>
                 </div>
               </div>
             </article>
