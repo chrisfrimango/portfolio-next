@@ -7,6 +7,7 @@
       "subTitle": "Internal platform.",
       "name": "platform",
       "tagline": "A modular ecosystem of services digitalising internal operations at scale",
+      "blurb": "A modular digital platform I designed and built from scratch: around 20 independent services on a shared architecture, infrastructure and deploy pipeline. Each domain — reception, property, staff, suppliers, keys and more — is its own service, tied together by shared data, single sign-on, real-time updates and built-in AI. Built and run solo, so an entire organisation's internal operations live on one growing backbone instead of a sprawl of separate systems.",
       "technologies": ["Node.js", "TypeScript", "Next.js", "Azure"],
       "media": {
         "component": "platform",

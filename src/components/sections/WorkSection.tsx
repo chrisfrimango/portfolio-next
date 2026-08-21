@@ -65,6 +65,14 @@ export default function WorkSection() {
                   >
                     {project.tagline}
                   </p>
+                  {project.blurb && (
+                    <p
+                      data-project-detail
+                      className="mt-5 max-w-[60ch] text-body text-brand-gray"
+                    >
+                      {project.blurb}
+                    </p>
+                  )}
                 </div>
               </div>
             </article>
