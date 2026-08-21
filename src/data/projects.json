@@ -1,6 +1,21 @@
 {
   "projects": [
     {
+      "id": 3,
+      "hidden": false,
+      "title": "AI, Integration & Data Platform",
+      "subTitle": "Internal platform.",
+      "name": "platform",
+      "tagline": "A modular ecosystem of services digitalising internal operations at scale",
+      "blurb": "A modular digital platform I designed and built from scratch: around 20 independent services on a shared architecture, infrastructure and deploy pipeline. Each business domain is its own service, tied together by shared data, single sign-on, real-time updates and built-in AI. Built and run solo, so an entire organisation's internal operations live on one growing backbone instead of a sprawl of separate systems.",
+      "technologies": ["Node.js", "TypeScript", "Next.js", "Azure"],
+      "media": {
+        "component": "platform",
+        "poster": "",
+        "video": ""
+      }
+    },
+    {
       "id": 1,
       "hidden": true,
       "title": "allacampingplatser.se",
@@ -17,6 +32,7 @@
       ],
       "image": "",
       "media": {
+        "component": "",
         "poster": "/footage/camping_poster.webp",
         "video": "/footage/camping_video.mp4"
       },
@@ -63,7 +79,7 @@
     },
     {
       "id": 2,
-      "hidden": false,
+      "hidden": true,
       "title": "meetingtimecalculator.com",
       "subTitle": "A focused SEO utility.",
       "tagline": "Fair meeting times across time zones",
@@ -77,6 +93,7 @@
       ],
       "image": "",
       "media": {
+        "component": "",
         "poster": "/footage/meetingtime_poster.webp",
         "video": "/footage/meetingtime_video.mp4"
       },
