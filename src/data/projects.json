@@ -3,10 +3,10 @@
     {
       "id": 3,
       "hidden": false,
-      "title": "Kraftverket",
-      "subTitle": "Eidar Digital Platform.",
-      "name": "kraftverket",
-      "tagline": "A modular platform digitalising a municipal housing company",
+      "title": "AI, Integration & Data Platform",
+      "subTitle": "Internal platform.",
+      "name": "platform",
+      "tagline": "A modular ecosystem of services digitalising internal operations at scale",
       "technologies": ["Node.js", "TypeScript", "Next.js", "Azure"],
       "media": {
         "component": "platform",
